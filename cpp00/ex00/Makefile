@@ -1,27 +1,26 @@
-CUB3D = main.c
+BRICKWALL = BrickWall.cpp
  
-DIR_CUB3D = ./src/
-SRC_CUB3D= $(addprefix $(DIR_CUB3D),$(CUB3D))
+DIR_BRICKWALL = ./
+SRC_BRICKWALL= $(addprefix $(DIR_BRICKWALL),$(BRICKWALL))
 
-OBJ_CUB3D = $(SRC_CUB3D:.c=.o)
+OBJ_BRICKWALL = $(SRC_BRICKWALL:.cpp=.o)
 
-EXEC = cub3D
+EXEC = BrickWall
 
-CFLAGS = -Wall -Wextra -Werror 
-CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+CC = c++
 RM = rm -rf
-AR = ar rcs
 
 all : $(EXEC)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_CUB3D)
+$(EXEC) : $(OBJ_BRICKWALL)
 	$(CC)  $(CFLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_CUB3D)
+	$(RM) $(OBJ_BRICKWALL)
 	
 fclean : clean
 	$(RM) $(EXEC)
