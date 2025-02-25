@@ -1,11 +1,11 @@
-BRICKWALL = BrickWall.cpp
+BRICKWALL = megaphone.cpp
  
 DIR_BRICKWALL = ./
 SRC_BRICKWALL= $(addprefix $(DIR_BRICKWALL),$(BRICKWALL))
 
 OBJ_BRICKWALL = $(SRC_BRICKWALL:.cpp=.o)
 
-EXEC = BrickWall
+EXEC = megaphone
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

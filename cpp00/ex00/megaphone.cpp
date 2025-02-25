@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BrickWall.cpp                                      :+:      :+:    :+:   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:46:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/02/11 19:27:54 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:22:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./BrickWall.hpp"
+#include <iostream>
+#include <cctype>
 
-BrickWall::BrickWall(void)
+int main(int argc, char **argv)
 {
-    std::cout << "Constructor called" << std::endl;
-    return ;
-}
-
-BrickWall::~BrickWall()
-{
-    std::cout << "Destructor called" << std::endl;
-    return ;
-}
-
-int main(void)
-{
-    BrickWall Test;
+    
+    if (argc == 1 || (argc == 2 && !argv[0]))
+    {
+        std::cout  << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
+    }
+    
     return (0);
 }
