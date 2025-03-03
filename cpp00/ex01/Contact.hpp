@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phoneBook.cpp                                      :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 17:03:27 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/03 17:13:28 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/03 22:42:51 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phoneBook.hpp"
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
 
-int main()
+# include <iostream>
+# include <string>
+
+class Contact
 {
+    private:
+        std::string    firstNname;
+        std::string    lastName;
+        std::string    nickName;
+        std::string    phoneNumber;
+        std::string    darkestSecret;
+    public:
+    
+};
 
-    return (0);
-}
+
+#endif
