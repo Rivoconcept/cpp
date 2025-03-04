@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*   test.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 16:10:39 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:34:20 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-# define CONTACT_HPP
+#ifndef TEST_HPP
+# define TEST_HPP
 
 # include <iostream>
 # include <string>
 
-class Contact
+class Rectangle
 {
     private:
-        std::string    firstName;
-        std::string    lastName;
-        std::string    nickName;
-        std::string    phoneNumber;
-        std::string    darkestSecret;
+        double width;
+        double height;
+        
     public:
-        std::string getfirstName() const;
-        std::string setfirstName(std::string first_name);
-        std::string getlastName() const;
-
+        double surface() const;
+        double getwidth() const;
+        double getheight() const;
+        void setwidth(double w);
+        void setheight(double h);
 };
-
 
 #endif
