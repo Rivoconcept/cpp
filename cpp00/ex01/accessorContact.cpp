@@ -3,40 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:26 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 16:14:46 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:12:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
 
-
 std::string Contact::getfirstName() const
 {
-    return (firstName);
+    return (this->firstName);
 }
 
 void Contact::setfirstName(std::string first_name)
 {  
-    firstName = first_name;
+    this->firstName = first_name;
 }
 
 std::string Contact::getlastName() const
 {
-    return (lastName);
+    return (this->lastName);
 }
 
-std::string Contact::getheight() const
+void Contact::setlastName(std::string last_name)
+{  
+    this->lastName = last_name;
+}
+
+std::string Contact::getnickName() const
 {
-    return (height);
-} 
+    return (this->nickName);
+}
 
+void Contact::setnickName(std::string nick_name)
+{  
+    this->nickName = nick_name;
+}
 
-
-void Contact::setheight(double height)
+std::string Contact::getphoneNumber() const
 {
-    this->height = height;
+    return (this->phoneNumber);
+}
+
+void Contact::setphoneNumber(std::string phone_number)
+{  
+    this->phoneNumber = phone_number;
+}
+
+std::string Contact::getdarkestSecret() const
+{
+    return (this->darkestSecret);
+}
+
+void Contact::setdarkestSecret(std::string darkest_secret)
+{  
+    this->darkestSecret = darkest_secret;
 }

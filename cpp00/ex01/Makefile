@@ -1,4 +1,17 @@
-BRICKWALL = phoneBook.cpp
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/04 19:09:27 by rhanitra          #+#    #+#              #
+#    Updated: 2025/03/04 19:10:14 by rhanitra         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+BRICKWALL = main.cpp accessorContact.cpp accessorPhoneBook.cpp \
+			handleContact.cpp handlePhoneBook.cpp
  
 DIR_BRICKWALL = ./
 SRC_BRICKWALL= $(addprefix $(DIR_BRICKWALL),$(BRICKWALL))
