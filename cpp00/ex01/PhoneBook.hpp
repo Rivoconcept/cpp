@@ -13,6 +13,8 @@ class PhoneBook
         int totalContacts;
 
     public:
+        PhoneBook();
+        
         int getIndex() const;
         void setIndex(int i);
 

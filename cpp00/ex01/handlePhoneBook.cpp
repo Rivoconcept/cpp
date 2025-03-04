@@ -6,12 +6,14 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 19:04:38 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:01:02 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
+
+PhoneBook::PhoneBook() : index(0), totalContacts(0) {}
 
 void addContact()
 {
@@ -34,7 +36,7 @@ void addContact()
         std::cout << "Error:\n All fields must be completed !" << std::endl;
         return;
     }
-   contacts[index].setContact(params);
+    contacts[index].setContact(params);
     std::cout << "Contact ajouté avec succès !" << std::endl;
     index = (index + 1) % 8;
     if (totalContacts < 8)

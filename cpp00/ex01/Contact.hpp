@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 18:28:30 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:39:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ class Contact
         std::string    darkestSecret;
         
     public:
+        Contact();
+        
         std::string getfirstName() const;
         void setfirstName(std::string first_name);
 
