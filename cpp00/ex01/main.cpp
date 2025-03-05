@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:13:21 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 19:08:47 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:40:00 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
-#include "Contact.hpp"
+#include "./include/PhoneBook.hpp"
+#include "./include/Contact.hpp"
 
 int main()
 {
@@ -31,7 +31,7 @@ int main()
 
         if (command == "ADD")
             phoneBook.addContact();
-        else if (command == "SEARCH")
+       else if (command == "SEARCH")
         {
             phoneBook.displayContacts();
             std::cout << "Entrez l'index du contact à afficher : ";

@@ -3,22 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
+#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/04 19:09:27 by rhanitra          #+#    #+#              #
-#    Updated: 2025/03/04 19:10:14 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/03/05 16:12:59 by rivoinfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BRICKWALL = main.cpp accessorContact.cpp accessorPhoneBook.cpp \
-			handleContact.cpp handlePhoneBook.cpp
+MAIN = main.cpp
+CONTACT = accessorContact.cpp handleContact.cpp
+PHONEBOOK = accessorPhoneBook.cpp handlePhoneBook.cpp
  
-DIR_BRICKWALL = ./
-SRC_BRICKWALL= $(addprefix $(DIR_BRICKWALL),$(BRICKWALL))
+DIR_MAIN = ./
+DIR_CONTACT = ./contacts/
+DIR_PHONEBOOK = ./phoneBook/
 
-OBJ_BRICKWALL = $(SRC_BRICKWALL:.cpp=.o)
+SRC_MAIN = $(addprefix $(DIR_MAIN),$(MAIN))
+SRC_CONTACT = $(addprefix $(DIR_CONTACT),$(CONTACT))
+SRC_PHONEBOOK= $(addprefix $(DIR_PHONEBOOK),$(PHONEBOOK))
 
-EXEC = phoneBook
+OBJ_MAIN = $(SRC_MAIN:.cpp=.o)
+OBJ_CONTACT = $(SRC_CONTACT:.cpp=.o)
+OBJ_PHONEBOOK = $(SRC_PHONEBOOK:.cpp=.o)
+
+EXEC = PhoneBook
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -29,11 +37,11 @@ all : $(EXEC)
 %.o : %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_BRICKWALL)
+$(EXEC) : $(OBJ_MAIN) $(OBJ_CONTACT) $(OBJ_PHONEBOOK)
 	$(CC)  $(CFLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_BRICKWALL)
+	$(RM) $(OBJ_MAIN) $(OBJ_CONTACT) $(OBJ_PHONEBOOK)
 	
 fclean : clean
 	$(RM) $(EXEC)

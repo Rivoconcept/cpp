@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 23:39:32 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:37:00 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ class Contact
     public:
         Contact();
         
-        std::string getfirstName() const;
-        void setfirstName(std::string first_name);
+        std::string getFirstName() const;
+        void setFirstName(std::string first_name);
 
-        std::string getlastName() const;
-        void setlastName(std::string first_name);
+        std::string getLastName() const;
+        void setLastName(std::string first_name);
 
-        std::string getnickName() const;
-        void setnickName(std::string nick_name);
+        std::string getNickName() const;
+        void setNickName(std::string nick_name);
 
-        std::string getphoneNumber() const;
-        void setphoneNumber(std::string phone_number);
+        std::string getPhoneNumber() const;
+        void setPhoneNumber(std::string phone_number);
         
-        std::string getdarkestSecret() const;
-        void setdarkestSecret(std::string darkest_secret);
+        std::string getDarkestSecret() const;
+        void setDarkestSecret(std::string darkest_secret);
 
         void setContact(t_params& params);
         void displayContact(void) const;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handleContact.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:15:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:46 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:16:44 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
+#include "../include/Contact.hpp"
 
 Contact::Contact() {}
 
