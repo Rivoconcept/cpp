@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlePhoneBook.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/06 18:06:52 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:28:13 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,60 +19,23 @@ void PhoneBook::addContact()
 {
     t_params params;
 
-    std::cout << "First Name: ";
-    std::getline(std::cin, params.firstName);
-    std::cout << "Last Name: ";
-    std::getline(std::cin, params.lastName);
-    std::cout << "Nick Name: ";
-    std::getline(std::cin, params.nickname);
-    std::cout << "Phone Number: ";
-    std::getline(std::cin, params.phoneNumber);
-    std::cout << "Darkest Secret: ";
-    std::getline(std::cin, params.darkestSecret);
+    displayQuestions(&params);
     if (params.firstName.empty() || params.lastName.empty() \
         || params.nickname.empty() || params.phoneNumber.empty() \
         || params.darkestSecret.empty())
     {
-        std::cout << "Error:\n All fields must be completed!" << std::endl;
-        return;
+        handleMessage("All fields must be completed!");
+        return ;
     }
     contacts[index].setContact(params);
-    std::cout << "Contact added successfully!" << std::endl;
+    handleMessage("Contact added successfully!");
     index = (index + 1) % 8;
     if (totalContacts < 8)
         totalContacts++;
 }
 
-std::string truncate_data(const std::string &str)
+void printHeadTab(void)
 {
-    if (str.length() > 10)
-        return str.substr(0, 9) + ".";
-    return str;
-}
-
-void displayAllContacts(const Contact contacts[], int totalContacts)
-{
-    int i = 0;
-
-    while (i < totalContacts)
-    {
-        std::cout << "|";
-        std::cout << std::setw(10) << i + 1 << "|"
-                  << std::setw(10) << truncate_data(contacts[i].getFirstName()) << "|"
-                  << std::setw(10) << truncate_data(contacts[i].getLastName()) << "|"
-                  << std::setw(10) << truncate_data(contacts[i].getNickName()) 
-                  << "|" << std::endl;
-        i++;
-    }
-}
-
-void PhoneBook::displayContacts() const
-{
-    if (totalContacts == 0)
-    {
-        std::cout << "Directory is empty !" << std::endl;
-        return;
-    }
     std::cout << std::string(45, '-') << std::endl;
     std::cout << "|";
     std::cout << std::setw(10) << "Index" << "|"
@@ -80,22 +43,34 @@ void PhoneBook::displayContacts() const
               << std::setw(10) << "Last Name" << "|"
               << std::setw(10) << "Nickname" << "|" << std::endl;
     std::cout << std::string(45, '-') << std::endl;
+}
 
-    displayAllContacts(contacts, totalContacts);
-    std::cout << "Enter the contact index to display : ";
+void PhoneBook::displayContacts() const
+{
+    int index;
     std::string input;
+    
+    if (totalContacts == 0)
+    {
+        std::cout << "Directory is empty !" << std::endl;
+        return ;
+    }
+    printHeadTab();
+    displayAllContacts(contacts, totalContacts);
+    std::cout << std::endl;
+    std::cout << "Enter the contact index to display : ";
     std::getline(std::cin, input);
     if (input.length() != 1 || !std::isdigit(input[0]))
     {
-        std::cout << "Make sure this index is valid" << std::endl;
-        return;
+        putErrorMessage("Make sure this index is valid");
+        return ;
     }
-
-    int index = std::stoi(input) - 1;
+    index = std::stoi(input) - 1;
     if (index < 0 || index >= totalContacts)
     {
-        std::cout << "Index out of range." << std::endl;
-        return;
+        putErrorMessage("Index out of range.");
+        return ;
     }
     contacts[index].displayContact();
 }
+

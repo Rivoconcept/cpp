@@ -23,8 +23,12 @@ class PhoneBook
 
         void addContact();
         void displayContacts() const;
-        void displayContactDetails(int i) const;
 
 };
+
+void handleMessage(std::string message);
+void putErrorMessage(std::string message);
+void displayQuestions(t_params *params);
+void displayAllContacts(const Contact contacts[], int totalContacts);
 
 #endif

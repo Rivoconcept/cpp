@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/04 19:09:27 by rhanitra          #+#    #+#              #
-#    Updated: 2025/03/05 16:12:59 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/03/06 19:16:44 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAIN = main.cpp
 CONTACT = accessorContact.cpp handleContact.cpp
-PHONEBOOK = accessorPhoneBook.cpp handlePhoneBook.cpp
+PHONEBOOK = accessorPhoneBook.cpp handlePhoneBook.cpp phoneBookUtils.cpp
  
 DIR_MAIN = ./
 DIR_CONTACT = ./contacts/
