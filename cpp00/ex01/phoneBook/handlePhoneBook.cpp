@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/05 17:24:45 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:06:52 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void PhoneBook::addContact()
         || params.nickname.empty() || params.phoneNumber.empty() \
         || params.darkestSecret.empty())
     {
-        std::cout << "Error:\n All fields must be completed !" << std::endl;
+        std::cout << "Error:\n All fields must be completed!" << std::endl;
         return;
     }
     contacts[index].setContact(params);
-    std::cout << "Contact ajouté avec succès !" << std::endl;
+    std::cout << "Contact added successfully!" << std::endl;
     index = (index + 1) % 8;
     if (totalContacts < 8)
         totalContacts++;
@@ -66,12 +66,11 @@ void displayAllContacts(const Contact contacts[], int totalContacts)
     }
 }
 
-
 void PhoneBook::displayContacts() const
 {
     if (totalContacts == 0)
     {
-        std::cout << "Le répertoire est vide." << std::endl;
+        std::cout << "Directory is empty !" << std::endl;
         return;
     }
     std::cout << std::string(45, '-') << std::endl;
@@ -83,24 +82,20 @@ void PhoneBook::displayContacts() const
     std::cout << std::string(45, '-') << std::endl;
 
     displayAllContacts(contacts, totalContacts);
-    std::cout << "Entrez l'index du contact à afficher : ";
+    std::cout << "Enter the contact index to display : ";
     std::string input;
     std::getline(std::cin, input);
     if (input.length() != 1 || !std::isdigit(input[0]))
     {
-        std::cout << "Entrée invalide." << std::endl;
+        std::cout << "Make sure this index is valid" << std::endl;
         return;
     }
 
     int index = std::stoi(input) - 1;
     if (index < 0 || index >= totalContacts)
     {
-        std::cout << "Index hors limites." << std::endl;
+        std::cout << "Index out of range." << std::endl;
         return;
     }
-
     contacts[index].displayContact();
 }
-
-
-
