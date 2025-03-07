@@ -6,13 +6,15 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:15:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/06 20:06:46 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:49:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Contact.hpp"
 
 Contact::Contact() {}
+
+Contact::~Contact() {}
 
 void Contact::setContact(t_params& params)
 {

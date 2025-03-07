@@ -1,5 +1,7 @@
 #include "test.hpp"
 
+Rectangle::Rectangle() {}
+
 double Rectangle::surface() const
 {
     return (width * height);

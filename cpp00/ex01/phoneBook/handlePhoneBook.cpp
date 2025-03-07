@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlePhoneBook.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/07 15:33:11 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:06:52 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../include/Contact.hpp"
 
 PhoneBook::PhoneBook() : index(0), totalContacts(0) {}
+
+PhoneBook::~PhoneBook() {}
 
 int isPhoneNumber(std::string str)
 {

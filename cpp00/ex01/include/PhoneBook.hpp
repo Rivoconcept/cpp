@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/07 17:28:44 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/07 18:40:39 by rhanitra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
@@ -13,16 +25,17 @@ class PhoneBook
         int totalContacts;
 
     public:
-        PhoneBook();
+        PhoneBook(void);
+        ~PhoneBook(void);
         
-        int getIndex() const;
+        int getIndex(void) const;
         void setIndex(int i);
 
-        int getTotalContacts() const;
+        int getTotalContacts(void) const;
         void setTotalContacts(int total);
 
-        void addContact();
-        void displayContacts() const;
+        void addContact(void);
+        void displayContacts(void) const;
 
 };
 
