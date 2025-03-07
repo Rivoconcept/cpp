@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlePhoneBook.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/06 20:28:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:33:11 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,34 @@
 #include "../include/Contact.hpp"
 
 PhoneBook::PhoneBook() : index(0), totalContacts(0) {}
+
+int isPhoneNumber(std::string str)
+{
+    int     i;
+
+    if (str.empty())
+        return (0);
+    i = 0;
+    while (str[i] != '\0' && std::isdigit(str[i]))
+        i++;
+    if (i == 10)
+        return (1);
+    return (0);
+}
+
+int isName(std::string str)
+{
+    int     i;
+
+    if (str.empty())
+        return (0);
+    i = 0;
+    while (str[i] != '\0' && (std::isalpha(str[i]) || std::isspace(str[i])))
+        i++;
+    if (str[i] == '\0')
+        return (1);
+    return (0);
+}
 
 void PhoneBook::addContact()
 {
@@ -24,7 +52,17 @@ void PhoneBook::addContact()
         || params.nickname.empty() || params.phoneNumber.empty() \
         || params.darkestSecret.empty())
     {
-        handleMessage("All fields must be completed!");
+        putErrorMessage("All fields must be completed!");
+        return ;
+    }
+    if (!isPhoneNumber(params.phoneNumber))
+    {
+        putErrorMessage("The phone number is not valid!");
+        return ;
+    }
+    if (!isName(params.firstName) || !isName(params.lastName))
+    {
+        putErrorMessage("the first or last name entry is not valid!");
         return ;
     }
     contacts[index].setContact(params);
