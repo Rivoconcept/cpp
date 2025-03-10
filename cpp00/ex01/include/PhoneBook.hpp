@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:28:44 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 19:16:01 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:25:45 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 class PhoneBook
 {
 	private:
-		Contact contacts[MAX_CONTACT];
-		int index;
-		int totalContacts;
+		Contact _contacts[MAX_CONTACT];
+		int _index;
+		int _totalContacts;
+		static std::string _truncate_data(const std::string &str);
+		static void	_handleMessage(std::string message);
+		static void	_putErrorMessage(std::string message);
+		static void	_displayQuestions(t_params *params);
+		static void	_displayAllContacts(const Contact _contacts[], int _totalContacts);
 
 	public:
 		PhoneBook(void);
@@ -39,9 +44,5 @@ class PhoneBook
 
 };
 
-void	handleMessage(std::string message);
-void	putErrorMessage(std::string message);
-void	displayQuestions(t_params *params);
-void	displayAllContacts(const Contact contacts[], int totalContacts);
 
 #endif

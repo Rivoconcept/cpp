@@ -6,14 +6,14 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:12:02 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 19:16:07 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:26:19 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PhoneBook.hpp"
 #include "../include/Contact.hpp"
 
-void handleMessage(std::string message)
+void PhoneBook::_handleMessage(std::string message)
 {
 	std::cout << std::endl;
 	std::cout << std::string(message.length() + 4, '*') << std::endl;
@@ -22,20 +22,21 @@ void handleMessage(std::string message)
 	std::cout << std::endl;
 }
 
-void putErrorMessage(std::string message)
+void PhoneBook::_putErrorMessage(std::string message)
 {
 	std::cout << std::endl;
 	std::cout << "*** " << message << " ***" << std::endl;
 	std::cout << std::endl;
 }
 
-std::string truncate_data(const std::string &str)
+std::string PhoneBook::_truncate_data(const std::string &str)
 {
 	if (str.length() > 10)
 		return (str.substr(0, 9) + ".");
 	return (str);
 }
-void displayQuestions(t_params *params)
+
+void PhoneBook::_displayQuestions(t_params *params)
 {
 	std::cout << "First Name: ";
 	std::getline(std::cin, params->firstName);
@@ -49,17 +50,17 @@ void displayQuestions(t_params *params)
 	std::getline(std::cin, params->darkestSecret);
 }
 
-void displayAllContacts(const Contact contacts[], int totalContacts)
+void PhoneBook::_displayAllContacts(const Contact _contacts[], int _totalContacts)
 {
 	int	i = 0;
 
-	while (i < totalContacts)
+	while (i < _totalContacts)
 	{
 		std::cout << "|";
 		std::cout << std::setw(10) << i + 1 << "|"
-					<< std::setw(10) << truncate_data(contacts[i].getFirstName()) << "|"
-					<< std::setw(10) << truncate_data(contacts[i].getLastName()) << "|"
-					<< std::setw(10) << truncate_data(contacts[i].getNickName()) 
+					<< std::setw(10) << _truncate_data(_contacts[i].getFirstName()) << "|"
+					<< std::setw(10) << _truncate_data(_contacts[i].getLastName()) << "|"
+					<< std::setw(10) << _truncate_data(_contacts[i].getNickName()) 
 					<< "|" << std::endl;
 		std::cout << std::string(45, '-') << std::endl;
 		i++;
