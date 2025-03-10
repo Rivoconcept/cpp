@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:28:44 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/07 18:40:39 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:16:01 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@
 
 class PhoneBook
 {
-    private:
-        Contact contacts[MAX_CONTACT];
-        int index;
-        int totalContacts;
+	private:
+		Contact contacts[MAX_CONTACT];
+		int index;
+		int totalContacts;
 
-    public:
-        PhoneBook(void);
-        ~PhoneBook(void);
-        
-        int getIndex(void) const;
-        void setIndex(int i);
+	public:
+		PhoneBook(void);
+		~PhoneBook(void);
+		
+		int		getIndex(void) const;
+		void	setIndex(int i);
 
-        int getTotalContacts(void) const;
-        void setTotalContacts(int total);
+		int		getTotalContacts(void) const;
+		void	setTotalContacts(int total);
 
-        void addContact(void);
-        void displayContacts(void) const;
+		void	addContact(void);
+		void	displayContacts(void) const;
 
 };
 
-void handleMessage(std::string message);
-void putErrorMessage(std::string message);
-void displayQuestions(t_params *params);
-void displayAllContacts(const Contact contacts[], int totalContacts);
+void	handleMessage(std::string message);
+void	putErrorMessage(std::string message);
+void	displayQuestions(t_params *params);
+void	displayAllContacts(const Contact contacts[], int totalContacts);
 
 #endif
