@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlePhoneBook.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 18:26:55 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:07:46 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	isName(std::string str)
 
 void	PhoneBook::addContact()
 {
-	t_params	params;
+	Contact::t_params	params;
 
 	_displayQuestions(&params);
 	if (params.firstName.empty() || params.lastName.empty() \

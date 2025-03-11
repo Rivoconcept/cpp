@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:28:44 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 18:25:45 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:00:48 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class PhoneBook
 		static std::string _truncate_data(const std::string &str);
 		static void	_handleMessage(std::string message);
 		static void	_putErrorMessage(std::string message);
-		static void	_displayQuestions(t_params *params);
+		static void	_displayQuestions(Contact::t_params *params);
 		static void	_displayAllContacts(const Contact _contacts[], int _totalContacts);
 
 	public:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handleContact.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:15:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 16:51:31 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:00:59 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Contact::Contact() {}
 
 Contact::~Contact() {}
 
-void Contact::setContact(t_params& params)
+void Contact::setContact(Contact::t_params& params)
 {
 	this->firstName = params.firstName;
 	this->lastName = params.lastName;

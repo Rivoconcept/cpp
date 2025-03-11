@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phoneBookUtils.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:12:02 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 18:26:19 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:09:26 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ std::string PhoneBook::_truncate_data(const std::string &str)
 	return (str);
 }
 
-void PhoneBook::_displayQuestions(t_params *params)
+void PhoneBook::_displayQuestions(Contact::t_params *params)
 {
 	std::cout << "First Name: ";
 	std::getline(std::cin, params->firstName);

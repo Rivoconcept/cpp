@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 16:52:07 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:12:24 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,10 @@
 # include <iomanip>
 # include <string>
 
-typedef struct s_params
-{
-	std::string firstName;
-	std::string lastName;
-	std::string nickname;
-	std::string phoneNumber;
-	std::string darkestSecret;
-}   t_params;
-
 class Contact
 {
 	private:
+	
 		std::string	firstName;
 		std::string	lastName;
 		std::string	nickName;
@@ -36,6 +28,15 @@ class Contact
 		std::string	darkestSecret;
 		
 	public:
+
+		typedef struct s_params {
+			std::string firstName;
+			std::string lastName;
+			std::string nickname;
+			std::string phoneNumber;
+			std::string darkestSecret;
+		}	t_params;;
+		
 		Contact(void);
 		~Contact(void);
 		

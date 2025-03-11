@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   accessorContact.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:26 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 16:50:23 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:55:12 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
