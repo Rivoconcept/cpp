@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Account.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:40:31 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 18:47:54 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/12 07:27:30 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
 
-Account::Account(int deposit) {}
+Account::Account(int deposit) : _accountIndex(0),	_amount(0), _nbDeposits(0), _nbWithdrawals(0) {}
 
 Account::~Account() {}
 
