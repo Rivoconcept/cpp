@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:28:44 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/12 07:40:44 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:31:58 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class PhoneBook
 	public:
 		PhoneBook(void);
 		~PhoneBook(void);
-
+		
 		int		getIndex(void) const;
 		void	setIndex(int i);
 

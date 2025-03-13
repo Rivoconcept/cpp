@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 07:39:01 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/03/13 16:07:15 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:02:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ Zombie* newZombie(std::string name)
 {
     Zombie* newZombie = new Zombie();
     newZombie->setName(name);
-    return newZombie;
+    return (newZombie);
 }
 
 void randomChump(std::string name)
@@ -52,7 +52,6 @@ void randomChump(std::string name)
 int main (void)
 {
     Zombie stackZombie;
-    //stackZombie.setName("Foo");
     stackZombie.announce();
     std::cout << "Creating a zombie on the heap..." << std::endl;
     Zombie *heapZombie = newZombie("HeapZombie");

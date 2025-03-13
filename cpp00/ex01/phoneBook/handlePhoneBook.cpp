@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlePhoneBook.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 18:10:32 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/11 14:07:46 by rivoinfo         ###   ########.fr       */
+/*   Created: 2025/03/13 18:19:26 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/13 18:39:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	PhoneBook::displayContacts() const
 		_putErrorMessage("Make sure this index is valid");
 		return ;
 	}
-	index = std::stoi(input) - 1;
+	index = std::atoi(input.c_str()) - 1;
 	if (index < 0 || index >= _totalContacts)
 	{
 		_putErrorMessage("Index out of range.");

@@ -6,7 +6,7 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/04 19:09:27 by rhanitra          #+#    #+#              #
-#    Updated: 2025/03/06 19:16:44 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/03/13 18:19:55 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ RM = rm -rf
 
 all : $(EXEC)
 
-%.o : %.c
+%.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(EXEC) : $(OBJ_MAIN) $(OBJ_CONTACT) $(OBJ_PHONEBOOK)

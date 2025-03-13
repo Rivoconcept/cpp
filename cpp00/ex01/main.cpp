@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:13:21 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/10 16:57:37 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:33:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main()
 	std::string		command;
 	std::string		input;
 	std::string		temp;
-	int				index;
 
 	while (1)
 	{

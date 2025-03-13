@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/11 14:12:24 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:31:25 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <iomanip>
+# include <cstdlib>
 # include <string>
 
 class Contact
@@ -29,13 +30,14 @@ class Contact
 		
 	public:
 
-		typedef struct s_params {
+		typedef struct s_params
+		{
 			std::string firstName;
 			std::string lastName;
 			std::string nickname;
 			std::string phoneNumber;
 			std::string darkestSecret;
-		}	t_params;;
+		}	t_params;
 		
 		Contact(void);
 		~Contact(void);
