@@ -13,7 +13,7 @@ RM = rm -rf
 
 all : $(EXEC)
 
-%.o : %.c
+%.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(EXEC) : $(OBJ_BRICKWALL)

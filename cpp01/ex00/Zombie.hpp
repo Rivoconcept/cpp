@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/12 15:41:02 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:02:48 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ class Zombie
 		void			announce(void);
 		
 };
+
+Zombie* newZombie( std::string name );
+void randomChump( std::string name );
 
 #endif
