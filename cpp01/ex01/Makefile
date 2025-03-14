@@ -1,11 +1,11 @@
-ZOMBIE = Zombie.cpp
+HORDE = Zombie.cpp
  
-DIR_ZOMBIE = ./
-SRC_ZOMBIE= $(addprefix $(DIR_ZOMBIE),$(ZOMBIE))
+DIR_HORDE = ./
+SRC_HORDE = $(addprefix $(DIR_HORDE),$(HORDE))
 
-OBJ_ZOMBIE = $(SRC_ZOMBIE:.cpp=.o)
+OBJ_HORDE = $(SRC_HORDE:.cpp=.o)
 
-EXEC = Zombie
+EXEC = Horde
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -16,11 +16,11 @@ all : $(EXEC)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_ZOMBIE)
+$(EXEC) : $(OBJ_HORDE)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_ZOMBIE)
+	$(RM) $(OBJ_HORDE)
 	
 fclean : clean
 	$(RM) $(EXEC)
