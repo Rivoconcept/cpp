@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/15 13:59:52 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/15 14:00:19 by rhanitra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Zombie.hpp"
 
 Zombie::Zombie() : _name("Foo") {}
@@ -21,33 +33,3 @@ void Zombie::announce(void)
 {
     std::cout << getName() << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
-
-
-Zombie* newZombie(std::string name)
-{
-    Zombie* newZombie = new Zombie();
-    newZombie->setName(name);
-    return (newZombie);
-}
-
-void randomChump(std::string name)
-{
-    Zombie zombie;
-    zombie.setName(name);
-    zombie.announce();
-}
-
-int main (void)
-{
-    Zombie stackZombie;
-    stackZombie.announce();
-    std::cout << "Creating a zombie on the heap..." << std::endl;
-    Zombie *heapZombie = newZombie("HeapZombie");
-    heapZombie->announce();
-    std::cout << std::endl;
-    std::cout << "Creating a zombie on the stack..." << std::endl;
-    randomChump("StackZombie");
-    delete heapZombie;
-    return (0);
-}
-

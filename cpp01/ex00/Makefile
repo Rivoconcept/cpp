@@ -1,4 +1,16 @@
-ZOMBIE = Zombie.cpp
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/15 14:04:56 by rhanitra          #+#    #+#              #
+#    Updated: 2025/03/15 14:05:01 by rhanitra         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+ZOMBIE = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
  
 DIR_ZOMBIE = ./
 SRC_ZOMBIE= $(addprefix $(DIR_ZOMBIE),$(ZOMBIE))

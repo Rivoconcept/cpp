@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 14:05:11 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:05:14 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/03/16 10:59:21 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/16 13:00:38 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HORDE_HPP
-# define HORDE_HPP
+#include "HumanA.hpp"
 
-# include <iostream>
-# include <iomanip>
-# include <string>
+HumanA::HumanA() {}
 
-class Zombie
+HumanA::~HumanA() {}
+
+std::string  HumanA::getName(void) const
 {
-	private:
-	
-		std::string	_name;
-		
-	public:
+    return (this->_name);
+}
 
-		Zombie();
-		~Zombie();
+void HumanA::setName(std::string name)
+{
+   this->_name = name;
+}
 
-		std::string 	getName(void) const;
-		void 			setName(std::string name);
-		void			announce(void);
-		
-};
+int  HumanA::getWeapon(void) const
+{
+    return (this->_weapon);
+}
 
-Zombie* newZombie( std::string name );
-void randomChump( std::string name );
-
-#endif
+void HumanA::setWeapon(int weapon)
+{
+   this->_weapon = weapon;
+}
