@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/16 13:49:17 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:58:40 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include <iostream>
 # include <string>
-
-# include "HumanA.hpp"
-# include "HumanB.hpp"
 
 
 class Weapon
@@ -28,12 +25,12 @@ class Weapon
 		
 	public:
 
-		Weapon();
+		Weapon(std::string	type);
 		~Weapon();
 
-		std::string 	getType(void) const;
-		void 			setType(std::string name);
-
+		// std::string 	getType(void) const;
+        const std::string& 	getType() const;
+		void 				setType(std::string name);
 
 };
 

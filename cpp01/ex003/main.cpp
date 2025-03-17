@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 17:38:37 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/17 18:54:11 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/03/16 10:59:55 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/16 13:24:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
 
-Weapon::Weapon(std::string type) : _type(type) {}
-
-Weapon::~Weapon(void) {}
-
-const std::string& Weapon::getType() const
+int main()
 {
-    return _type;
+    {
+        Weapon club = Weapon("crude spiked club");
+
+        HumanA bob("Bob", club);
+        bob.attack();
+        club.setType("some other type of club");
+        bob.attack();
+    }
+    {
+        Weapon club = Weapon("crude spiked club");
+
+        HumanB jim("Jim");
+        jim.setWeapon(club);
+        jim.attack();
+        club.setType("some other type of club");
+        jim.attack();
+    }
+    return 0;
 }
 
-void    Weapon::setType(std::string type)
-{
-   this->_type = type;
-}
+
+

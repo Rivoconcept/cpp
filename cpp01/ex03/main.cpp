@@ -6,11 +6,13 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:59:55 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/16 13:24:06 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:01:18 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
 int main()
 {

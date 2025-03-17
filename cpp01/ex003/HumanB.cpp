@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.hpp                                         :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/17 18:57:59 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/03/16 10:59:39 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/16 12:59:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANB_HPP
-# define HUMANB_HPP
+#include "HumanB.hpp"
 
-# include <iostream>
-# include <string>
+HumanB::HumanB() {}
 
-# include "Weapon.hpp"
+HumanB::~HumanB() {}
 
-class HumanB
+std::string  HumanB::getName(void) const
 {
-	private:
-	
-		std::string	_name;
-		Weapon* _weapon;
-		
-	public:
+    return (this->_name);
+}
 
-		HumanB(std::string name);
-		~HumanB();
+void HumanB::setName(std::string name)
+{
+   this->_name = name;
+}
 
-        void setWeapon(Weapon& weapon);
-        void attack() const;
+int  HumanB::getWeapon(void) const
+{
+    return (this->_weapon);
+}
 
-};
+void HumanB::setWeapon(int weapon)
+{
+   this->_weapon = weapon;
+}
 
-
-#endif
