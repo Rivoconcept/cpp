@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/17 18:57:59 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:49:25 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ class HumanB
 		HumanB(std::string name);
 		~HumanB();
 
-        void setWeapon(Weapon& weapon);
+        const std::string& getName(void) const;
+		void setName(std::string Name);
+		
+		const std::string& getWeapon(void) const;
+		void setWeapon(Weapon& weapon);
+		
         void attack() const;
 
 };
