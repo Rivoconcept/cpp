@@ -6,13 +6,13 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:56:11 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/19 19:45:02 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:47:11 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "getFileContents.hpp"
 
-GetFileContents::GetFileContents(const std::string& filename) : _filename(filename) {}
+GetFileContents::GetFileContents(std::string filename) : _filename(filename.c_str()) {}
 
 GetFileContents::~GetFileContents() {}
 
@@ -26,9 +26,14 @@ const std::vector<std::string>& GetFileContents::getFileContents() const
     return (this->_lines);
 }
 
+void    GetFileContents::setFileName(std::string filename)
+{
+    this->_filename = filename.c_str();
+}
+
 void GetFileContents::setFileContents()
 {
-    std::ifstream ifs(_filename);
+    std::ifstream ifs(_filename.c_str());
 
     if (!ifs)
     {

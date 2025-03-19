@@ -6,33 +6,27 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/19 19:40:57 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/19 22:35:33 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILEREPLACECONTENT_HPP
-# define FILEREPLACECONTENT_HPP
+#ifndef REPLACECONTENT_HPP
+# define REPLACECONTENT_HPP
 
-# include <iostream>
-# include <string>
-# include <fstream>
-# include <vector>
-# include <cstdlib>
 # include "getFileContents.hpp"
 
 class ReplaceContent
 {
 	private:
-		std::string _s1;
-		std::string _s2;
-
+		std::string 		_s1;
+		std::string 		_s2;
+		GetFileContents& 	_contents;
+		
 	public:
-		explicit ReplaceContent(const std::string& s1, const std::string& s2);
+		ReplaceContent(std::string s1, std::string s2, GetFileContents& contents);
 		~ReplaceContent();
 
-		const std::string& getS1() const;
-		const std::string& getS2() const;
-		void replaceFileContent(const GetFileContents& contents, const std::string& filename);
+		void replaceFileContent();
 };
 
 #endif
