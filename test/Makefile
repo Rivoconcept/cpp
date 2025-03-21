@@ -1,4 +1,4 @@
-BRICKWALL = butterflies.cpp
+BRICKWALL = test.cpp
  
 DIR_BRICKWALL = ./
 SRC_BRICKWALL= $(addprefix $(DIR_BRICKWALL),$(BRICKWALL))
@@ -13,7 +13,7 @@ RM = rm -rf
 
 all : $(EXEC)
 
-%.o : %.c
+%.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(EXEC) : $(OBJ_BRICKWALL)

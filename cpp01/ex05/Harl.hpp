@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/20 18:53:31 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:03:00 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,37 @@
 
 # include <iostream>
 # include <string>
-# include <fstream>
 # include <cstdlib>
-# include <vector>
 
-class GetFileContents
+
+typedef enum {
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR
+} Message;
+
+const char *message_strings[] = {
+    [DEBUG] = "debug",
+    [INFO] = "info",
+    [WARNING] = "warning",
+    [ERROR] = "error"
+};
+
+
+class Harl
 {
 	private:
-		std::string 				_filename;
-		std::vector<std::string> 	_lines;
+		void debug( void );
+		void info( void );
+		void warning( void );
+		void error( void );
 
 	public:
-		GetFileContents(std::string filename);
-		~GetFileContents();
+		Harl();
+		~Harl();
 
-		const std::string& getFileName() const;
-		void setFileName(std::string argv);
-
-		const std::vector<std::string>& getFileContents() const;
-		void setFileContents();
+		void complain( std::string level );
 };
 
 #endif
