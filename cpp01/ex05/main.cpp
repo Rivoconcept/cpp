@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:59:55 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/20 18:53:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:47:27 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 
 int main(void)
 {
-    try
-    {
-        GetFileContents contents = GetFileContents(argv[1]);
-        contents.setFileContents();
-        ReplaceContent replace = ReplaceContent(argv[2], argv[3], contents);
-        replace.replaceFileContent();
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "Exception caught: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
+    Harl harl;
 
-    return EXIT_SUCCESS;
+    harl.complain("DEBUG");
+    harl.complain("INFO");
+    harl.complain("WARNING");
+    harl.complain("ERROR");
+
+    return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/21 16:03:00 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:39:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,7 @@ typedef enum {
     INFO,
     WARNING,
     ERROR
-} Message;
-
-const char *message_strings[] = {
-    [DEBUG] = "debug",
-    [INFO] = "info",
-    [WARNING] = "warning",
-    [ERROR] = "error"
-};
-
+} params;
 
 class Harl
 {

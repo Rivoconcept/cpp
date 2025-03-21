@@ -6,7 +6,7 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/03/20 18:51:46 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/03/21 18:40:28 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_HORDE = $(addprefix $(DIR_HORDE),$(HORDE))
 
 OBJ_HORDE = $(SRC_HORDE:.cpp=.o)
 
-EXEC = filestream
+EXEC = Harl
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
