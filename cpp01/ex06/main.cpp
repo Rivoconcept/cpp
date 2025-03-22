@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/22 11:17:09 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/03/16 10:59:55 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/03/22 11:33:52 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-# define HARL_HPP
+#include "Harl.hpp"
 
-# include <cstdlib>
-# include <iostream>
-# include <string>
-
-class Harl
+int	main(int argc, char **argv)
 {
-  private:
-	void debug(void);
-	void info(void);
-	void warning(void);
-	void error(void);
+	Harl	harl;
 
-  public:
-	Harl();
-	~Harl();
-
-	void complain(std::string level);
-};
-
-#endif
+	std::string tmp;
+	std::string level;
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+	{
+		std::cout << "Enter a good parameter: <./Harl> <level>";
+		return (0);
+	}
+	tmp = argv[1];
+	level = tmp.c_str();
+	harl.complain(level);
+	return (0);
+}

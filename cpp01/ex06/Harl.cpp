@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:56:11 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/22 11:26:24 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:36:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,31 @@ void Harl::complain(std::string level)
 	int	i;
 
 	i = 0;
-	const std::string levels[] = {"DEBUGs", "INFO", "WARNING", "ERROR"};
-	void (Harl::*functions[])(void) = {
-        &Harl::debug,
-        &Harl::info,
-        &Harl::warning,
-        &Harl::error
-    };
-	while (i < 5 && levels[i] != level)
+	const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	void (Harl::*ptrFunc)(void) = NULL;
+	while (i < 4 && levels[i] != level)
 		i++;
-    if (i < 4)
-	    (this->*functions[i])();
+	std::cout << i << std::endl;
+	for (; i < 5; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			ptrFunc = &Harl::debug;
+			break ;
+		case 1:
+			ptrFunc = &Harl::info;
+			break ;
+		case 2:
+			ptrFunc = &Harl::warning;
+			break ;
+		case 3:
+			ptrFunc = &Harl::error;
+			break ;
+		default:
+			std::cout << "Bad input!" << std::endl;
+			return ;
+		}
+		(this->*ptrFunc)();
+	}
 }
