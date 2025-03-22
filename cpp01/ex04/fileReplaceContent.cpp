@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/19 22:41:11 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:26:24 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,24 @@ void ReplaceContent::replaceFileContent()
         throw std::runtime_error("Error: cannot create output file '" + _contents.getFileName() + ".replace'");
     }
 
-    std::vector<std::string> lines = _contents.getFileContents();
+    const std::string& lines = _contents.getFileContents();
     
-    for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it) {
-        size_t pos = 0;
-        while ((pos = it->find(_s1, pos)) != std::string::npos) {
-            it->erase(pos, _s1.length());
-            it->insert(pos, _s2);
-            pos += _s2.length();
-        }
-        ofs << *it << std::endl;
+    std::string modified_contents;
+    size_t pos = 0, last_pos = 0;
+
+    while ((pos = lines.find(_s1, last_pos)) != std::string::npos)
+    {
+        for (size_t i = last_pos; i < pos; ++i)
+            modified_contents += lines[i];
+        modified_contents += _s2;
+        last_pos = pos + _s1.length();
     }
+    for (size_t i = last_pos; i < lines.size(); ++i) {
+        modified_contents += lines[i];
+    }
+    ofs << modified_contents;
     ofs.close();
 }
+
+
 

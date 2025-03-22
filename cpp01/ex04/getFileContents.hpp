@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/19 21:47:20 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:11:37 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 class GetFileContents
 {
 	private:
-		std::string 				_filename;
-		std::vector<std::string> 	_lines;
+		std::string 	_filename;
+		std::size_t		_fileSize;
+		std::string 	_lines;
 
 	public:
 		GetFileContents(std::string filename);
@@ -32,7 +33,10 @@ class GetFileContents
 		const std::string& getFileName() const;
 		void setFileName(std::string argv);
 
-		const std::vector<std::string>& getFileContents() const;
+		const std::size_t& getFileSize() const;
+		void setFileSize(std::size_t size);
+
+		const std::string& getFileContents() const;
 		void setFileContents();
 };
 
