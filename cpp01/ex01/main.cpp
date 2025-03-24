@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:38 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:06:55 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:25:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(void)
 {
-    int size = 5;
+    int size = 10;
 
     Zombie* horde = zombieHorde(size, "player");
 

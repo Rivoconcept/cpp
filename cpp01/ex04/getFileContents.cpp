@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:56:11 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/22 16:46:55 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:03:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,6 @@ void GetFileContents::setFileSize(std::size_t size)
 {
     this->_fileSize = size;
 }
-
-/*void GetFileContents::setFileContents()
-{
-    std::ifstream ifs(_filename.c_str(), std::ios::ate | std::ios::binary);
-
-    if (!ifs)
-    {
-        throw std::runtime_error("Error: cannot open file '" + _filename + "'");
-    }
-    std::streamsize size = ifs.tellg();
-    ifs.seekg(0, std::ios::beg);
-    this->_lines = std::string(size, '\0');
-    ifs.read(&_lines[0], size);
-    ifs.close();
-}*/
-
-/*void GetFileContents::setFileContents()
-{
-    std::ifstream ifs(_filename.c_str());
-    if (!ifs)
-    {
-        throw std::runtime_error("Error: cannot open file '" + _filename + "'");
-    }
-
-    this->_lines = std::string();  
-    std::string line;
-    
-    while (std::getline(ifs, line))
-    {
-        this->_lines += line + '\n';
-    }
-
-    ifs.close();
-}*/
 
 void GetFileContents::setFileContents()
 {

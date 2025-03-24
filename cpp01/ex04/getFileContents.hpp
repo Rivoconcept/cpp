@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:05:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/22 16:11:37 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:29:42 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string>
 # include <fstream>
 # include <cstdlib>
-# include <vector>
 
 class GetFileContents
 {

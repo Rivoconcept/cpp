@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:56:11 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/22 11:36:04 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:35:02 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void Harl::complain(std::string level)
 	void (Harl::*ptrFunc)(void) = NULL;
 	while (i < 4 && levels[i] != level)
 		i++;
-	std::cout << i << std::endl;
-	for (; i < 5; i++)
+	for (; i < 4; i++)
 	{
 		switch (i)
 		{
@@ -74,7 +73,6 @@ void Harl::complain(std::string level)
 			ptrFunc = &Harl::error;
 			break ;
 		default:
-			std::cout << "Bad input!" << std::endl;
 			return ;
 		}
 		(this->*ptrFunc)();
