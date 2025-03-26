@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:59:50 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/26 09:44:25 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:24:01 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,24 @@
 # include <iostream>
 # include <string>
 
+class Fixed
+{
+    private:
+        int     _fixePointNumberValue;
+        static const int _mantissa;  
+
+    public:
+        Fixed();
+        Fixed(const Fixed& mantissa);
+        ~Fixed();
+
+        Fixed& operator=(const Fixed& asign);
+        
+        int getRawBits( void ) const;
+        void setRawBits( int const raw );
+        
+};
 
 
-http://www.cprogramming.com/tutorial/floating_point/understanding_floating_point.html
-http://www.cprogramming.com/tutorial/floating_point/understanding_floating_point_representation.html
-http://www.cprogramming.com/tutorial/floating_point/understanding_floating_point_printing.html
-
-https://www.youtube.com/watch?v=rKwO3mn-Zb0
 
 #endif
