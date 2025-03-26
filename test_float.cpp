@@ -1,40 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_float.cpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/26 09:35:11 by rivoinfo          #+#    #+#             */
+/*   Updated: 2025/03/26 09:36:50 by rivoinfo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "test.hpp"
-
-/*Rectangle::Rectangle() {}
-
-double Rectangle::surface() const
-{
-    return (width * height);
-}
-
-double Rectangle::getwidth() const
-{
-    return (width);
-}
-
-double Rectangle::getheight() const
-{
-    return (height);
-} 
-
-void Rectangle::setwidth(double weight)
-{  
-    this->width = weight;
-}
-
-void Rectangle::setheight(double height)
-{
-    this->height = height;
-}
-
-int main ()
-{
-    Rectangle Rect;
-    Rect.setwidth(10.0);
-    Rect.setheight(20.0);
-    std::cout << "Surface: " << Rect.surface() << std::endl;
-    return (0);
-}*/
 
 
 #define LOG2_10 3.321928095
@@ -75,10 +51,4 @@ void print_real(double r, int width, int dec)
         snprintf(format, 8, "%%%d.%d%s", width, dec, num_format);
     }
     printf(format, r);
-}
-
-int main(void)
-{
-    print_real(12.5, 15, 15);
-    return (0);
 }

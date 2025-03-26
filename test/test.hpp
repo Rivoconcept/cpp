@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/21 11:18:21 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:38:20 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <iostream>
 # include <cstring>
 # include <cstdlib>
+#include <ieee754.h>
+#include <cstdio>
+
 
 class Rectangle
 {
