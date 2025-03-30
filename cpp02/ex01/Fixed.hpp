@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:59:50 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/28 18:00:29 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:14:16 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 class Fixed
 {
     private:
-        int     _fixePointNumberValue;
-        static const int _mantissa;  
+        int     _fixePointNumber;
+        static const int _val;  
 
     public:
         Fixed();
-        Fixed(const Fixed& mantissa);
+        Fixed(const Fixed& value);
         Fixed(const int value);
         Fixed(const float value);
         ~Fixed();
 
-        Fixed& operator=(const Fixed& asign);
+        Fixed& operator=(const Fixed& value);
         float toFloat( void ) const;
         int toInt( void ) const;
         

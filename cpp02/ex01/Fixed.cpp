@@ -6,23 +6,23 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:59:12 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/28 18:15:44 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:14:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed() : _fixePointNumberValue(0)
+Fixed::Fixed() : _fixePointNumber(0)
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
-const int Fixed::_mantissa = 8;
+const int Fixed::_val = 8;
 
-Fixed::Fixed(const Fixed& mantissa)
+Fixed::Fixed(const Fixed& value)
 {
     std::cout << "Copy constructor called" << std::endl;
-    *this = mantissa;
+    *this = value;
 }
 
 Fixed::~Fixed()
@@ -30,12 +30,12 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
-Fixed& Fixed::operator=(const Fixed& asign)
+Fixed& Fixed::operator=(const Fixed& value)
 {
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &asign)
+    if (this != &value)
     {
-        this->_fixePointNumberValue = asign._fixePointNumberValue;
+        this->_fixePointNumber = value._fixePointNumber;
     }
     return (*this);
 }
@@ -43,34 +43,34 @@ Fixed& Fixed::operator=(const Fixed& asign)
 int Fixed::getRawBits( void ) const
 {
     std::cout << "getRawBits member function called" << std::endl;
-    return (this->_fixePointNumberValue);
+    return (this->_fixePointNumber);
 }
 
 void Fixed::setRawBits( int const raw )
 {
     std::cout << "setRawBits member function called" << std::endl;
-    this->_fixePointNumberValue = raw;
+    this->_fixePointNumber = raw;
 }
 
 Fixed::Fixed(const int value)
 {
     std::cout << "Int constructor called" << std::endl;
-    this->_fixePointNumberValue = value << _mantissa;
+    this->_fixePointNumber = value << _val;
 }
 
 Fixed::Fixed(const float value)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->_fixePointNumberValue = std::roundf(value * (1 << _mantissa));
+    this->_fixePointNumber = std::roundf(value * (1 << _val));
 }
 float Fixed::toFloat( void ) const
 {
-    return (static_cast<float>( this->_fixePointNumberValue) / (1 << _mantissa));
+    return ((float)this->_fixePointNumber / (1 << _val));
 }
 
 int Fixed::toInt( void ) const
 {
-    return ( this->_fixePointNumberValue >> _mantissa);
+    return ( this->_fixePointNumber >> _val);
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
