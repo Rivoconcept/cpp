@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:59:12 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/30 14:13:12 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:37:11 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ Fixed Fixed::operator/(const Fixed &value) const
 {
 	if (value._fixePointNumber == 0)
 	{
-		std::cerr << "Error: Division by zero" << std::endl;
+		std::cout << "Error: Division by zero" << std::endl;
 		return (Fixed(0));
 	}
 	return (Fixed(this->toFloat() / value.toFloat()));
