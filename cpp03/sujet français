@@ -1,0 +1,34 @@
+D'abord, vous devez implémenter une classe ! Quelle originalité !
+Elle s'appellera ClapTrap et aura les attributs privés suivants, initialisés aux valeurs spécifiées entre parenthèses :
+
+Nom, qui est passé en paramètre au constructeur
+
+Points de vie (10), représentant la santé du ClapTrap
+
+Points d'énergie (10)
+
+Dégâts d'attaque (0)
+
+Ajoutez les fonctions membres publiques suivantes afin que le ClapTrap se comporte de manière plus réaliste :
+
+void attack(const std::string& target);
+
+void takeDamage(unsigned int amount);
+
+void beRepaired(unsigned int amount);
+
+Lorsqu'un ClapTrap attaque, il fait perdre <dégâts d'attaque> points de vie à sa cible.
+Lorsqu'un ClapTrap se répare, il regagne <amount> points de vie.
+Chaque attaque et réparation coûte 1 point d'énergie.
+Bien entendu, ClapTrap ne peut rien faire s'il n'a plus de points de vie ou d'énergie.
+
+Cependant, puisque cet exercice est une introduction, les instances de ClapTrap ne doivent pas interagir
+ directement entre elles et les paramètres ne feront pas référence à une autre instance de ClapTrap.
+
+Dans chacune de ces fonctions membres, vous devez afficher un message décrivant l'action effectuée. Par exemple,
+ la fonction attack() pourrait afficher quelque chose comme ceci (bien sûr, sans les crochets) :
+
+ClapTrap <nom> attaque <cible>, causant <dégâts> points de dégâts !
+Le constructeur et le destructeur doivent également afficher un message afin que vos évaluateurs puissent facilement voir qu'ils ont été appelés.
+
+Enfin, implémentez et soumettez vos propres tests pour vous assurer que votre code fonctionne comme prévu.
