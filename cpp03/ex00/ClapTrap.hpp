@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/02 13:56:49 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:52:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ class ClapTrap
 {
   private:
     std::string _name;
-    unsigned int _hitPoints;
-    unsigned int _energyPoints;
-    unsigned int _attackDamage;
+    unsigned int _hit;
+    unsigned int _energy;
+    unsigned int _attack;
 
   public:
     ClapTrap();
@@ -35,14 +35,14 @@ class ClapTrap
     ClapTrap &operator=(const ClapTrap &value);
 
     const std::string& getName( void ) const;
-    const unsigned int& getHitPoints( void ) const;
-    const unsigned int& getEnergyPoints( void ) const;
-    const unsigned int& getAttackDamage( void ) const;
+    const unsigned int& getHit( void ) const;
+    const unsigned int& getEnergy( void ) const;
+    const unsigned int& getAttack( void ) const;
     
     void setName(const std::string &name);
-    void setHitPoints(unsigned int hitPoints);
-    void setEnergyPoints(unsigned int energyPoints);
-    void setAttackDamage(unsigned int attackDamage);
+    void setHit(unsigned int hit);
+    void setEnergy(unsigned int energy);
+    void setAttack(unsigned int attack);
 
     void attack(const std::string &target);
     void takeDamage(unsigned int amount);

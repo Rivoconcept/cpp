@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 13:58:35 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/04/02 13:58:41 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:40:36 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,40 @@
 
 int main()
 {
-    ClapTrap clap1("Warrior");
-    ClapTrap clap2("Defender");
+    ClapTrap david("David");
+    ClapTrap goliath("Goliath");
+
+    david.setAttack(3);
+    goliath.setAttack(2);
 
     std::cout << "\n--- Initial Status ---\n";
-    std::cout << clap1 << std::endl;
-    std::cout << clap2 << std::endl;
+    std::cout << david << std::endl;
+    std::cout << goliath << std::endl;
 
     std::cout << "\n--- Combat Begins! ---\n";
+    while (david.getEnergy() > 0 && goliath.getEnergy() > 0)
+    {
+        david.attack(goliath.getName());
+        goliath.takeDamage(david.getAttack());
 
-    clap1.attack(clap2.getName());
-    clap2.takeDamage(clap1.getAttackDamage());
+        if (goliath.getHit() == 0)
+            break;
 
-    clap2.attack(clap1.getName());
-    clap1.takeDamage(clap2.getAttackDamage());
+        goliath.attack(david.getName());
+        david.takeDamage(goliath.getAttack());
 
-    std::cout << "\n--- Repair Phase ---\n";
-    clap1.beRepaired(5);
-    clap2.beRepaired(5);
+        if (david.getHit() == 0)
+            break;
+    }
+
+    std::cout << "\n--- Round state ---\n";
+    david.attack(goliath.getName());
+    goliath.attack(david.getName());
 
     std::cout << "\n--- Final Status ---\n";
-    std::cout << clap1 << std::endl;
-    std::cout << clap2 << std::endl;
+    std::cout << david << std::endl;
+    std::cout << goliath << std::endl;
 
     return 0;
 }
+
