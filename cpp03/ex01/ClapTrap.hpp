@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/05 10:42:31 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/05 10:41:58 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ class ClapTrap
   public:
     ClapTrap();
     ClapTrap(const std::string &name);
+    ClapTrap(const ClapTrap &clapTrap);
     ~ClapTrap();
+
+    ClapTrap &operator=(const ClapTrap &value);
 
     const std::string& getName( void ) const;
     const unsigned int& getHit( void ) const;
