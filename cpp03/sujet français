@@ -32,3 +32,20 @@ ClapTrap <nom> attaque <cible>, causant <dégâts> points de dégâts !
 Le constructeur et le destructeur doivent également afficher un message afin que vos évaluateurs puissent facilement voir qu'ils ont été appelés.
 
 Enfin, implémentez et soumettez vos propres tests pour vous assurer que votre code fonctionne comme prévu.
+
+/*********************************************************************************************************************
+
+Comme on n'a jamais assez de ClapTrap, vous allez maintenant créer un robot dérivé.
+Il sera nommé ScavTrap et héritera des constructeurs et du destructeur de ClapTrap. Cependant, ses constructeurs, son destructeur et sa fonction attack() afficheront des messages différents.
+Après tout, les ClapTrap sont conscients de leur individualité.
+Notez qu'un enchaînement construction/destruction correct doit être démontré dans vos tests.
+Lorsqu'un ScavTrap est créé, le programme commence par construire un ClapTrap. La destruction se déroule dans l'ordre inverse. Pourquoi ?
+ScavTrap utilisera les attributs de ClapTrap (mettez à jour ClapTrap en conséquence) et
+doit les initialiser à :
+• Nom, passé en paramètre au constructeur
+• Points de vie (100), représentant la santé du ClapTrap
+• Points d'énergie (50)
+• Dégâts d'attaque (20)
+ScavTrap aura également sa propre capacité spéciale :
+void guardGate(); Cette fonction membre affichera un message indiquant que ScavTrap est désormais en mode Gatekeeper.
+N'oubliez pas d'ajouter d'autres tests à votre programme.

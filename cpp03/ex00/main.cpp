@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 13:58:35 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/04/05 10:44:14 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/06 08:08:59 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ int main()
         if (goliath.getHit() == 0)
             break;
 
+        goliath.beRepaired(2);
+
         goliath.attack(david.getName());
         david.takeDamage(goliath.getAttack());
 
         if (david.getHit() == 0)
             break;
+
+        david.beRepaired(2);
     }
 
     std::cout << "\n--- Round state ---\n";
