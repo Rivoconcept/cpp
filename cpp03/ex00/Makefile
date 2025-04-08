@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/04/02 13:56:40 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/04/08 17:24:43 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HORDE = main.cpp ClapTrap.cpp
+CLAPTRAP = main.cpp ClapTrap.cpp
  
-DIR_HORDE = ./
-SRC_HORDE = $(addprefix $(DIR_HORDE),$(HORDE))
+DIR_CLAPTRAP = ./
+SRC_CLAPTRAP = $(addprefix $(DIR_CLAPTRAP),$(CLAPTRAP))
 
-OBJ_HORDE = $(SRC_HORDE:.cpp=.o)
+OBJ_CLAPTRAP = $(SRC_CLAPTRAP:.cpp=.o)
 
 EXEC = ClapTrap
 
@@ -28,11 +28,11 @@ all : $(EXEC)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_HORDE)
+$(EXEC) : $(OBJ_CLAPTRAP)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_HORDE)
+	$(RM) $(OBJ_CLAPTRAP)
 	
 fclean : clean
 	$(RM) $(EXEC)

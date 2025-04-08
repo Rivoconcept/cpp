@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/05 10:28:18 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:58:30 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 ClapTrap::ClapTrap() : _name("Default"), _hit(10), _energy(10), _attack(0)
 {
-    std::cout << "Default constructor called" << std::endl;
+    std::cout << "ClapTrap: Default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string &name) : _name(name), _hit(10), _energy(10), _attack(0)
 {
-    std::cout << "Personalized constructor called for " <<  this->_name << std::endl;
+    std::cout << "ClapTrap: Personalized constructor called for " <<  this->_name << std::endl;
 }
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "Destructor called for " <<  this->_name << std::endl;
+    std::cout << "ClapTrap: Destructor called for " <<  this->_name << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &clapTrap)
 {
-    std::cout << "Copy constructor called for " << clapTrap._name << std::endl;
+    std::cout << "ClapTrap: Copy constructor called for " << clapTrap._name << std::endl;
     *this = clapTrap;
 }
 

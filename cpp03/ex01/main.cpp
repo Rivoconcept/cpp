@@ -6,48 +6,34 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 13:58:35 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/04/02 18:40:36 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:17:03 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main()
 {
-    ClapTrap david("David");
-    ClapTrap goliath("Goliath");
+    ScavTrap david("David");
+    ScavTrap goliath("Goliath");
 
-    david.setAttack(3);
-    goliath.setAttack(2);
+    std::cout << std::endl;
 
-    std::cout << "\n--- Initial Status ---\n";
-    std::cout << david << std::endl;
-    std::cout << goliath << std::endl;
+    david.attack("Goliath");
+    goliath.attack("David");
 
-    std::cout << "\n--- Combat Begins! ---\n";
-    while (david.getEnergy() > 0 && goliath.getEnergy() > 0)
-    {
-        david.attack(goliath.getName());
-        goliath.takeDamage(david.getAttack());
+    std::cout << std::endl;
 
-        if (goliath.getHit() == 0)
-            break;
+    david.beRepaired(5);
+    goliath.beRepaired(5);
 
-        goliath.attack(david.getName());
-        david.takeDamage(goliath.getAttack());
+    std::cout << std::endl;
 
-        if (david.getHit() == 0)
-            break;
-    }
+    david.guardGate();
+    goliath.guardGate();
 
-    std::cout << "\n--- Round state ---\n";
-    david.attack(goliath.getName());
-    goliath.attack(david.getName());
-
-    std::cout << "\n--- Final Status ---\n";
-    std::cout << david << std::endl;
-    std::cout << goliath << std::endl;
-
-    return 0;
+    return (0);
 }
+
 

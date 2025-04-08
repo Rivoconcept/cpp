@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/06 15:36:53 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:18:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 class ClapTrap
 {
-  private:
+  protected:
     std::string _name;
     unsigned int _hit;
     unsigned int _energy;
