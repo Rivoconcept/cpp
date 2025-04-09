@@ -49,3 +49,37 @@ doit les initialiser à :
 ScavTrap aura également sa propre capacité spéciale :
 void guardGate(); Cette fonction membre affichera un message indiquant que ScavTrap est désormais en mode Gatekeeper.
 N'oubliez pas d'ajouter d'autres tests à votre programme.
+
+/******************************************************************************************************************************************/
+
+Créer des ClapTraps commence probablement à te taper sur les nerfs.
+À présent, implémente une classe FragTrap qui hérite de ClapTrap. Elle est très similaire à ScavTrap. Cependant, ses messages de construction et de destruction doivent être différents.
+
+Tu dois montrer clairement l’enchaînement correct des constructions/destructions dans tes tests :
+
+Lorsqu’un FragTrap est créé, le programme commence par construire un ClapTrap.
+
+Lors de la destruction, cela se fait dans l’ordre inverse.
+
+Les attributs sont également semblables, mais avec des valeurs différentes cette fois-ci :
+
+Le nom, qui est passé en paramètre au constructeur
+
+Les points de vie (Hit points) : 100
+
+Les points d’énergie (Energy points) : 100
+
+Les dégâts d’attaque (Attack damage) : 30
+
+La classe FragTrap possède aussi une capacité spéciale :
+
+
+void highFivesGuys(void);
+
+
+
+Cette fonction-membre doit afficher une demande de "high-five" (tape m’en cinq) positive sur la sortie standard.
+
+Encore une fois, ajoute davantage de tests à ton programme.
+
+Si tu veux, je peux t’aider à écrire la classe FragTrap complète avec les bons messages de log et un test dans le main() pour illustrer tout ça. Tu veux que je te le fasse ?

@@ -6,18 +6,18 @@
 #    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/04/09 08:28:57 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/04/09 14:06:44 by rivoinfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SCAVTRAP = main.cpp ClapTrap.cpp ScavTrap.cpp
+FRAGTRAP = main.cpp ClapTrap.cpp ScavTrap.cpp
  
-DIR_SCAVTRAP = ./
-SRC_SCAVTRAP = $(addprefix $(DIR_SCAVTRAP),$(SCAVTRAP))
+DIR_FRAGTRAP = ./
+SRC_FRAGTRAP = $(addprefix $(DIR_FRAGTRAP),$(FRAGTRAP))
 
-OBJ_SCAVTRAP = $(SRC_SCAVTRAP:.cpp=.o)
+OBJ_FRAGTRAP = $(SRC_FRAGTRAP:.cpp=.o)
 
-EXEC = ScavTrap
+EXEC = FragTrap
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -28,11 +28,11 @@ all : $(EXEC)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_SCAVTRAP)
+$(EXEC) : $(OBJ_FRAGTRAP)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_SCAVTRAP)
+	$(RM) $(OBJ_FRAGTRAP)
 	
 fclean : clean
 	$(RM) $(EXEC)
