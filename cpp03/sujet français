@@ -83,3 +83,44 @@ Cette fonction-membre doit afficher une demande de "high-five" (tape m’en cinq
 Encore une fois, ajoute davantage de tests à ton programme.
 
 Si tu veux, je peux t’aider à écrire la classe FragTrap complète avec les bons messages de log et un test dans le main() pour illustrer tout ça. Tu veux que je te le fasse ?
+
+/*********************************************************************************************************************************************************/
+
+Dans cet exercice, tu vas créer un monstre : un ClapTrap à moitié FragTrap, à moitié ScavTrap. Il s’appellera DiamondTrap, et il héritera à la fois de FragTrap ET de ScavTrap. C’est risqué !
+
+La classe DiamondTrap aura un attribut privé nommé name. Cet attribut doit avoir exactement le même nom de variable que celui de la classe de base ClapTrap (sans faire référence au nom du robot).
+
+Pour être plus clair, voici deux exemples :
+
+Si la variable de ClapTrap est name, alors celle de DiamondTrap doit aussi s’appeler name.
+
+Si la variable de ClapTrap est _name, alors celle de DiamondTrap doit aussi s’appeler _name.
+
+Ses attributs et fonctions membres seront hérités de ses classes parentes :
+
+name (qui est passé en paramètre au constructeur)
+
+ClapTrap::name (c’est-à-dire le nom passé au constructeur + le suffixe "_clap_name")
+
+Points de vie (hérités de FragTrap)
+
+Points d’énergie (hérités de ScavTrap)
+
+Dégâts d’attaque (hérités de FragTrap)
+
+La fonction attack() (héritée de ScavTrap)
+
+En plus des fonctions spéciales héritées des deux classes parentes, DiamondTrap aura sa propre capacité spéciale :
+
+cpp
+Copy
+Edit
+void whoAmI();
+Cette fonction membre affichera son propre nom ainsi que le nom de son ClapTrap.
+
+Bien sûr, l’instance ClapTrap dans DiamondTrap ne sera créée qu’une seule fois.
+Oui, il y a un piège 🧠😉
+
+Encore une fois, pense à ajouter des tests à ton programme.
+
+Souhaites-tu aussi un exemple d’implémentation pour DiamondTrap ?

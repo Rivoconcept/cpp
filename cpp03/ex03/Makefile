@@ -6,18 +6,18 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/04/10 17:35:59 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/04/10 17:56:10 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FRAGTRAP = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+DIAMONDTRAP = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
  
-DIR_FRAGTRAP = ./
-SRC_FRAGTRAP = $(addprefix $(DIR_FRAGTRAP),$(FRAGTRAP))
+DIR_DIAMONDTRAP = ./
+SRC_DIAMONDTRAP = $(addprefix $(DIR_DIAMONDTRAP),$(DIAMONDTRAP))
 
-OBJ_FRAGTRAP = $(SRC_FRAGTRAP:.cpp=.o)
+OBJ_DIAMONDTRAP = $(SRC_DIAMONDTRAP:.cpp=.o)
 
-EXEC = FragTrap
+EXEC = DiamondTrap
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -28,11 +28,11 @@ all : $(EXEC)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_FRAGTRAP)
+$(EXEC) : $(OBJ_DIAMONDTRAP)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_FRAGTRAP)
+	$(RM) $(OBJ_DIAMONDTRAP)
 	
 fclean : clean
 	$(RM) $(EXEC)
