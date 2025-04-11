@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/10 18:10:25 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:23:52 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void FragTrap::attack(const std::string &target)
 {
     if (_energy > 0 && _hit > 0)
     {
-        std::cout << "ClapTrap " <<  this->_name << " attacks " << target
+        std::cout << "FragTrap " <<  this->_name << " attacks " << target
                   << ", causing " <<  this->_attack << " points of damage!" << std::endl;
         this->_energy--;
     }
     else
     {
-        std::cout << "ClapTrap " <<  this->_name << " is out of energy or hit points and can't attack!" << std::endl;
+        std::cout << "FragTrap " <<  this->_name << " is out of energy or hit points and can't attack!" << std::endl;
     }
 }
 
@@ -71,7 +71,7 @@ void FragTrap::highFivesGuys(void)
 
 std::ostream &operator<<(std::ostream &out, const FragTrap &fragTrap)
 {
-    out << "ClapTrap (" << fragTrap.getName() << ") - HP: " << fragTrap.getHit()
+    out << "FragTrap (" << fragTrap.getName() << ") - HP: " << fragTrap.getHit()
         << ", Energy: " << fragTrap.getEnergy() << ", Attack: " << fragTrap.getAttack();
     return out;
 }

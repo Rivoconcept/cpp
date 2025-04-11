@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 13:58:35 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/04/10 17:47:53 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:44:36 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main()
 {
-    ScavTrap david("David");
-    ScavTrap goliath("Goliath");
-    FragTrap joseph("Joseph");
+    std::cout << "\n--- Creating DiamondTrap Bob ---" << std::endl;
+    DiamondTrap bob("Bob");
 
-    std::cout << std::endl;
+    std::cout << "\n--- Bob attacks target 'Target_1' ---" << std::endl;
+    bob.attack("Target_1");
 
-    david.attack("Goliath");
-    goliath.attack("David");
-    joseph.attack("david");
+    std::cout << "\n--- Bob introduces himself ---" << std::endl;
+    bob.whoAmI();
 
-    std::cout << std::endl;
+    std::cout << "\n--- Copying Bob into Alice ---" << std::endl;
+    DiamondTrap alice(bob);
+    alice.setName("Alice");
 
-    david.beRepaired(5);
-    goliath.beRepaired(5);
-    joseph.beRepaired(2);
+    std::cout << "\n--- Alice attacks target 'Target_2' ---" << std::endl;
+    alice.attack("Target_2");
 
-    std::cout << std::endl;
+    std::cout << "\n--- Alice introduces herself ---" << std::endl;
+    alice.whoAmI();
 
-    david.guardGate();
-    goliath.guardGate();
-    joseph.highFivesGuys();
-
-    return (0);
+    std::cout << "\n--- End of program: destructors called ---" << std::endl;
+    return 0;
 }
+
 
 

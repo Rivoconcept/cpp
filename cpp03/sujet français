@@ -112,9 +112,6 @@ La fonction attack() (héritée de ScavTrap)
 
 En plus des fonctions spéciales héritées des deux classes parentes, DiamondTrap aura sa propre capacité spéciale :
 
-cpp
-Copy
-Edit
 void whoAmI();
 Cette fonction membre affichera son propre nom ainsi que le nom de son ClapTrap.
 

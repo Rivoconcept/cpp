@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/09 06:47:12 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:24:27 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void ScavTrap::attack(const std::string &target)
 {
     if (_energy > 0 && _hit > 0)
     {
-        std::cout << "ClapTrap " <<  this->_name << " attacks " << target
+        std::cout << "ScavTrap " <<  this->_name << " attacks " << target
                   << ", causing " <<  this->_attack << " points of damage!" << std::endl;
         this->_energy--;
     }
     else
     {
-        std::cout << "ClapTrap " <<  this->_name << " is out of energy or hit points and can't attack!" << std::endl;
+        std::cout << "ScavTrap " <<  this->_name << " is out of energy or hit points and can't attack!" << std::endl;
     }
 }
 
@@ -71,7 +71,7 @@ void ScavTrap::guardGate()
 
 std::ostream &operator<<(std::ostream &out, const ScavTrap &scavTrap)
 {
-    out << "ClapTrap (" << scavTrap.getName() << ") - HP: " << scavTrap.getHit()
+    out << "ScavTrap (" << scavTrap.getName() << ") - HP: " << scavTrap.getHit()
         << ", Energy: " << scavTrap.getEnergy() << ", Attack: " << scavTrap.getAttack();
     return out;
 }

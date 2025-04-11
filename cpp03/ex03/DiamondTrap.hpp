@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:56:46 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/10 18:35:28 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:20:56 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ class DiamondTrap : public ScavTrap, public FragTrap
 
         DiamondTrap& operator=(const DiamondTrap& DiamondTrap);
         
-        const std::string& getName() const;
-        void setName(std::string name);
 
         void whoAmI();
+
+        void attack(const std::string &target);
+
 };
+
+std::ostream &operator<<(std::ostream &out, const DiamondTrap &DiamondTrap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:29 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/09 06:43:51 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/11 08:16:44 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap
+class ScavTrap : virtual public ClapTrap
 {
     public:
 		ScavTrap();
