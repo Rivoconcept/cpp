@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/11 09:22:54 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:40:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ std::ostream &operator<<(std::ostream &out, const FragTrap &fragTrap)
 {
     out << "FragTrap (" << fragTrap.getName() << ") - HP: " << fragTrap.getHit()
         << ", Energy: " << fragTrap.getEnergy() << ", Attack: " << fragTrap.getAttack();
-    return out;
+    return (out);
 }

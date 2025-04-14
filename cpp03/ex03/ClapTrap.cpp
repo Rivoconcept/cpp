@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/08 17:58:30 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:48:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,5 @@ std::ostream &operator<<(std::ostream &out, const ClapTrap &clapTrap)
 {
     out << "ClapTrap (" << clapTrap.getName() << ") - HP: " << clapTrap.getHit()
         << ", Energy: " << clapTrap.getEnergy() << ", Attack: " << clapTrap.getAttack();
-    return out;
+    return (out);
 }

@@ -36,7 +36,8 @@ Enfin, implémentez et soumettez vos propres tests pour vous assurer que votre c
 /*********************************************************************************************************************
 
 Comme on n'a jamais assez de ClapTrap, vous allez maintenant créer un robot dérivé.
-Il sera nommé ScavTrap et héritera des constructeurs et du destructeur de ClapTrap. Cependant, ses constructeurs, son destructeur et sa fonction attack() afficheront des messages différents.
+Il sera nommé ScavTrap et héritera des constructeurs et du destructeur de ClapTrap. Cependant, ses constructeurs, son destructeur 
+et sa fonction attack() afficheront des messages différents.
 Après tout, les ClapTrap sont conscients de leur individualité.
 Notez qu'un enchaînement construction/destruction correct doit être démontré dans vos tests.
 Lorsqu'un ScavTrap est créé, le programme commence par construire un ClapTrap. La destruction se déroule dans l'ordre inverse. Pourquoi ?
@@ -53,7 +54,8 @@ N'oubliez pas d'ajouter d'autres tests à votre programme.
 /******************************************************************************************************************************************/
 
 Créer des ClapTraps commence probablement à te taper sur les nerfs.
-À présent, implémente une classe FragTrap qui hérite de ClapTrap. Elle est très similaire à ScavTrap. Cependant, ses messages de construction et de destruction doivent être différents.
+À présent, implémente une classe FragTrap qui hérite de ClapTrap. Elle est très similaire à ScavTrap. Cependant, 
+ses messages de construction et de destruction doivent être différents.
 
 Tu dois montrer clairement l’enchaînement correct des constructions/destructions dans tes tests :
 
@@ -82,13 +84,16 @@ Cette fonction-membre doit afficher une demande de "high-five" (tape m’en cinq
 
 Encore une fois, ajoute davantage de tests à ton programme.
 
-Si tu veux, je peux t’aider à écrire la classe FragTrap complète avec les bons messages de log et un test dans le main() pour illustrer tout ça. Tu veux que je te le fasse ?
+Si tu veux, je peux t’aider à écrire la classe FragTrap complète avec les bons messages de log et un test dans le main() 
+pour illustrer tout ça. Tu veux que je te le fasse ?
 
 /*********************************************************************************************************************************************************/
 
-Dans cet exercice, tu vas créer un monstre : un ClapTrap à moitié FragTrap, à moitié ScavTrap. Il s’appellera DiamondTrap, et il héritera à la fois de FragTrap ET de ScavTrap. C’est risqué !
+Dans cet exercice, tu vas créer un monstre : un ClapTrap à moitié FragTrap, à moitié ScavTrap. Il s’appellera DiamondTrap, 
+et il héritera à la fois de FragTrap ET de ScavTrap. C’est risqué !
 
-La classe DiamondTrap aura un attribut privé nommé name. Cet attribut doit avoir exactement le même nom de variable que celui de la classe de base ClapTrap (sans faire référence au nom du robot).
+La classe DiamondTrap aura un attribut privé nommé name. Cet attribut doit avoir exactement le même nom de variable que celui 
+de la classe de base ClapTrap (sans faire référence au nom du robot).
 
 Pour être plus clair, voici deux exemples :
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/11 09:22:25 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:40:24 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ std::ostream &operator<<(std::ostream &out, const ScavTrap &scavTrap)
 {
     out << "ScavTrap (" << scavTrap.getName() << ") - HP: " << scavTrap.getHit()
         << ", Energy: " << scavTrap.getEnergy() << ", Attack: " << scavTrap.getAttack();
-    return out;
+    return (out);
 }

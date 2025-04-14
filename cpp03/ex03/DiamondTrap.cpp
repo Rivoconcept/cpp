@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:07:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/11 09:43:00 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:40:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ std::ostream &operator<<(std::ostream &out, const DiamondTrap &diamondTrap)
 {
     out << "DiamondTrap (" << diamondTrap.getName() << ") - HP: " << diamondTrap.getHit()
         << ", Energy: " << diamondTrap.getEnergy() << ", Attack: " << diamondTrap.getAttack();
-    return out;
+    return (out);
 }
