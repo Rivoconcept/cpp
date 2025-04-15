@@ -6,31 +6,33 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:35:14 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/14 19:01:03 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:37:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANIMAL_H
 #define ANIMAL_H
 
-# include <cstdlib>
 # include <iostream>
 # include <string>
 
 class Animal
 {
-    private:
+    protected:
         std::string _type;
 
     public:
         Animal();
         Animal(std::string type);
         Animal(const Animal& animal);
-        ~Animal();
+        virtual ~Animal();
 
         const std::string& getType( void ) const;
+        void setType(std::string type);
 
         Animal &operator=(const Animal& animal);
+
+        virtual void makeSound() const;
 
 };
 

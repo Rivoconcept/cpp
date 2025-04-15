@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/04/14 18:52:03 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/04/15 17:42:44 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ANIMAL = main.cpp ClapTrap.cpp
+ANIMAL = main.cpp Animal.cpp Dog.cpp Cat.cpp
  
 DIR_ANIMAL = ./
 SRC_ANIMAL = $(addprefix $(DIR_ANIMAL),$(ANIMAL))
