@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:07:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/14 18:40:06 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:00:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ DiamondTrap::DiamondTrap() : ClapTrap("Default_clap_trap"), ScavTrap(), FragTrap
 {
     this->_hit = FragTrap::_hit;
     this->_energy = ScavTrap::_energy;
-    this->_attack = FragTrap::_attack;
+    this->_attack = ScavTrap::_attack;
     std::cout << "DiamondTrap: Default constructor called for DiamondTrap" << _name << std::endl;
 }
 

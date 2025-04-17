@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:59:21 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/18 17:00:23 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:45:38 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ const std::string& HumanA::getWeapon() const
 
 void HumanA::attack() const
 {
-    std::cout << _name << " attacks with their " << getWeapon() << std::endl;
+    std::cout << _name << " attacks with their " << this->_weapon.getType() << std::endl;
 }
