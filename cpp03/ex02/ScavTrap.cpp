@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/17 17:41:43 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:17:18 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 {
     _hit = 100;
     _energy = 50;
-    _attack = 20;
-    std::cout << "ScavTrap: Personalized constructor called for " << _name << std::endl;
+    _attackDamage = 20;
+    std::cout << "ScavTrap: Constructor called for " << _name << std::endl;
 }
 
 ScavTrap::~ScavTrap()
@@ -43,7 +43,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap& scavTrap)
         this->_name = scavTrap._name;
         this->_hit = scavTrap._hit;
         this->_energy = scavTrap._energy;
-        this->_attack = scavTrap._attack;
+        this->_attackDamage = scavTrap._attackDamage;
     }
     return (*this);
 }
@@ -53,7 +53,7 @@ void ScavTrap::attack(const std::string &target)
     if (_energy > 0 && _hit > 0)
     {
         std::cout << "ScavTrap " <<  this->_name << " attacks " << target
-                  << ", causing " <<  this->_attack << " points of damage!" << std::endl;
+                  << ", causing " <<  this->_attackDamage << " points of damage!" << std::endl;
         this->_energy--;
     }
     else
@@ -64,7 +64,14 @@ void ScavTrap::attack(const std::string &target)
 
 void ScavTrap::guardGate()
 {
-    std::cout << "ScavTrap " << this->_name << " has entered Gate keeper mode!" << std::endl;
+    if (_hit > 0)
+    {
+        std::cout << "ScavTrap " << this->_name << " has entered Gate keeper mode!" << std::endl;
+    }
+    else
+    {
+        std::cout << "ScavTrap " << this->_name << " can't enter gate guard mode! Because he's dead" << std::endl;
+    }
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:42:56 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/15 18:16:51 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:35:50 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ Dog::~Dog()
 
 void Dog::makeSound() const
 {
-    std::cout << "WOUFFFF! WOUFFF! WOUFFFF! " << std::endl;
+    std::cout << "Dog: WOUFFFF! WOUFFF! WOUFFFF! " << std::endl;
 }

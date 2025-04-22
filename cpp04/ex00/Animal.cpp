@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:34:52 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/15 18:05:21 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:36:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Animal::Animal(): _type("Animal")
 
 Animal::Animal(std::string type) : _type(type)
 {
-    std::cout << "Animal: Personalized constructor called for "<< this->_type << std::endl; 
+    std::cout << "Animal: Constructor called for "<< this->_type << std::endl; 
 }
 
 Animal::~Animal()
@@ -54,7 +54,7 @@ Animal &Animal::operator=(const Animal& animal)
 
 void Animal::makeSound() const
 {
-    std::cout << "The Default sound of animal" << std::endl;
+    std::cout << "Animal: The Default sound of animal" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream& out, const Animal& animal)

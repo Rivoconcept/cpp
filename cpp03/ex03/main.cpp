@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 13:58:35 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/04/11 09:44:36 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/20 13:26:54 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,33 @@
 
 int main()
 {
-    std::cout << "\n--- Creating DiamondTrap Bob ---" << std::endl;
-    DiamondTrap bob("Bob");
+    ScavTrap david("David");
+    FragTrap goliath("Goliath");
+    DiamondTrap bob("Bob", goliath, david);
 
-    std::cout << "\n--- Bob attacks target 'Target_1' ---" << std::endl;
-    bob.attack("Target_1");
+    std::cout << std::endl;
+    std::cout << "Bob's Hit point = " << bob.getHit() << std::endl;
+    std::cout << "Bob's Energy point = " << bob.getEnergy() << std::endl;
+    std::cout << "Bob's Attack damage = " << bob.getAttack() << std::endl;
 
-    std::cout << "\n--- Bob introduces himself ---" << std::endl;
+    std::cout << std::endl;
+
+    david.attack("Goliath");
+    goliath.attack("David");
+    bob.attack("Goliath");
+
+    std::cout << std::endl;
+
+    david.beRepaired(5);
+    goliath.beRepaired(5);
+    bob.beRepaired(5);
+
+    std::cout << std::endl;
+
+    david.guardGate();
+    goliath.highFivesGuys();
     bob.whoAmI();
 
-    std::cout << "\n--- Copying Bob into Alice ---" << std::endl;
-    DiamondTrap alice(bob);
-    alice.setName("Alice");
-
-    std::cout << "\n--- Alice attacks target 'Target_2' ---" << std::endl;
-    alice.attack("Target_2");
-
-    std::cout << "\n--- Alice introduces herself ---" << std::endl;
-    alice.whoAmI();
-
-    std::cout << "\n--- End of program: destructors called ---" << std::endl;
-    return 0;
+    return (0);
 }
-
-
 

@@ -6,20 +6,20 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:04:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/08 17:58:30 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:17:18 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : _name("Default"), _hit(10), _energy(10), _attack(0)
+ClapTrap::ClapTrap() : _name("Default"), _hit(10), _energy(10), _attackDamage(0)
 {
     std::cout << "ClapTrap: Default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string &name) : _name(name), _hit(10), _energy(10), _attack(0)
+ClapTrap::ClapTrap(const std::string &name) : _name(name), _hit(10), _energy(10), _attackDamage(0)
 {
-    std::cout << "ClapTrap: Personalized constructor called for " <<  this->_name << std::endl;
+    std::cout << "ClapTrap: Constructor called for " <<  this->_name << std::endl;
 }
 
 ClapTrap::~ClapTrap()
@@ -40,7 +40,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &clapTrap)
         this->_name = clapTrap._name;
         this->_hit = clapTrap._hit;
         this->_energy = clapTrap._energy;
-        this->_attack = clapTrap._attack;
+        this->_attackDamage = clapTrap._attackDamage;
     }
     return (*this);
 }
@@ -62,7 +62,7 @@ const unsigned int& ClapTrap::getEnergy() const
 
 const unsigned int& ClapTrap::getAttack() const
 {
-    return this->_attack;
+    return this->_attackDamage;
 }
 
 void ClapTrap::setName(const std::string &name)
@@ -82,7 +82,7 @@ void ClapTrap::setEnergy(unsigned int energy)
 
 void ClapTrap::setAttack(unsigned int attack)
 {
-    this->_attack = attack;
+    this->_attackDamage = attack;
 }
 
 void ClapTrap::attack(const std::string &target)
@@ -90,7 +90,7 @@ void ClapTrap::attack(const std::string &target)
     if (_energy > 0 && _hit > 0)
     {
         std::cout << "ClapTrap " <<  this->_name << " attacks " << target
-                  << ", causing " <<  this->_attack << " points of damage!" << std::endl;
+                  << ", causing " <<  this->_attackDamage << " points of damage!" << std::endl;
         this->_energy--;
     }
     else

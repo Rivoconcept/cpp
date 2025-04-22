@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/11 09:23:52 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/04/20 13:31:05 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ FragTrap::FragTrap() : ClapTrap("Default_Frag")
 FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 {
     _hit = 100;
-    _energy = 50;
-    _attack = 20;
-    std::cout << "FragTrap: Personalized constructor called for " << _name << std::endl;
+    _energy = 100;
+    _attackDamage = 30;
+    std::cout << "FragTrap: Constructor called for " << _name << std::endl;
 }
 
 
@@ -44,7 +44,7 @@ FragTrap &FragTrap::operator=(const FragTrap& fragTrap)
         this->_name = fragTrap._name;
         this->_hit = fragTrap._hit;
         this->_energy = fragTrap._energy;
-        this->_attack = fragTrap._attack;
+        this->_attackDamage = fragTrap._attackDamage;
     }
     return (*this);
 }
@@ -54,7 +54,7 @@ void FragTrap::attack(const std::string &target)
     if (_energy > 0 && _hit > 0)
     {
         std::cout << "FragTrap " <<  this->_name << " attacks " << target
-                  << ", causing " <<  this->_attack << " points of damage!" << std::endl;
+                  << ", causing " <<  this->_attackDamage << " points of damage!" << std::endl;
         this->_energy--;
     }
     else
@@ -65,7 +65,15 @@ void FragTrap::attack(const std::string &target)
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << "FragTrap " << this->_name << " says: High five, guys! ✋😄" << std::endl;
+    if (_hit > 0)
+    {
+        std::cout << "FragTrap " << this->_name << " says: High five, guys! ✋😄" << std::endl;
+    }
+    else
+    {
+        std::cout << "FragTrap " << this->_name << " can't says: High five, guys! Because he's dead" << std::endl;
+    }
+
     std::cout << std::endl;
 }
 
