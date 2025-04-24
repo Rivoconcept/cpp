@@ -6,7 +6,7 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/04/10 17:56:10 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/04/24 16:45:07 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,25 +17,25 @@ SRC_DIAMONDTRAP = $(addprefix $(DIR_DIAMONDTRAP),$(DIAMONDTRAP))
 
 OBJ_DIAMONDTRAP = $(SRC_DIAMONDTRAP:.cpp=.o)
 
-EXEC = DiamondTrap
+NAME = DiamondTrap
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 RM = rm -rf
 
-all : $(EXEC)
+all : $(NAME)
 
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(EXEC) : $(OBJ_DIAMONDTRAP)
+$(NAME) : $(OBJ_DIAMONDTRAP)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
 	$(RM) $(OBJ_DIAMONDTRAP)
 	
 fclean : clean
-	$(RM) $(EXEC)
+	$(RM) $(NAME)
 
 re : fclean all
 

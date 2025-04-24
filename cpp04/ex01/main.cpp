@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:41:47 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/22 18:31:24 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:13:36 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include "Brain.hpp"
 
 int main()
 {
-    {
+   /* {
         const Animal* meta = new Animal();
         const Animal* j = new Dog();
         const Animal* i = new Cat();
@@ -47,8 +48,14 @@ int main()
         good->makeSound();
 
         delete good;
-    }
+    }*/
 
+    const Brain brain;
+
+    const std::string* tab = brain.getTab();
+    for (int i = 0; i < 10; ++i) {
+        std::cout << tab[i] << std::endl;
+    }
 
     return (0);
 }

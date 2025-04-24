@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 17:58:47 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/24 17:22:12 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/04/24 17:09:59 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/04/24 18:13:19 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_H
-# define CAT_H
+#include "Brain.hpp"
 
-# include "Animal.hpp"
-# include "Brain.hpp"
+Brain::Brain() {}
 
-class Cat : public Animal
+Brain::~Brain() {}
+
+const std::string* Brain::getTab() const
 {
-    /*private:
-        Brain* brain;*/
+    return (this->tab);
+}
 
-    public:
-        Cat();
-        ~Cat();
-
-        void makeSound() const;
-
-};
-
-#endif
+void Brain::setTab(int index, const std::string& value)
+{
+    if (index >= 0 && index < 100)
+        tab[index] = value;
+}
