@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:35:14 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/15 18:37:49 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:57:57 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define ANIMAL_H
 
 # include <iostream>
-# include <string>
+# include <cstring>
 
 class Animal
 {

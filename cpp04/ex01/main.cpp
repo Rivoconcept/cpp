@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:41:47 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/24 18:13:36 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/27 14:09:24 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,54 @@
 
 int main()
 {
-   /* {
-        const Animal* meta = new Animal();
-        const Animal* j = new Dog();
-        const Animal* i = new Cat();
-        std::cout << j->getType() << " " << std::endl;
-        std::cout << i->getType() << " " << std::endl;
-        i->makeSound(); //will output the cat sound!
-        j->makeSound();
-        meta->makeSound();
+    const int size = 6;
+    const Animal* animals[size];
 
-        delete j;
-        delete i;
-    }
+    for (int i = 0; i < size; i++)
     {
-        std::cout << std::endl << "***** WrongAnimal test *****\n" << std::endl;
-        const WrongAnimal* wrong = new WrongCat();
+        if (i < size / 2)
+            animals[i] = new Dog();
+        else
+            animals[i] = new Cat();
+    }
 
-        std::cout << "Type: " << wrong->getType() << std::endl;
-        wrong->makeSound(); 
-        
-        delete wrong;
+    for (int i = 0; i < size; i++)
+    {
+        if (i < size / 2)
+        {
+            Dog* dog = (Dog*)animals[i];
+            dog->setBrainIdea(0, "I want to play!");
+            dog->setBrainIdea(1, "I want to eat!");
+        }
+        else
+        {
+            Cat* cat = (Cat*)animals[i];
+            cat->setBrainIdea(0, "I want to sleep...");
+            cat->setBrainIdea(1, "I want to climb the curtains!");
+        }
+    }
 
-        std::cout << std::endl << "***** Animal test *****\n" << std::endl;
-        const Animal* good = new Cat();
+    for (int i = 0; i < size; i++)
+    {
+        if (i < size / 2)
+        {
+            Dog* dog = (Dog*)animals[i];
+            std::cout << "Dog Idea 0: " << dog->getBrainIdea(0) << std::endl;
+            std::cout << "Dog Idea 1: " << dog->getBrainIdea(1) << std::endl;
+        }
+        else
+        {
+            Cat* cat = (Cat*)animals[i];
+            std::cout << "Cat Idea 0: " << cat->getBrainIdea(0) << std::endl;
+            std::cout << "Cat Idea 1: " << cat->getBrainIdea(1) << std::endl;
+        }
+    }
 
-        std::cout << "Type: " << good->getType() << std::endl;
-        good->makeSound();
-
-        delete good;
-    }*/
-
-    const Brain brain;
-
-    const std::string* tab = brain.getTab();
-    for (int i = 0; i < 10; ++i) {
-        std::cout << tab[i] << std::endl;
+    for (int i = 0; i < size; i++)
+    {
+        delete animals[i];
     }
 
     return (0);
 }
+

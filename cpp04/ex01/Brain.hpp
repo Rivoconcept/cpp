@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 16:58:53 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/24 18:11:47 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:32:14 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@
 class Brain
 {
     private:
-        std::string tab[100];
+        std::string ideas[100];
 
     public:
         Brain();
+        Brain(const Brain& brain);
+        Brain& operator=(const Brain& brain);
         ~Brain();
 
-        const std::string* getTab() const;
-        void setTab(int index, const std::string& value);
+        const std::string& getTabIdea(int index) const;
+        void setTabIdea(int index, const std::string& idea);
         
 
 };
