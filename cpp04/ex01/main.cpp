@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:41:47 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/27 14:09:24 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:55:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,72 @@
 #include "WrongCat.hpp"
 #include "Brain.hpp"
 
+#include "Dog.hpp"
+#include "Cat.hpp"
+#include <iostream>
+
 int main()
 {
     const int size = 6;
-    const Animal* animals[size];
+    const int half = size / 2;
+    const int ideasCount = 3;
 
-    for (int i = 0; i < size; i++)
-    {
-        if (i < size / 2)
-            animals[i] = new Dog();
-        else
-            animals[i] = new Cat();
-    }
+    const std::string dogIdeas[ideasCount] = { "I want to bark", "I want to run", "I want to dig holes"};
 
-    for (int i = 0; i < size; i++)
+    const std::string catIdeas[ideasCount] = {"I want to sleep", "I want to eat fish", "I want to climb trees"};
+
+    Dog* dogs[half];
+    Cat* cats[half];
+
+    for (int i = 0; i < half; i++)
     {
-        if (i < size / 2)
+        dogs[i] = new Dog();
+        for (int j = 0; j < ideasCount; j++)
         {
-            Dog* dog = (Dog*)animals[i];
-            dog->setBrainIdea(0, "I want to play!");
-            dog->setBrainIdea(1, "I want to eat!");
-        }
-        else
-        {
-            Cat* cat = (Cat*)animals[i];
-            cat->setBrainIdea(0, "I want to sleep...");
-            cat->setBrainIdea(1, "I want to climb the curtains!");
+            dogs[i]->setBrainIdea(j, dogIdeas[j]);
         }
     }
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < half; i++)
     {
-        if (i < size / 2)
+        cats[i] = new Cat();
+        for (int j = 0; j < ideasCount; j++)
         {
-            Dog* dog = (Dog*)animals[i];
-            std::cout << "Dog Idea 0: " << dog->getBrainIdea(0) << std::endl;
-            std::cout << "Dog Idea 1: " << dog->getBrainIdea(1) << std::endl;
-        }
-        else
-        {
-            Cat* cat = (Cat*)animals[i];
-            std::cout << "Cat Idea 0: " << cat->getBrainIdea(0) << std::endl;
-            std::cout << "Cat Idea 1: " << cat->getBrainIdea(1) << std::endl;
+            cats[i]->setBrainIdea(j, catIdeas[j]);
         }
     }
 
-    for (int i = 0; i < size; i++)
+    std::cout << "\nDog Ideas:\n";
+    for (int i = 0; i < half; i++)
     {
-        delete animals[i];
+        for (int j = 0; j < ideasCount; j++)
+        {
+            std::cout << "Dog[" << i << "] Idea[" << j << "]: " << dogs[i]->getBrainIdea(j) << std::endl;
+        }
     }
 
-    return (0);
+    std::cout << "\nCat Ideas:\n";
+    for (int i = 0; i < half; i++)
+    {
+        for (int j = 0; j < ideasCount; j++)
+        {
+            std::cout << "Cat[" << i << "] Idea[" << j << "]: " << cats[i]->getBrainIdea(j) << std::endl;
+        }
+    }
+
+    std::cout << "\nDog Sounds:\n";
+    for (int i = 0; i < half; i++)
+        dogs[i]->makeSound();
+
+    std::cout << "\nCat Sounds:\n";
+    for (int i = 0; i < half; i++)
+        cats[i]->makeSound();
+
+    for (int i = 0; i < half; i++)
+    {
+        delete dogs[i];
+        delete cats[i];
+    }
+
+    return 0;
 }
-
