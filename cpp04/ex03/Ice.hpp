@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ICharacter.hpp                                     :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 15:11:46 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/02 17:51:53 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/05/02 16:49:13 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/02 17:15:52 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICHARACTER_H
-# define ICHARACTER_H
+#ifndef ICE_H
+# define ICE_H
+# include "AMateria.hpp"
 
-class ICharacter {
+class Ice : public AMateria
+{
     public:
-        virtual std::string const & getName() const = 0;
-        virtual void equip(AMateria* m) = 0;
-        virtual void unequip(int idx) = 0;
-        virtual void use(int idx, ICharacter& target) = 0;
-    };
-    
+        Ice();
+        Ice(const Ice& ice);
+        Ice(const std::string& ice);
+        Ice& operator=(const Ice& ice);
+        ~Ice();
+        
+        
+};
+
 #endif

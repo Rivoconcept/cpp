@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ICharacter.hpp                                     :+:      :+:    :+:   */
+/*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 15:11:46 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/02 17:51:53 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/05/02 17:48:53 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/02 17:53:59 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICHARACTER_H
-# define ICHARACTER_H
+#include "Character.hpp"
 
-class ICharacter {
-    public:
-        virtual std::string const & getName() const = 0;
-        virtual void equip(AMateria* m) = 0;
-        virtual void unequip(int idx) = 0;
-        virtual void use(int idx, ICharacter& target) = 0;
-    };
+Character::Character() : ICharacter()
+{
     
-#endif
+}
