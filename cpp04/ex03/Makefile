@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/02 16:47:34 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/05/03 14:34:24 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ANIMAL = main.cpp AMateria.cpp
+ANIMAL = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
  
 DIR_ANIMAL = ./
 SRC_ANIMAL = $(addprefix $(DIR_ANIMAL),$(ANIMAL))

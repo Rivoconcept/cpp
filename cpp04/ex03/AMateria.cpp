@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:19:28 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/02 18:05:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:20:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ AMateria::~AMateria()
 std::string const & AMateria::getType() const
 {
     return (this->_type);
+}
+
+std::ostream& operator<<(std::ostream& out, const AMateria& m)
+{
+    out << "Materia(" << m.getType() << ")" << std::endl;
+    return (out);
 }

@@ -1,0 +1,145 @@
+Imaginons :
+
+AMateria est une classe abstraite appelée Vehicle.
+
+Ice et Cure sont des types spécifiques de véhicules : une 4x4 et un bus.
+
+ICharacter est une Personne qui conduit un véhicule.
+
+Character est une Personne concrète qui a un garage de 4 véhicules max.
+
+IMateriaSource est une usine de véhicules (comme un constructeur automobile).
+
+MateriaSource est une usine réelle qui peut mémoriser des modèles et en reproduire.
+
+| C++ Concept        | Analogie réelle                   |
+| ------------------ | --------------------------------- |
+| Classe abstraite   | Plan de véhicule                  |
+| Classe concrète    | Véhicule réel (4x4, Bus)          |
+| Interface (`I...`) | Contrat à respecter               |
+| `clone()`          | Dupliquer un véhicule             |
+| `use(target)`      | Action d’un véhicule              |
+| `equip()`          | Mettre un véhicule dans un garage |
+| `MateriaSource`    | Usine qui garde les modèles       |
+
+
+
+Voici les corrections à apporter à ton implémentation pour qu'elle respecte le sujet du module C++ 04, 
+notamment autour de l'interface ICharacter, la classe concrète Character, les matières (AMateria, Ice, Cure), et le polymorphisme via clone().
+
+🔧 Erreurs et corrections principales :
+✅ 1. Character.hpp et Character.cpp
+Ta classe Character n’a pas de gestion d’inventaire (tableau de 4 pointeurs de AMateria*). Ajoute ces membres :
+
+cpp
+Copy
+Edit
+private:
+    std::string _name;
+    AMateria* _inventory[4];
+Corrige les constructeurs pour initialiser l’inventaire :
+
+cpp
+Copy
+Edit
+Character::Character(const std::string& name) : _name(name) {
+    std::cout << "Character: Constructor called" << std::endl;
+    for (int i = 0; i < 4; ++i)
+        _inventory[i] = nullptr;
+}
+Copie les pointeurs (ou clones) dans l’opérateur d’affectation :
+
+cpp
+Copy
+Edit
+Character& Character::operator=(const Character& other) {
+    if (this != &other) {
+        _name = other._name;
+        for (int i = 0; i < 4; ++i) {
+            delete _inventory[i];
+            if (other._inventory[i])
+                _inventory[i] = other._inventory[i]->clone();
+            else
+                _inventory[i] = nullptr;
+        }
+    }
+    return *this;
+}
+Et libère la mémoire dans le destructeur :
+
+cpp
+Copy
+Edit
+Character::~Character() {
+    for (int i = 0; i < 4; ++i)
+        delete _inventory[i];
+    std::cout << "Character: Destructor called" << std::endl;
+}
+Ajoute l’implémentation des méthodes demandées :
+
+cpp
+Copy
+Edit
+std::string const & Character::getName() const { return _name; }
+
+void Character::equip(AMateria* m) {
+    for (int i = 0; i < 4; ++i) {
+        if (!_inventory[i]) {
+            _inventory[i] = m;
+            return;
+        }
+    }
+}
+
+void Character::unequip(int idx) {
+    if (idx >= 0 && idx < 4)
+        _inventory[idx] = nullptr;
+}
+
+void Character::use(int idx, ICharacter& target) {
+    if (idx >= 0 && idx < 4 && _inventory[idx])
+        _inventory[idx]->use(target);
+}
+Corrige aussi operator<< :
+
+cpp
+Copy
+Edit
+std::ostream& operator<<(std::ostream& out, const Character& character) {
+    out << "Character(" << character.getName() << ")";
+    return out;
+}
+✅ 2. Cure::clone() et Ice::clone() manquants
+Ajoute les implémentations :
+
+cpp
+Copy
+Edit
+AMateria* Cure::clone() const {
+    return new Cure();
+}
+
+AMateria* Ice::clone() const {
+    return new Ice();
+}
+✅ 3. Surcharge operator<< corrigée pour Cure et Ice
+Corrige les erreurs de signature : tu oubliais la référence sur std::ostream.
+
+cpp
+Copy
+Edit
+std::ostream& operator<<(std::ostream& out, const Cure& cure) {
+    out << "Cure(" << cure.getType() << ")";
+    return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const Ice& ice) {
+    out << "Ice(" << ice.getType() << ")";
+    return out;
+}
+📌 Remarques complémentaires
+Assure-toi que les headers sont bien inclus une seule fois (#pragma once ou #ifndef/#define).
+
+clone() est essentiel pour éviter de partager des pointeurs bruts entre Character.
+
+Souhaites-tu que je corrige aussi IMateriaSource et la classe concrète correspondante ?

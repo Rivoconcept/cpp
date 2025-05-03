@@ -23,7 +23,10 @@ class Cure : public AMateria
         Cure& operator=(const Cure& cure);
         ~Cure();
         
-        
+        AMateria* clone() const;
+        void use(ICharacter& target);
 };
+
+std::ostream& operator<<(std::ostream out, const Cure& cure);
 
 #endif

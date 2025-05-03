@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:48:54 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/02 17:27:35 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:20:44 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,21 @@ Ice& Ice::operator=(const Ice& ice)
 Ice::~Ice()
 {
     std::cout << "Ice: Destructor called" << std::endl;
+}
+
+AMateria* Ice::clone() const
+{
+    return (new Ice());
+}
+
+void Ice::use(ICharacter& target)
+{
+    std::cout << "* shoots an ice bolt at " << target.getName() << "*" << std::endl;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const Ice& ice)
+{
+    out << "Ice (" << ice.getType() << ")" << std::endl;
+    return (out);
 }

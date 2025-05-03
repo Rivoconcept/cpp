@@ -42,8 +42,18 @@ Cure::~Cure()
     std::cout << "Cure: Destructor called" << std::endl;
 }
 
-void AMateria::use(ICharacter& target)
+AMateria* Cure::clone() const
 {
-    std::cout << Ice : "* shoots an ice bolt at " << name << "*" << std::endl; 
-    std::cout << Cure : "* heals " << name << "\’s wounds *" << std::endl; 
+    return (new Cure());
+}
+
+void Cure::use(ICharacter& target)
+{
+    std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl; 
+}
+
+std::ostream& operator<<(std::ostream out, const Cure& cure)
+{
+    out << "Cure (" << cure.getType() << ")" << std::endl;
+    return (out);
 }

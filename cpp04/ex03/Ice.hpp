@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:49:13 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/02 17:15:52 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:03:43 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ class Ice : public AMateria
         Ice& operator=(const Ice& ice);
         ~Ice();
         
-        
+        AMateria* clone() const;
+        void use(ICharacter& target);
 };
+
+std::ostream& operator<<(std::ostream out, const Ice& ice);
 
 #endif
