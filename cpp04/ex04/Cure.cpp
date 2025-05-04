@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 16:49:13 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/04 15:37:03 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/05/04 11:53:41 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/04 11:53:43 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_H
-# define ICE_H
-# include "AMateria.hpp"
+#include "Cure.hpp"
+#include <iostream>
 
-class Ice : public AMateria
-{
-    public:
-        Ice();
-        Ice(const Ice& ice);
-        Ice& operator=(const Ice& ice);
-        ~Ice();
-        
-        AMateria* clone() const;
-        void use(ICharacter& target);
-};
+Cure::Cure() : AMateria("cure") {}
 
-std::ostream& operator<<(std::ostream& out, const Ice& ice);
+Cure::~Cure() {}
 
-#endif
+AMateria *Cure::clone() const {
+    return new Cure();
+}
+
+void Cure::use(ICharacter &target) {
+    std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl;
+}

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 16:49:13 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/04 15:37:03 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/05/04 11:49:05 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/04 11:49:28 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_H
-# define ICE_H
-# include "AMateria.hpp"
+#include "AMateria.hpp"
+#include <iostream>
 
-class Ice : public AMateria
+AMateria::AMateria(std::string const &type) : _type(type) {}
+
+AMateria::~AMateria() {}
+
+std::string const &AMateria::getType() const
 {
-    public:
-        Ice();
-        Ice(const Ice& ice);
-        Ice& operator=(const Ice& ice);
-        ~Ice();
-        
-        AMateria* clone() const;
-        void use(ICharacter& target);
-};
+    return (this->_type);
+}
 
-std::ostream& operator<<(std::ostream& out, const Ice& ice);
-
-#endif
+void AMateria::use(ICharacter &target)
+{
+    (void)target;
+}

@@ -12,26 +12,22 @@
 
 #include "Cure.hpp"
 
-Cure::Cure() : AMateria()
+Cure::Cure() : AMateria("cure")
 {
     std::cout << "Cure: Default constructor called" << std::endl;
 }
 
-Cure::Cure(const std::string& cure) : AMateria(cure)
-{
-    std::cout << "Cure: Constructor called" << std::endl;
-}
-
-Cure::Cure(const Cure& cure) : AMateria()
+Cure::Cure(const Cure& cure) : AMateria(cure)
 {
     std::cout << "Cure: Copy constructor called" << std::endl;
-    *this = cure;
+    this->_type = cure._type;;
 }
 
 Cure& Cure::operator=(const Cure& cure)
 {
     if (this != &cure)
     {
+        AMateria::operator=(cure);
         this->_type = cure._type;
     }
     return (*this);
@@ -52,7 +48,7 @@ void Cure::use(ICharacter& target)
     std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl; 
 }
 
-std::ostream& operator<<(std::ostream out, const Cure& cure)
+std::ostream& operator<<(std::ostream& out, const Cure& cure)
 {
     out << "Cure (" << cure.getType() << ")" << std::endl;
     return (out);

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 16:49:13 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/04 15:37:03 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/05/04 11:52:49 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/04 11:53:01 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_H
-# define ICE_H
-# include "AMateria.hpp"
+#include "Ice.hpp"
+#include <iostream>
 
-class Ice : public AMateria
-{
-    public:
-        Ice();
-        Ice(const Ice& ice);
-        Ice& operator=(const Ice& ice);
-        ~Ice();
-        
-        AMateria* clone() const;
-        void use(ICharacter& target);
-};
+Ice::Ice() : AMateria("ice") {}
 
-std::ostream& operator<<(std::ostream& out, const Ice& ice);
+Ice::~Ice() {}
 
-#endif
+AMateria *Ice::clone() const {
+    return new Ice();
+}
+
+void Ice::use(ICharacter &target) {
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+}

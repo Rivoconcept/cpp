@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:33:40 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/04 16:03:58 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/03 14:12:48 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int main(void)
     tmp = src->createMateria("cure");
     me->equip(tmp);
     ICharacter* bob = new Character("bob");
-    std::cout << std::endl;
     me->use(0, *bob);
     me->use(1, *bob);
-    std::cout << std::endl;
     delete bob;
     delete me;
     delete src;

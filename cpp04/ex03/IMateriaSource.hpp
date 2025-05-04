@@ -6,13 +6,14 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 12:50:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/03 13:06:16 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/04 14:49:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IMATERIASOURCE_H
 # define IMATERIASOURCE_H
-#include "AMateria.hpp"
+
+# include "AMateria.hpp"
 
 class IMateriaSource
 {

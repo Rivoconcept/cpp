@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:19:28 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/03 15:20:12 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/04 14:48:38 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ AMateria::AMateria(const std::string& type)
     std::cout << "Materia: Constructor called" << std::endl;
 }
 
-AMateria::AMateria(const AMateria& materia)
+AMateria::AMateria(const AMateria& other) : _type(other._type)
 {
     std::cout << "Materia: Copy constructor called";
-    *this = materia;
 }
 
 AMateria& AMateria::operator=(const AMateria& materia)
@@ -46,6 +45,10 @@ AMateria::~AMateria()
 std::string const & AMateria::getType() const
 {
     return (this->_type);
+}
+
+void AMateria::use(ICharacter &target) {
+    (void)target;
 }
 
 std::ostream& operator<<(std::ostream& out, const AMateria& m)

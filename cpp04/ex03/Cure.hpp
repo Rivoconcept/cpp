@@ -19,7 +19,6 @@ class Cure : public AMateria
     public:
         Cure();
         Cure(const Cure& cure);
-        Cure(const std::string& cure);
         Cure& operator=(const Cure& cure);
         ~Cure();
         
@@ -27,6 +26,6 @@ class Cure : public AMateria
         void use(ICharacter& target);
 };
 
-std::ostream& operator<<(std::ostream out, const Cure& cure);
+std::ostream& operator<<(std::ostream& out, const Cure& cure);
 
 #endif
