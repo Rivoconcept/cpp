@@ -6,13 +6,13 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:48:54 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/04 16:01:20 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:43:43 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Ice.hpp"
 
-Ice::Ice() : AMateria()
+Ice::Ice() : AMateria("ice")
 {
     std::cout << "Ice: Default constructor called" << std::endl;
 }

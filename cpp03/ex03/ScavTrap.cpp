@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:36:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/20 12:34:25 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:40:08 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ ScavTrap::ScavTrap() : ClapTrap("Default_Scav")
 
 ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 {
+    
     _hit = 100;
     _energy = 50;
     _attackDamage = 20;

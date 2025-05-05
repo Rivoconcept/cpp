@@ -1,0 +1,38 @@
+📌 Contexte
+Tu développes un logiciel de dessin. Tu veux que les artistes puissent utiliser différents types de pinceaux : un pinceau à encre, un pinceau aquarelle, un pinceau pixelisé, etc.
+
+🎯 Objectifs
+Créer une classe abstraite Brush représentant un pinceau générique.
+
+Chaque pinceau concret (InkBrush, WatercolorBrush, PixelBrush...) doit dériver de Brush et avoir :
+
+Un type (nom du pinceau)
+
+Une méthode use(Canvas& canvas) pour dessiner
+
+Une méthode clone() pour copier le pinceau
+
+Le programme doit aussi gérer un artiste (Artist), qui a un inventaire de pinceaux (4 max).
+
+Il peut équiper un pinceau, le retirer, l’utiliser sur une toile
+
+Tu peux aussi créer un BrushLibrary pour stocker les modèles de pinceaux, et permettre à l’artiste d’en créer une copie avec clone().
+
+🔁 Concepts C++ que tu manipules
+Classe abstraite
+
+Héritage
+
+Pointeurs de base (Brush*)
+
+Surcharge opérateur =, constructeur de copie, destructeur
+
+Méthodes virtuelles (dont clone)
+
+Polymorphisme
+
+Allocation dynamique
+
+Ce sujet est exactement parallèle à celui des AMateria, mais dans un contexte artistique et visuel plus intuitif.
+
+Souhaites-tu un autre exemple dans un tout autre domaine (ex. robotique, animaux, etc.) ?
