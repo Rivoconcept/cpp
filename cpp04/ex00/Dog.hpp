@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:43:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/15 18:15:33 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:35:00 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ class Dog : public Animal
 {
     public:
         Dog();
+        Dog(const Dog& dog);
+        Dog& operator=(const Dog& dog);
         ~Dog();
 
-    void makeSound() const;
+        void makeSound() const;
         
 };
 

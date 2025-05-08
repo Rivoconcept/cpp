@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:41:47 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/04/22 18:31:24 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:59:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int main()
 
         delete j;
         delete i;
+        delete meta;
     }
     {
         std::cout << std::endl << "***** WrongAnimal test *****\n" << std::endl;
