@@ -1,0 +1,128 @@
+Absolument ! C'est un excellent exercice pour comprendre des concepts clés en C++ comme le polymorphisme, l'abstraction, la gestion de la mémoire et les bonnes pratiques de conception. Décortiquons cela étape par étape.
+
+Le Concept d'Interface en C++
+
+Comme l'énoncé le mentionne, C++ n'a pas de mot-clé interface comme en Java ou C#. En C++, on simule les interfaces en utilisant des classes purement abstraites.
+
+Une classe abstraite est une classe qui ne peut pas être instanciée directement. Elle sert de modèle pour d'autres classes.1 Elle devient abstraite si elle contient au moins une fonction virtuelle pure.   
+1.
+github.com
+github.com
+Une fonction virtuelle pure est déclarée avec virtual ... = 0;. Elle n'a pas d'implémentation dans la classe abstraite. Les classes dérivées (filles) doivent fournir une implémentation pour ces fonctions, sinon elles deviennent elles-mêmes abstraites.
+Une classe purement abstraite est une classe qui ne contient que des fonctions virtuelles pures (ou presque, un destructeur virtuel est souvent la seule exception avec une implémentation vide). Elle définit un "contrat" : toute classe qui en hérite s'engage à implémenter ces fonctions.
+1. AMateria - La Classe de Base Abstraite (Interface pour les Materias)
+
+/**************************************************************************************************/
+Explications pour AMateria:
+
+protected: std::string _type;: Le type est stocké ici. protected signifie que _type est accessible par AMateria elle-même et par toutes les classes qui en héritent (comme Ice et Cure), mais pas depuis l'extérieur.
+AMateria(std::string const & type): Un constructeur simple qui prend le type en chaîne de caractères et l'initialise.
+virtual ~AMateria(): Le destructeur virtuel est fondamental quand on fait de l'héritage et qu'on manipule des objets dérivés via des pointeurs sur la classe de base. Si vous avez AMateria* ptr = new Ice(); et que plus tard vous faites delete ptr;, si le destructeur d'AMateria n'est pas virtuel, seul ~AMateria() sera appelé, et non ~Ice(). S'il y avait des allocations spécifiques dans Ice qui devaient être libérées dans ~Ice(), elles ne le seraient pas, causant une fuite de mémoire.
+std::string const & getType() const: Une fonction d'accès (getter) pour récupérer le type de la Materia. Elle est const car elle ne modifie pas l'état de l'objet. Elle retourne une référence constante pour éviter une copie inutile de la chaîne.
+virtual AMateria* clone() const = 0:
+virtual: Indique que cette fonction peut être redéfinie par les classes dérivées.
+= 0: La rend "pure virtuelle". Cela signifie qu'AMateria ne fournit pas d'implémentation pour clone(). Toute classe concrète héritant d'AMateria doit implémenter clone().
+Cela fait d'AMateria une classe abstraite (on ne peut pas faire new AMateria(...)).
+Le but de clone() est de permettre la création d'une copie d'un objet sans connaître son type concret exact au moment de la compilation. Si vous avez un AMateria* qui pointe vers un objet Ice, appeler clone() sur ce pointeur créera et retournera un nouvel objet Ice. C'est crucial pour la copie profonde des Character.
+virtual void use(ICharacter& target):
+virtual: Permet aux classes dérivées de fournir leur propre comportement pour use().
+ICharacter& target: La Materia agira sur une "cible" qui est un ICharacter. L'utilisation d'une référence à l'interface ICharacter permet à use de fonctionner avec n'importe quel type concret de personnage qui implémente ICharacter.
+Dans cet exercice, AMateria::use n'aura probablement pas d'implémentation (ou une implémentation vide), car ce sont les Materias concrètes (Ice, Cure) qui définiront l'action.
+2. Ice et Cure - Classes Concrètes de Materia
+
+Ce seront des classes qui héritent d'AMateria et implémentent les fonctions virtuelles pures.
+
+/********************************************************************************************************************************/
+// Cure serait structurée de la même manière avec le type "cure"
+// et le message "* heals <name>’s wounds *".
+Explications pour Ice (et Cure):
+
+public AMateria: Indique que Ice hérite publiquement d'AMateria. Tout ce qui est public/protégé dans AMateria le reste dans Ice.
+Constructeur Ice(): Il appelle le constructeur d'AMateria en utilisant la liste d'initialisation (: AMateria("ice")) pour fixer le type.
+clone() const: C'est l'implémentation concrète. Elle retourne un pointeur vers une nouvelle instance de Ice (créée avec new Ice()).
+use(ICharacter& target): Implémente l'action spécifique de la Materia Ice. Elle utilise target.getName() pour obtenir le nom du personnage cible (notez que getName() devra être une méthode de ICharacter).
+3. ICharacter - L'Interface pour les Personnages
+/*************************************************************************************************************************************/
+Explications pour ICharacter:
+
+C'est une interface pure (toutes les méthodes sont virtuelles pures, sauf le destructeur qui a une implémentation vide mais est virtuel).
+Elle définit ce qu'un Character doit pouvoir faire : avoir un nom, équiper/déséquiper des Materias, et utiliser des Materias.
+virtual ~ICharacter() {}: Encore une fois, crucial pour éviter les fuites de mémoire lors de la suppression d'objets dérivés via un pointeur de base.
+4. Character - La Classe Concrète du Personnage
+/**************************************************************************************************************************************/
+Explications pour Character:
+
+Héritage: public ICharacter signifie que Character promet d'implémenter toutes les fonctions pures d'ICharacter.
+Membres privés:
+_name: Le nom du personnage.
+_inventory[4]: Un tableau de 4 pointeurs AMateria*. Au début, ces pointeurs doivent être initialisés à nullptr pour indiquer des emplacements vides.
+Constructeur Character(std::string const & name):
+Initialise _name.
+Met tous les emplacements de _inventory à nullptr.
+Destructeur ~Character():
+Doit parcourir _inventory. Pour chaque emplacement non nul, il doit appeler delete sur le pointeur AMateria* pour libérer la mémoire de la Materia. C'est là que le destructeur virtuel d'AMateria est vital.
+equip(AMateria* m):
+Cherche le premier emplacement libre (nullptr) dans _inventory.
+Si trouvé et m n'est pas nullptr, stocke m dans cet emplacement.
+Si l'inventaire est plein ou m est nullptr, ne fait rien.
+Important: Le Character prend "possession" de la Materia pointée par m. Il sera responsable de sa suppression.
+unequip(int idx):
+Vérifie si idx est valide (0-3) et si _inventory[idx] n'est pas nullptr.
+Si oui, met _inventory[idx] à nullptr.
+Crucial: "ne doit PAS delete la Materia !". Cela signifie que le Character abandonne la possession de la Materia, mais ne la détruit pas. L'appelant (par exemple, le main) devient responsable de la gestion de la mémoire de cette Materia "laissée au sol" s'il veut éviter une fuite. C'est une spécification un peu délicate, souvent on retournerait le pointeur pour que l'appelant puisse le gérer.
+use(int idx, ICharacter& target):
+Vérifie si idx est valide et si _inventory[idx] n'est pas nullptr.
+Si oui, appelle _inventory[idx]->use(target). C'est du polymorphisme en action : si _inventory[idx] pointe vers une Ice, Ice::use() sera appelée ; si c'est une Cure, Cure::use() sera appelée.
+Copie Profonde (Constructeur par Recopie et Opérateur d'Affectation):
+Pourquoi profonde ? Si vous faites une copie superficielle (la valeur par défaut), les deux Character (l'original et la copie) partageraient les mêmes objets AMateria dans leur inventaire. Si l'un détruit une Materia, l'autre aura un pointeur invalide. Si l'un modifie une Materia (si elles étaient modifiables), l'autre verrait le changement.
+Constructeur par Recopie Character(Character const & src):
+Copie les membres simples (comme _name).
+Initialise son propre _inventory à nullptr.
+Itère sur l'inventaire de src. Pour chaque AMateria* non nul dans src._inventory, il appelle src._inventory[i]->clone() et stocke le résultat (un pointeur vers une nouvelle Materia) dans son propre inventaire.
+Opérateur d'Affectation Character& operator=(Character const & rhs):
+Protection contre l'auto-affectation: Vérifier if (this == &rhs) return *this;.
+Nettoyage: D'abord, delete toutes les Materias actuellement dans l'inventaire de this (l'objet à gauche de =) pour éviter les fuites de mémoire. Mettre ensuite les slots à nullptr.
+Copie: Copie les membres simples (comme _name) de rhs vers this.
+Clonage: Itère sur l'inventaire de rhs. Pour chaque AMateria* non nul dans rhs._inventory, il appelle rhs._inventory[i]->clone() et stocke le résultat dans this->_inventory.
+Retourne *this.
+5. IMateriaSource - L'Interface pour la Source de Materias
+/***********************************************************************************************************************************/
+Explications pour IMateriaSource:
+
+Interface pure pour un objet capable d'apprendre des types de Materia et d'en créer de nouvelles instances.
+6. MateriaSource - La Classe Concrète de la Source
+/*********************************************************************************************************************************/
+Explications pour MateriaSource:
+
+Membres privés:
+_templates[4]: Un tableau pour stocker jusqu'à 4 "modèles" de AMateria.
+Constructeur MateriaSource():
+Initialise tous les emplacements de _templates à nullptr.
+Destructeur ~MateriaSource():
+Doit parcourir _templates et appeler delete sur chaque AMateria* non nul pour libérer la mémoire des modèles stockés.
+learnMateria(AMateria* m):
+Cherche un emplacement libre (nullptr) dans _templates.
+Si trouvé et m n'est pas nullptr :
+Important: "Copie la Materia passée en paramètre et la stocke en mémoire". Cela signifie que vous ne devez pas stocker m directement, mais une copie de m. Vous ferez donc _templates[i] = m->clone();. La MateriaSource possède alors cette copie.
+Si m était nullptr ou si aucun emplacement n'est libre, ne fait rien.
+La MateriaSource est responsable de la suppression de ces Materias clonées stockées dans _templates (ce qui sera fait dans son destructeur). L'objet AMateria* m original passé en argument n'est pas géré (ni supprimé) par learnMateria.
+createMateria(std::string const & type):
+Parcourt _templates.
+Si un _templates[i] n'est pas nullptr et que _templates[i]->getType() == type:
+Retourne _templates[i]->clone(). Ceci crée une nouvelle instance de la Materia demandée, basée sur le modèle. L'appelant de createMateria devient propriétaire de cette nouvelle instance et devra la gérer (par exemple, l'équiper à un Character ou la delete plus tard).
+Si aucun type correspondant n'est trouvé, retourne 0 (c'est-à-dire nullptr).
+Points Clés à Retenir pour la Maîtrise:
+
+Polymorphisme: La capacité d'utiliser un pointeur de classe de base (AMateria*, ICharacter*) pour interagir avec des objets de classes dérivées (Ice, Cure, Character) et d'obtenir le comportement spécifique de la classe dérivée (grâce aux fonctions virtual). clone() et use() sont des exemples parfaits.
+Abstraction: Les interfaces (AMateria, ICharacter) cachent les détails d'implémentation et ne montrent que les fonctionnalités essentielles.
+Gestion de la Mémoire:
+new et delete: Soyez rigoureux. Tout ce qui est alloué avec new doit être libéré avec delete exactement une fois.
+Destructeurs Virtuels: Indispensables dans les classes de base si vous prévoyez de delete des objets dérivés via un pointeur de base.
+Propriété (Ownership): Qui est responsable de la suppression d'un objet alloué dynamiquement ?
+Character possède les Materias dans son inventaire (et les delete dans son destructeur ou son opérateur d'affectation).
+MateriaSource possède les Materias "modèles" qu'elle a apprises (et les delete dans son destructeur).
+Quand createMateria retourne une Materia, l'appelant en devient propriétaire.
+Quand Character::unequip est appelé, le Character abandonne la propriété, et l'appelant (ou rien, d'où la fuite potentielle si non gérée) doit s'en occuper.
+Copie Profonde vs. Superficielle: Pour les classes qui gèrent des ressources dynamiques (comme Character avec son inventaire), la copie profonde est souvent nécessaire pour éviter que plusieurs objets ne partagent (et potentiellement ne corrompent ou ne suppriment prématurément) les mêmes ressources. La fonction clone() est l'outil qui permet de réaliser cette copie profonde pour les objets polymorphes.
+Règle des Trois/Cinq/Zéro (Rule of Three/Five/Zero): Si vous avez besoin d'écrire l'un des éléments suivants : destructeur, constructeur par copie, opérateur d'affectation par copie, alors vous avez probablement besoin des trois (C++98/03). En C++11 et au-delà, avec les constructeurs de déplacement et les opérateurs d'affectation par déplacement, cela devient la "Règle des Cinq". La "Règle de Zéro" suggère de concevoir des classes de manière à ce que les versions par défaut de ces fonctions spéciales fassent ce qu'il faut (souvent en utilisant des conteneurs intelligents comme std::vector et std::unique_ptr). Cet exercice vous fait implémenter manuellement la "Règle des Trois".
+Cet exercice est dense mais couvre des aspects fondamentaux de la POO en C++. Prenez le temps de bien comprendre chaque partie, surtout la logique derrière clone(), les destructeurs virtuels, et la gestion de la propriété de la mémoire. Bon courage !
