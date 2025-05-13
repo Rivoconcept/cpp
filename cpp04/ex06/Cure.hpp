@@ -3,37 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/04 11:53:20 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:10:21 by rivoinfo         ###   ########.fr       */
+/*   Created: 2025/05/13 17:17:31 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/13 17:42:43 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CURE_HPP
+#ifndef CURE_HPP // Garde d'inclusion
 #define CURE_HPP
 
-#include "AMateria.hpp" // Cure hérite de AMateria
+#include "AMateria.hpp" // Cure hérite de AMateria.
 
-// class ICharacter; // Forward declaration si AMateria.hpp ne le fait pas déjà
-                   // et si ICharacter est utilisé seulement par pointeur/référence ici.
-                   // Normalement, AMateria.hpp s'en charge pour la signature de use().
-
-class Cure : public AMateria
+// La classe Cure est une Materia concrète de type "soin".
+class Cure : public AMateria // Héritage public de AMateria
 {
 public:
-    Cure();                               // Constructeur par défaut
-    Cure(const Cure& src);                // Constructeur par copie
-    Cure& operator=(const Cure& rhs);     // Opérateur d'affectation
-    virtual ~Cure();                      // Destructeur (virtuel par héritage)
+    // --- Constructeurs et Destructeur ---
 
-    // Redéfinition (override) des méthodes virtuelles de AMateria
+    // Constructeur par défaut.
+    // Déclaration seulement. La définition sera dans Cure.cpp.
+    Cure();
+
+    // Constructeur par copie.
+    // Déclaration seulement.
+    Cure(const Cure& src);
+
+    // Opérateur d'affectation.
+    // Déclaration seulement.
+    Cure& operator=(const Cure& rhs);
+
+    // Destructeur.
+    // Automatiquement virtuel.
+    // Déclaration seulement.
+    virtual ~Cure();
+
+    // --- Méthodes Publiques (Redéfinitions) ---
+
+    // Implémentation concrète de la méthode clone pour Cure.
+    // Déclaration seulement.
     virtual AMateria* clone() const;
-    virtual void use(ICharacter& target); // ICharacter doit être connu ici,
-                                          // soit par inclusion de ICharacter.hpp
-                                          // soit par forward declaration si AMateria.hpp ne le fait pas
-                                          // pour la signature de AMateria::use.
-                                          // Dans notre cas, AMateria.hpp a une forward declaration.
+
+    // Implémentation concrète de la méthode use pour Cure.
+    // Déclaration seulement.
+    virtual void use(ICharacter& target);
 };
 
 #endif // CURE_HPP

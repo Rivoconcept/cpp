@@ -3,66 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:54:24 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:08:15 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:35:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MateriaSource.hpp"
-
-/*MateriaSource::MateriaSource()
-{
-    for (int i = 0; i < 4; i++)
-        _templates[i] = NULL;
-}
-
-MateriaSource::MateriaSource(const MateriaSource &other)
-{
-    for (int i = 0; i < 4; i++)
-        _templates[i] = other._templates[i] ? other._templates[i]->clone() : NULL;
-}
-
-MateriaSource &MateriaSource::operator=(const MateriaSource &other) {
-    if (this != &other) {
-        for (int i = 0; i < 4; i++) {
-            if (_templates[i])
-                delete _templates[i];
-            _templates[i] = other._templates[i] ? other._templates[i]->clone() : NULL;
-        }
-    }
-    return *this;
-}
-
-MateriaSource::~MateriaSource() {
-    for (int i = 0; i < 4; i++)
-        delete _templates[i];
-}
-
-void MateriaSource::learnMateria(AMateria* m)
-{
-    if (!m)
-        return;
-
-    for (int i = 0; i < 4; ++i)
-    {
-        if (_templates[i] == NULL)
-        {
-            _templates[i] = m->clone();
-            delete m;
-            return;
-        }
-    }
-}
-
-AMateria *MateriaSource::createMateria(std::string const &type) {
-    for (int i = 0; i < 4; i++) {
-        if (_templates[i] && _templates[i]->getType() == type)
-            return _templates[i]->clone();
-    }
-    return NULL;
-}*/
 #include "MateriaSource.hpp" // Header pour MateriaSource
 #include "AMateria.hpp"      // Pour manipuler les AMateria (templates)
 #include <iostream>          // Pour std::cout (optionnel, pour débogage)
@@ -72,7 +19,7 @@ AMateria *MateriaSource::createMateria(std::string const &type) {
 MateriaSource::MateriaSource() {
     // std::cout << "MateriaSource default constructor called" << std::endl; // Optionnel
     for (int i = 0; i < 4; ++i) {
-        this->_templates[i] = nullptr;
+        this->_templates[i] = NULL;
     }
 }
 
@@ -80,10 +27,10 @@ MateriaSource::MateriaSource() {
 MateriaSource::MateriaSource(const MateriaSource& src) {
     // std::cout << "MateriaSource copy constructor called" << std::endl; // Optionnel
     for (int i = 0; i < 4; ++i) {
-        if (src._templates[i] != nullptr) {
+        if (src._templates[i] != NULL) {
             this->_templates[i] = src._templates[i]->clone(); // Copie profonde des templates
         } else {
-            this->_templates[i] = nullptr;
+            this->_templates[i] = NULL;
         }
     }
 }
@@ -94,17 +41,17 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
     if (this != &rhs) {
         // 1. Libérer les templates existants
         for (int i = 0; i < 4; ++i) {
-            if (this->_templates[i] != nullptr) {
+            if (this->_templates[i] != NULL) {
                 delete this->_templates[i];
-                this->_templates[i] = nullptr;
+                this->_templates[i] = NULL;
             }
         }
         // 2. Copier les templates de la source (rhs) en les clonant
         for (int i = 0; i < 4; ++i) {
-            if (rhs._templates[i] != nullptr) {
+            if (rhs._templates[i] != NULL) {
                 this->_templates[i] = rhs._templates[i]->clone();
             } else {
-                this->_templates[i] = nullptr;
+                this->_templates[i] = NULL;
             }
         }
     }
@@ -117,9 +64,9 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
 MateriaSource::~MateriaSource() {
     // std::cout << "MateriaSource destructor called" << std::endl; // Optionnel
     for (int i = 0; i < 4; ++i) {
-        if (this->_templates[i] != nullptr) {
+        if (this->_templates[i] != NULL) {
             delete this->_templates[i]; // Supprime chaque template appris.
-            this->_templates[i] = nullptr;
+            this->_templates[i] = NULL;
         }
     }
 }
@@ -127,12 +74,12 @@ MateriaSource::~MateriaSource() {
 // Apprend un "modèle" de Materia.
 // Copie la Materia passée et la stocke.
 void MateriaSource::learnMateria(AMateria* m) {
-    if (m == nullptr) { // Si la Materia à apprendre est nulle, on ne fait rien.
+    if (m == NULL) { // Si la Materia à apprendre est nulle, on ne fait rien.
         // std::cout << "MateriaSource cannot learn a null Materia." << std::endl; // Optionnel
         return;
     }
     for (int i = 0; i < 4; ++i) {
-        if (this->_templates[i] == nullptr) { // Premier slot libre trouvé.
+        if (this->_templates[i] == NULL) { // Premier slot libre trouvé.
             // "Copie la Materia passée en paramètre et la stocke en mémoire"
             // Cela signifie qu'on ne stocke pas 'm' directement, mais un clone de 'm'.
             // La MateriaSource possède ce clone. L'original 'm' n'est pas géré ici.
@@ -153,7 +100,7 @@ void MateriaSource::learnMateria(AMateria* m) {
 // Retourne une nouvelle instance de la Materia (un clone du template).
 AMateria* MateriaSource::createMateria(std::string const & type) {
     for (int i = 0; i < 4; ++i) {
-        if (this->_templates[i] != nullptr && this->_templates[i]->getType() == type) {
+        if (this->_templates[i] != NULL && this->_templates[i]->getType() == type) {
             // Si un template correspond au type demandé, on retourne un clone de ce template.
             // L'appelant devient propriétaire de cette nouvelle Materia.
             // std::cout << "MateriaSource creating " << type << " from template slot " << i << std::endl; // Optionnel
@@ -162,6 +109,6 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
     }
     // Si aucun template correspondant n'est trouvé.
     // std::cout << "MateriaSource does not know type " << type << ". Cannot create." << std::endl; // Optionnel
-    return nullptr; // Retourne 0 (nullptr) si le type est inconnu.
+    return NULL; // Retourne 0 (nullptr) si le type est inconnu.
 }
 

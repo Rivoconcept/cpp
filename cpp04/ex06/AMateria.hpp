@@ -3,71 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:48:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 14:56:55 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:15:05 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMATERIA_HPP
+#ifndef AMATERIA_HPP // Garde d'inclusion pour éviter les inclusions multiples
 #define AMATERIA_HPP
 
-#include <string>
-#include "ICharacter.hpp"
+#include <string> // Pour l'utilisation de std::string
 
+// Déclaration anticipée (forward declaration) de ICharacter.
+// Nécessaire car AMateria::use() prend un ICharacter& en paramètre.
+// Cela évite d'avoir à inclure ICharacter.hpp ici, réduisant les dépendances cycliques
+// et les temps de compilation si seul un pointeur ou une référence est utilisé.
 class ICharacter;
 
-/*class AMateria
-{
-    protected:
-        std::string _type;
-
-    public:
-        AMateria(std::string const &type);
-        virtual ~AMateria();
-
-        std::string const &getType() const;
-
-        virtual AMateria *clone() const = 0;
-        virtual void use(ICharacter &target);
-};*/
-
+// Classe de base abstraite pour les Materias.
+// Elle sert d'"interface" et définit le contrat commun pour toutes les Materias.
 class AMateria
 {
 protected:
-    std::string _type; // Le type de la Materia (ex: "ice", "cure")
-                       // Protégé pour que les classes filles y aient accès, mais pas le monde extérieur directement.
+    // Le type de la Materia (ex: "ice", "cure").
+    // Protégé pour que les classes dérivées puissent y accéder directement.
+    std::string _type;
 
 public:
-    // Constructeur : Initialise le type de la Materia.
-    AMateria(std::string const & type) : _type(type) {}
+    // --- Constructeurs et Destructeur ---
 
-    // Destructeur virtuel : TRÈS IMPORTANT !
-    // Si vous manipulez des objets Materia via des pointeurs AMateria*
-    // et que vous faites un delete sur ce pointeur, sans destructeur virtuel,
-    // seul le destructeur de AMateria serait appelé, pas celui de la classe dérivée (Ice, Cure).
-    // Cela peut entraîner des fuites de mémoire si les classes dérivées ont des ressources à libérer.
-    // Même s'il est vide ici, sa présence est cruciale.
-    virtual ~AMateria() {}
+    // Constructeur paramétrique: initialise le type de la Materia.
+    // Déclaration seulement. La définition sera dans AMateria.cpp.
+    AMateria(std::string const & type);
 
-    // Getter pour le type. Const car ne modifie pas l'objet.
-    std::string const & getType() const { return this->_type; }
+    // Constructeur par copie.
+    // Déclaration seulement.
+    AMateria(const AMateria& src);
 
-    // Fonction virtuelle pure : clone()
-    // Chaque Materia concrète (Ice, Cure) DOIT implémenter cette fonction.
-    // Son but est de retourner une NOUVELLE instance du même type que l'objet actuel.
-    // Essentiel pour la copie polymorphique (ex: copier un inventaire de Materias).
-    // Const car cloner ne modifie pas l'original.
+    // Opérateur d'affectation.
+    // Déclaration seulement.
+    AMateria& operator=(const AMateria& rhs);
+
+    // Destructeur virtuel.
+    // ESSENTIEL pour les classes de base avec des fonctions virtuelles
+    // afin d'assurer l'appel correct des destructeurs des classes dérivées
+    // lors de la suppression via un pointeur de base.
+    // Déclaration seulement. La définition (même vide) sera dans AMateria.cpp.
+    virtual ~AMateria();
+
+    // --- Méthodes Publiques ---
+
+    // Retourne le type de la Materia.
+    // 'const' car cette méthode ne modifie pas l'état de l'objet.
+    // Déclaration seulement.
+    std::string const & getType() const;
+
+    // Méthode virtuelle pure: clone.
+    // Doit être implémentée par toutes les classes dérivées concrètes.
+    // Elle retourne un pointeur vers une nouvelle instance du même type que l'objet cloné.
+    // 'const' car cloner ne modifie pas l'original.
+    // Le "= 0" la rend purement virtuelle et fait de AMateria une classe abstraite.
     virtual AMateria* clone() const = 0;
 
-    // Fonction virtuelle : use()
-    // Permet à une Materia d'agir sur un personnage cible.
-    // Elle n'est pas purement virtuelle ici (pas de "= 0"), ce qui signifie qu'AMateria
-    // pourrait avoir une implémentation par défaut (bien que ce ne soit pas demandé ici).
-    // Les classes dérivées vont la redéfinir (override) pour avoir un comportement spécifique.
-    virtual void use(ICharacter& target); // L'implémentation sera spécifique à Ice et Cure.
-                                         // On peut laisser le corps vide dans AMateria.cpp si elle n'a pas de comportement par défaut.
+    // Méthode virtuelle: use.
+    // Permet à une Materia d'agir sur un personnage (ICharacter).
+    // Les classes dérivées fourniront l'implémentation spécifique.
+    // Déclaration seulement.
+    virtual void use(ICharacter& target);
 };
 
-#endif
+#endif // AMATERIA_HPP

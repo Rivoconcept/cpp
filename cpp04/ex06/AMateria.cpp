@@ -3,29 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:49:05 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/13 11:40:11 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:19:40 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "AMateria.hpp"
-#include <iostream>
-
-/*AMateria::AMateria(std::string const &type) : _type(type) {}
-
-AMateria::~AMateria() {}
-
-std::string const &AMateria::getType() const
-{
-    return (this->_type);
-}
-
-void AMateria::use(ICharacter &target)
-{
-    (void)target;
-}*/
 
 #include "AMateria.hpp" // Header pour AMateria
 #include "ICharacter.hpp" // Nécessaire pour le paramètre de use()

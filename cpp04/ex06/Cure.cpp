@@ -3,27 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:53:41 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/13 11:41:25 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:42:38 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "Cure.hpp"
-#include <iostream>
-
-/*Cure::Cure() : AMateria("cure") {}
-
-Cure::~Cure() {}
-
-AMateria *Cure::clone() const {
-    return new Cure();
-}
-
-void Cure::use(ICharacter &target) {
-    std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl;
-}*/
 
 #include "Cure.hpp"      // Header pour Cure
 #include "ICharacter.hpp" // Pour le paramètre de use() et target.getName()

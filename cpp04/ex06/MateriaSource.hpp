@@ -3,52 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:54:02 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:04:52 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:18:38 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATERIASOURCE_HPP
+#ifndef MATERIASOURCE_HPP // Garde d'inclusion
 #define MATERIASOURCE_HPP
 
-#include "IMateriaSource.hpp"
+#include "IMateriaSource.hpp" // MateriaSource implémente IMateriaSource.
 
-/*class MateriaSource : public IMateriaSource
-{
-    private:
-        AMateria *_templates[4];
+// class AMateria; // Déjà forward-déclaré dans IMateriaSource.hpp
+                // ou AMateria.hpp serait inclus si IMateriaSource.hpp l'incluait.
 
-    public:
-        MateriaSource();
-        MateriaSource(const MateriaSource &other);
-        MateriaSource &operator=(const MateriaSource &other);
-        virtual ~MateriaSource();
-
-        void learnMateria(AMateria *m);
-        AMateria *createMateria(std::string const &type);
-};*/
-
+// La classe MateriaSource est une implémentation concrète de IMateriaSource.
+// Elle peut apprendre des Materias et en créer de nouvelles instances.
 class MateriaSource : public IMateriaSource
 {
 private:
-    AMateria* _templates[4]; // Stockage pour les "modèles" de Materias appris.
-    // int       _learnedCount; // Optionnel, pour suivre le nombre de templates appris.
+    AMateria* _templates[4]; // Stockage pour les "modèles" de Materias appris (4 maximum).
+    // int       _learnedCount; // Optionnel : pour suivre le nombre de templates réellement appris.
 
 public:
-    // Constructeur : initialise les templates à nullptr.
+    // --- Constructeurs et Destructeur ---
+
+    // Constructeur par défaut.
+    // Déclaration seulement.
     MateriaSource();
 
-    // Destructeur : doit libérer les Materias "modèles" stockées.
+    // Constructeur par copie.
+    // (Important si une MateriaSource doit être copiée, pour copier les templates appris).
+    // Déclaration seulement.
+    MateriaSource(const MateriaSource& src);
+
+    // Opérateur d'affectation.
+    // Déclaration seulement.
+    MateriaSource& operator=(const MateriaSource& rhs);
+
+    // Destructeur.
+    // Doit libérer les Materias "modèles" stockées.
+    // Automatiquement virtuel.
+    // Déclaration seulement.
     virtual ~MateriaSource();
 
-    // (Optionnel mais bonne pratique : constructeur de copie et op. d'affectation si nécessaires,
-    // ils devraient aussi faire des copies profondes des templates en utilisant clone())
+    // --- Implémentation des Méthodes de IMateriaSource ---
 
-    // Implémentations des fonctions de l'interface IMateriaSource.
+    // Apprend un modèle de Materia.
+    // Déclaration seulement.
     virtual void learnMateria(AMateria* m);
+
+    // Crée une Materia à partir d'un type appris.
+    // Déclaration seulement.
     virtual AMateria* createMateria(std::string const & type);
 };
 
-#endif
+#endif // MATERIASOURCE_HPP

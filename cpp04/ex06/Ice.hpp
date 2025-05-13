@@ -3,56 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:52:10 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:11:23 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:42:52 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_HPP
+#ifndef ICE_HPP // Garde d'inclusion
 #define ICE_HPP
-#include <iostream>
-#include <ostream>
 
-#include "AMateria.hpp"
+#include "AMateria.hpp" // Ice hérite de AMateria, donc sa définition est nécessaire.
 
-/*class Ice : public AMateria
+// La classe Ice est une Materia concrète de type "glace".
+class Ice : public AMateria // Héritage public de AMateria
 {
-    public:
-        Ice();
-        virtual ~Ice();
+public:
+    // --- Constructeurs et Destructeur ---
 
-        AMateria *clone() const;
-        void use(ICharacter &target);
-};*/
+    // Constructeur par défaut.
+    // Déclaration seulement. La définition sera dans Ice.cpp.
+    Ice();
 
-// Exemple pour Ice. Cure sera similaire.
-class Ice : public AMateria {
-    public:
-        // Constructeur : appelle le constructeur de AMateria avec le type "ice".
-        Ice() : AMateria("ice") {}
-    
-        // Destructeur : Peut être vide s'il n'y a pas de ressources spécifiques à Ice à libérer.
-        // Le destructeur virtuel de AMateria s'assurera d'un nettoyage correct.
-        virtual ~Ice() {} // Bonne pratique de le déclarer, même vide.
-    
-        // Implémentation de clone() pour Ice.
-        // Retourne une nouvelle instance de Ice.
-        virtual AMateria* clone() const {
-            return new Ice(); // Crée un nouvel objet Ice sur le tas.
-        }
-    
-        // Implémentation de use() pour Ice.
-        // Affiche le message spécifique.
-        virtual void use(ICharacter& target) {
-            std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
-            // Note : AMateria::use(target); pourrait être appelé ici si AMateria avait une implémentation de base,
-            // mais ce n'est pas le cas ici.
-        }
-    };
-    
-    // Cure serait structurée de la même manière avec le type "cure"
-    // et le message "* heals <name>’s wounds *".
+    // Constructeur par copie.
+    // Déclaration seulement.
+    Ice(const Ice& src);
 
-#endif
+    // Opérateur d'affectation.
+    // Déclaration seulement.
+    Ice& operator=(const Ice& rhs);
+
+    // Destructeur.
+    // Automatiquement virtuel car ~AMateria() est virtuel.
+    // Déclaration seulement.
+    virtual ~Ice();
+
+    // --- Méthodes Publiques (Redéfinitions) ---
+
+    // Implémentation concrète de la méthode clone pour Ice.
+    // Retourne une nouvelle instance de Ice.
+    // Déclaration seulement.
+    virtual AMateria* clone() const;
+
+    // Implémentation concrète de la méthode use pour Ice.
+    // Applique l'effet "glace" sur la cible.
+    // ICharacter doit être connu ici (via AMateria.hpp qui a une forward declaration
+    // ou inclurait ICharacter.hpp si AMateria::use était définie ici).
+    // Déclaration seulement.
+    virtual void use(ICharacter& target);
+};
+
+#endif // ICE_HPP

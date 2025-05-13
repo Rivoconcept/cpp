@@ -3,34 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:54:48 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:04:08 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:18:26 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMATERIASOURCE_HPP
+#ifndef IMATERIASOURCE_HPP // Garde d'inclusion
 #define IMATERIASOURCE_HPP
 
-#include <string>
-#include "AMateria.hpp"
+#include <string> // Pour std::string dans createMateria
 
-/*class IMateriaSource {
-public:
-    virtual ~IMateriaSource() {}
-    virtual void learnMateria(AMateria *m) = 0;
-    virtual AMateria *createMateria(std::string const &type) = 0;
-};*/
+// Déclaration anticipée de AMateria.
+// learnMateria prend un AMateria* et createMateria retourne un AMateria*.
+class AMateria;
 
+// Interface pour une source de Materias.
+// Définit le contrat pour apprendre des modèles de Materias et en créer de nouvelles.
 class IMateriaSource
 {
 public:
-    virtual ~IMateriaSource() {}
-    // Apprend un "modèle" de Materia. La source devra la stocker.
+    // Destructeur virtuel.
+    // Déclaration seulement. La définition (même vide : {}) sera dans IMateriaSource.cpp.
+    virtual ~IMateriaSource();
+
+    // --- Méthodes Virtuelles Pures ---
+
+    // Apprend un "modèle" de Materia.
+    // La source devra copier et stocker ce modèle.
     virtual void learnMateria(AMateria* m) = 0;
-    // Crée une instance de Materia basée sur un type appris.
+
+    // Crée et retourne une nouvelle instance de Materia basée sur un type (std::string) appris.
+    // Retourne 0 (nullptr) si le type est inconnu.
     virtual AMateria* createMateria(std::string const & type) = 0;
 };
 
-#endif
+#endif // IMATERIASOURCE_HPP
