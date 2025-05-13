@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:49:05 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/09 15:06:52 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:40:11 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,6 @@ void AMateria::use(ICharacter& target) {
     // ou rien du tout si seules les classes dérivées doivent agir.
     // Pour cet exercice, on peut supposer qu'il ne fait rien ou affiche un message générique
     // qui sera masqué par la redéfinition dans les classes filles.
-    std
+    std::cout << "* AMateria " << this->_type << " used on " << target.getName() << " but has no specific effect *" << std::endl;
+    // Ou simplement : (void)target; // Pour éviter un avertissement de variable non utilisée si le corps est vide.
+}
