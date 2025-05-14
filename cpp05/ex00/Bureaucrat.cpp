@@ -6,32 +6,29 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:41:28 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/13 19:14:28 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:34:01 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
-{
-    
-}
+Bureaucrat::Bureaucrat() {}
 
-Bureaucrat::Bureaucrat(const std::string& name, int grade)
-{
-
-}
+Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name), _grade(grade) {}
 
 Bureaucrat::Bureaucrat(const Bureaucrat& bureaucrat)
 {
-    
-    
+    *this = bureaucrat;  
 }
 
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& bureaucrat)
 {
-    
+    if (this != &bureaucrat)
+    {
+        this->_grade = bureaucrat._grade;
+    }
+    return (*this);
 }
 
 Bureaucrat::~Bureaucrat()

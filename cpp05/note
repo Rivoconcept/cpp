@@ -1,0 +1,35 @@
+Concevons un cauchemar artificiel fait de bureaux, de couloirs, de formulaires et de files d’attente.
+Amusant, non ? Non ? Tant pis.
+
+Commencez d’abord par le plus petit rouage de cette vaste machine bureaucratique : le Bureaucrat.
+
+Un Bureaucrat doit avoir :
+• Un nom constant.
+• Une note (grade) allant de 1 (la note la plus élevée possible) à 150 (la plus basse possible).
+
+Toute tentative d’instancier un Bureaucrat avec une note invalide doit lancer une exception :
+soit une Bureaucrat::GradeTooHighException, soit une Bureaucrat::GradeTooLowException.
+
+Vous devez fournir des accesseurs pour les deux attributs : getName() et getGrade().
+Vous devez également implémenter deux fonctions membres permettant d’incrémenter ou de décrémenter la note du bureaucrate.
+Si la note sort des limites autorisées, ces fonctions doivent lancer les mêmes exceptions que le constructeur.
+
+Rappelez-vous que, comme 1 est la note la plus élevée et 150 la plus basse,
+incrémenter une note de 3 doit aboutir à une note de 2 pour le bureaucrate.
+
+Les exceptions levées doivent pouvoir être capturées avec des blocs try et catch :
+
+
+try
+{
+    /* faire des opérations avec des bureaucrates */
+}
+catch (std::exception & e)
+{
+    /* gérer l'exception */
+}
+
+Vous devez également surcharger l’opérateur d’insertion (<<) afin d’afficher le résultat dans le format suivant (sans les chevrons) :
+<nom>, bureaucrat grade <note>.
+
+Comme toujours, fournissez des tests pour prouver que tout fonctionne comme prévu.
