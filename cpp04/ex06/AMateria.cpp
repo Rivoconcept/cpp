@@ -3,75 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:49:05 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/13 17:19:40 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:41:12 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AMateria.hpp" // Header pour AMateria
-#include "ICharacter.hpp" // Nécessaire pour le paramètre de use()
-#include <iostream>      // Pour std::cout, si AMateria::use avait un message par défaut
+#include "AMateria.hpp"   // Inclusion du header de la classe AMateria
+#include "ICharacter.hpp" // Inclusion pour l'utilisation de ICharacter dans la méthode use()
+#include <iostream>       // Pour std::cout (utilisé dans la méthode use() par défaut)
 
-// Constructeur de AMateria
-// Initialise le membre protégé _type avec la valeur passée en paramètre.
+// --- Constructeurs et Destructeur ---
+
+// Constructeur paramétrique: initialise le type de la Materia.
+// Le membre _type est initialisé grâce à la liste d'initialisation du constructeur.
 AMateria::AMateria(std::string const & type) : _type(type) {
-    // std::cout << "AMateria constructor called for type: " << this->_type << std::endl; // Optionnel: pour le débogage
+    // std::cout << "AMateria Constructor (type: " << this->_type << ") called" << std::endl; // Optionnel: log de débogage
 }
 
-// Constructeur par copie de AMateria
-// Il est généralement implicitement défini, mais si on le définit explicitement :
-// Note : Le sujet ne demande pas explicitement de gérer la copie d'AMateria de cette manière,
-// mais c'est une bonne pratique si on le rend copiable. Typiquement, on se concentre sur clone().
+// Constructeur par copie.
+// Copie le type de la Materia source.
+// L'énoncé initial suggérait que copier le type n'a pas grand intérêt pour une affectation,
+// mais pour un constructeur par copie, il est logique de copier l'état.
 AMateria::AMateria(const AMateria& src) : _type(src._type) {
-    // std::cout << "AMateria copy constructor called for type: " << this->_type << std::endl; // Optionnel
-    // *this = src; // Une autre façon de faire, si l'opérateur d'affectation est bien défini.
+    // std::cout << "AMateria Copy Constructor (type: " << this->_type << ") called" << std::endl; // Optionnel
+    // Si d'autres membres devaient être copiés, ce serait ici.
+    // Ou, alternativement, si l'opérateur= est bien fait : *this = src; (mais attention aux initialisations)
 }
 
-// Opérateur d'affectation de AMateria
-// Gère l'affectation. Comme pour le constructeur par copie, le sujet se concentre sur clone().
-// "Quand on assigne une Materia à une autre, copier son type n’a pas grand intérêt."
-// Cela suggère que cet opérateur ne devrait peut-être rien faire de spécial ou copier le type.
+// Opérateur d'affectation.
+// Gère l'affectation d'une Materia à une autre.
 AMateria& AMateria::operator=(const AMateria& rhs) {
-    // std::cout << "AMateria assignment operator called" << std::endl; // Optionnel
-    if (this != &rhs) {
-        // Normalement, on ne copie pas le type directement selon l'énoncé.
-        // Cependant, si on doit copier quelque chose, ce serait le type.
-        // this->_type = rhs._type; // Le sujet dit que cela n'a pas grand intérêt.
-        // Pour cet exercice, on peut le laisser vide ou juste copier le type.
-        // Par cohérence, si on a un constructeur par copie qui copie le type, l'opérateur devrait aussi.
-        // Mais respectons l'esprit de l'énoncé : la copie se fait via clone().
+    // std::cout << "AMateria Assignment Operator called" << std::endl; // Optionnel
+    if (this != &rhs) { // Protection contre l'auto-affectation (ex: materia1 = materia1)
+        // L'énoncé original disait : "copier son type n’a pas grand intérêt."
+        // On pourrait donc choisir de ne pas copier le type, ou de le faire pour la cohérence.
+        // this->_type = rhs._type; // Si on décide de copier le type.
+        // Pour cet exercice, on peut considérer que les Materias sont principalement définies
+        // par leur type à la construction et clonées, donc l'affectation directe
+        // entre AMateria est moins critique que le clonage.
     }
-    return *this;
+    return *this; // Retourne une référence à l'objet courant.
 }
 
-
-// Destructeur virtuel de AMateria
-// Il est essentiel pour assurer que les destructeurs des classes dérivées sont appelés.
-// Même s'il est vide, sa présence en tant que virtuel est cruciale.
+// Destructeur virtuel.
+// Le corps est vide car AMateria ne gère pas directement de ressources allouées dynamiquement
+// qui lui sont propres (son type est un std::string géré automatiquement).
+// Sa virtualité est cruciale pour les classes dérivées.
 AMateria::~AMateria() {
-    // std::cout << "AMateria destructor called for type: " << this->_type << std::endl; // Optionnel
+    // std::cout << "AMateria Destructor (type: " << this->_type << ") called" << std::endl; // Optionnel
 }
 
-// Getter pour le type de la Materia.
-// Retourne une référence constante vers la chaîne _type.
-// 'const' à la fin signifie que cette méthode не modifie l'état de l'objet.
+// --- Méthodes Publiques ---
+
+// Retourne une référence constante vers le type de la Materia.
 std::string const & AMateria::getType() const {
     return this->_type;
 }
 
 // Méthode use() de base pour AMateria.
-// Dans cet exercice, les classes dérivées (Ice, Cure) fourniront l'implémentation spécifique.
-// Cette version de base pourrait être vide ou afficher un message générique si AMateria
-// n'est pas purement une interface pour cette fonction.
-// L'énoncé ne précise pas de comportement par défaut ici.
+// Fournit un comportement par défaut si une classe dérivée ne la redéfinit pas
+// ou si elle est appelée directement sur un objet AMateria (ce qui ne devrait pas arriver
+// si AMateria est utilisée comme une classe purement abstraite pour cette fonction).
+// Les classes concrètes (Ice, Cure) fourniront l'implémentation spécifique.
 void AMateria::use(ICharacter& target) {
-    // Comportement par défaut pour use(), si nécessaire.
-    // Par exemple, un message indiquant qu'une Materia générique est utilisée,
-    // ou rien du tout si seules les classes dérivées doivent agir.
-    // Pour cet exercice, on peut supposer qu'il ne fait rien ou affiche un message générique
-    // qui sera masqué par la redéfinition dans les classes filles.
-    std::cout << "* AMateria " << this->_type << " used on " << target.getName() << " but has no specific effect *" << std::endl;
-    // Ou simplement : (void)target; // Pour éviter un avertissement de variable non utilisée si le corps est vide.
+    // Comportement par défaut. target.getName() nécessite que ICharacter soit défini.
+    std::cout << "* AMateria " << this->_type << " used on " << target.getName()
+              << ", but it has no specific effect by default *" << std::endl;
+    // Si aucun comportement par défaut n'est souhaité, on peut utiliser (void)target;
+    // pour indiquer que le paramètre est intentionnellement non utilisé et éviter un avertissement.
+    // (void)target;
 }
+
+// Note : AMateria::clone() est une fonction virtuelle pure (virtual ... = 0; dans le .hpp),
+// donc elle n'a PAS de définition dans AMateria.cpp.
+// Chaque classe dérivée concrète (Ice, Cure) DOIT fournir sa propre implémentation de clone().

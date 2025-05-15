@@ -55,33 +55,33 @@ Explications pour Character:
 Héritage: public ICharacter signifie que Character promet d'implémenter toutes les fonctions pures d'ICharacter.
 Membres privés:
 _name: Le nom du personnage.
-_inventory[4]: Un tableau de 4 pointeurs AMateria*. Au début, ces pointeurs doivent être initialisés à nullptr pour indiquer des emplacements vides.
+_inventory[4]: Un tableau de 4 pointeurs AMateria*. Au début, ces pointeurs doivent être initialisés à NULL pour indiquer des emplacements vides.
 Constructeur Character(std::string const & name):
 Initialise _name.
-Met tous les emplacements de _inventory à nullptr.
+Met tous les emplacements de _inventory à NULL.
 Destructeur ~Character():
 Doit parcourir _inventory. Pour chaque emplacement non nul, il doit appeler delete sur le pointeur AMateria* pour libérer la mémoire de la Materia. C'est là que le destructeur virtuel d'AMateria est vital.
 equip(AMateria* m):
-Cherche le premier emplacement libre (nullptr) dans _inventory.
-Si trouvé et m n'est pas nullptr, stocke m dans cet emplacement.
-Si l'inventaire est plein ou m est nullptr, ne fait rien.
+Cherche le premier emplacement libre (NULL) dans _inventory.
+Si trouvé et m n'est pas NULL, stocke m dans cet emplacement.
+Si l'inventaire est plein ou m est NULL, ne fait rien.
 Important: Le Character prend "possession" de la Materia pointée par m. Il sera responsable de sa suppression.
 unequip(int idx):
-Vérifie si idx est valide (0-3) et si _inventory[idx] n'est pas nullptr.
-Si oui, met _inventory[idx] à nullptr.
+Vérifie si idx est valide (0-3) et si _inventory[idx] n'est pas NULL.
+Si oui, met _inventory[idx] à NULL.
 Crucial: "ne doit PAS delete la Materia !". Cela signifie que le Character abandonne la possession de la Materia, mais ne la détruit pas. L'appelant (par exemple, le main) devient responsable de la gestion de la mémoire de cette Materia "laissée au sol" s'il veut éviter une fuite. C'est une spécification un peu délicate, souvent on retournerait le pointeur pour que l'appelant puisse le gérer.
 use(int idx, ICharacter& target):
-Vérifie si idx est valide et si _inventory[idx] n'est pas nullptr.
+Vérifie si idx est valide et si _inventory[idx] n'est pas NULL.
 Si oui, appelle _inventory[idx]->use(target). C'est du polymorphisme en action : si _inventory[idx] pointe vers une Ice, Ice::use() sera appelée ; si c'est une Cure, Cure::use() sera appelée.
 Copie Profonde (Constructeur par Recopie et Opérateur d'Affectation):
 Pourquoi profonde ? Si vous faites une copie superficielle (la valeur par défaut), les deux Character (l'original et la copie) partageraient les mêmes objets AMateria dans leur inventaire. Si l'un détruit une Materia, l'autre aura un pointeur invalide. Si l'un modifie une Materia (si elles étaient modifiables), l'autre verrait le changement.
 Constructeur par Recopie Character(Character const & src):
 Copie les membres simples (comme _name).
-Initialise son propre _inventory à nullptr.
+Initialise son propre _inventory à NULL.
 Itère sur l'inventaire de src. Pour chaque AMateria* non nul dans src._inventory, il appelle src._inventory[i]->clone() et stocke le résultat (un pointeur vers une nouvelle Materia) dans son propre inventaire.
 Opérateur d'Affectation Character& operator=(Character const & rhs):
 Protection contre l'auto-affectation: Vérifier if (this == &rhs) return *this;.
-Nettoyage: D'abord, delete toutes les Materias actuellement dans l'inventaire de this (l'objet à gauche de =) pour éviter les fuites de mémoire. Mettre ensuite les slots à nullptr.
+Nettoyage: D'abord, delete toutes les Materias actuellement dans l'inventaire de this (l'objet à gauche de =) pour éviter les fuites de mémoire. Mettre ensuite les slots à NULL.
 Copie: Copie les membres simples (comme _name) de rhs vers this.
 Clonage: Itère sur l'inventaire de rhs. Pour chaque AMateria* non nul dans rhs._inventory, il appelle rhs._inventory[i]->clone() et stocke le résultat dans this->_inventory.
 Retourne *this.
@@ -97,20 +97,20 @@ Explications pour MateriaSource:
 Membres privés:
 _templates[4]: Un tableau pour stocker jusqu'à 4 "modèles" de AMateria.
 Constructeur MateriaSource():
-Initialise tous les emplacements de _templates à nullptr.
+Initialise tous les emplacements de _templates à NULL.
 Destructeur ~MateriaSource():
 Doit parcourir _templates et appeler delete sur chaque AMateria* non nul pour libérer la mémoire des modèles stockés.
 learnMateria(AMateria* m):
-Cherche un emplacement libre (nullptr) dans _templates.
-Si trouvé et m n'est pas nullptr :
+Cherche un emplacement libre (NULL) dans _templates.
+Si trouvé et m n'est pas NULL :
 Important: "Copie la Materia passée en paramètre et la stocke en mémoire". Cela signifie que vous ne devez pas stocker m directement, mais une copie de m. Vous ferez donc _templates[i] = m->clone();. La MateriaSource possède alors cette copie.
-Si m était nullptr ou si aucun emplacement n'est libre, ne fait rien.
+Si m était NULL ou si aucun emplacement n'est libre, ne fait rien.
 La MateriaSource est responsable de la suppression de ces Materias clonées stockées dans _templates (ce qui sera fait dans son destructeur). L'objet AMateria* m original passé en argument n'est pas géré (ni supprimé) par learnMateria.
 createMateria(std::string const & type):
 Parcourt _templates.
-Si un _templates[i] n'est pas nullptr et que _templates[i]->getType() == type:
+Si un _templates[i] n'est pas NULL et que _templates[i]->getType() == type:
 Retourne _templates[i]->clone(). Ceci crée une nouvelle instance de la Materia demandée, basée sur le modèle. L'appelant de createMateria devient propriétaire de cette nouvelle instance et devra la gérer (par exemple, l'équiper à un Character ou la delete plus tard).
-Si aucun type correspondant n'est trouvé, retourne 0 (c'est-à-dire nullptr).
+Si aucun type correspondant n'est trouvé, retourne 0 (c'est-à-dire NULL).
 Points Clés à Retenir pour la Maîtrise:
 
 Polymorphisme: La capacité d'utiliser un pointeur de classe de base (AMateria*, ICharacter*) pour interagir avec des objets de classes dérivées (Ice, Cure, Character) et d'obtenir le comportement spécifique de la classe dérivée (grâce aux fonctions virtual). clone() et use() sont des exemples parfaits.

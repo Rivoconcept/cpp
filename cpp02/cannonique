@@ -54,7 +54,7 @@ Depuis C++11, on ajoute souvent deux éléments supplémentaires à la forme can
 ```cpp
 // Constructeur de déplacement
 MaClasse(MaClasse&& autre) noexcept : donnees(autre.donnees) {
-    autre.donnees = nullptr;  // Annulation de la propriété des ressources
+    autre.donnees = NULL;  // Annulation de la propriété des ressources
 }
 
 // Opérateur d'affectation par déplacement
@@ -62,7 +62,7 @@ MaClasse& operator=(MaClasse&& autre) noexcept {
     if (this != &autre) {
         delete donnees;
         donnees = autre.donnees;
-        autre.donnees = nullptr;
+        autre.donnees = NULL;
     }
     return *this;
 }

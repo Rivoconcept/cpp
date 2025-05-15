@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 11:54:48 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/13 17:18:26 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:41:03 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ public:
     virtual void learnMateria(AMateria* m) = 0;
 
     // Crée et retourne une nouvelle instance de Materia basée sur un type (std::string) appris.
-    // Retourne 0 (nullptr) si le type est inconnu.
+    // Retourne 0 (NULL) si le type est inconnu.
     virtual AMateria* createMateria(std::string const & type) = 0;
 };
 

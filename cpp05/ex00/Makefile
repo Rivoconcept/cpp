@@ -6,18 +6,18 @@
 #    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/14 14:48:33 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/05/15 09:15:09 by rivoinfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ANIMAL = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
+BUREAUCRAT = Bureaucrat.cpp
  
-DIR_ANIMAL = ./
-SRC_ANIMAL = $(addprefix $(DIR_ANIMAL),$(ANIMAL))
+DIR_BUREAUCRAT = ./
+SRC_BUREAUCRAT = $(addprefix $(DIR_BUREAUCRAT),$(BUREAUCRAT))
 
-OBJ_ANIMAL = $(SRC_ANIMAL:.cpp=.o)
+OBJ_BUREAUCRAT = $(SRC_BUREAUCRAT:.cpp=.o)
 
-NAME = Materia
+NAME = Bureaucrat
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -28,11 +28,11 @@ all : $(NAME)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(NAME) : $(OBJ_ANIMAL)
+$(NAME) : $(OBJ_BUREAUCRAT)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_ANIMAL)
+	$(RM) $(OBJ_BUREAUCRAT)
 	
 fclean : clean
 	$(RM) $(NAME)

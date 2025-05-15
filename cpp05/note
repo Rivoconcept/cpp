@@ -33,3 +33,234 @@ Vous devez également surcharger l’opérateur d’insertion (<<) afin d’affi
 <nom>, bureaucrat grade <note>.
 
 Comme toujours, fournissez des tests pour prouver que tout fonctionne comme prévu.
+
+Voici une implémentation complète et simple en C++ de la classe Bureaucrat avec tout ce que demande l’énoncé :
+ exceptions personnalisées, getters, gestion des limites, incrémentation/décrémentation de grade, surcharge de 
+ l’opérateur <<, et un exemple de test.
+
+📦 Fichier Bureaucrat.hpp
+
+/******************************************************************************************************************** */
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
+
+#include <iostream>
+#include <string>
+#include <exception>
+
+class Bureaucrat {
+private:
+    const std::string name;
+    int grade;
+
+public:
+    Bureaucrat(const std::string& name, int grade);
+    ~Bureaucrat();
+
+    const std::string& getName() const;
+    int getGrade() const;
+
+    void incrementGrade(); // monte en grade (grade--)
+    void decrementGrade(); // descend en grade (grade++)
+
+    class GradeTooHighException : public std::exception {
+    public:
+        const char* what() const noexcept override;
+    };
+
+    class GradeTooLowException : public std::exception {
+    public:
+        const char* what() const noexcept override;
+    };
+};
+
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& b);
+
+#endif
+⚙️ Fichier Bureaucrat.cpp
+
+/******************************************************************************************************************** */
+#include "Bureaucrat.hpp"
+
+// Constructeur
+Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name) {
+    if (grade < 1)
+        throw GradeTooHighException();
+    if (grade > 150)
+        throw GradeTooLowException();
+    this->grade = grade;
+}
+
+// Destructeur
+Bureaucrat::~Bureaucrat() {}
+
+// Accesseurs
+const std::string& Bureaucrat::getName() const {
+    return name;
+}
+
+int Bureaucrat::getGrade() const {
+    return grade;
+}
+
+// Incrémentation (grade--)
+void Bureaucrat::incrementGrade() {
+    if (grade <= 1)
+        throw GradeTooHighException();
+    grade--;
+}
+
+// Décrémentation (grade++)
+void Bureaucrat::decrementGrade() {
+    if (grade >= 150)
+        throw GradeTooLowException();
+    grade++;
+}
+
+// Exceptions personnalisées
+const char* Bureaucrat::GradeTooHighException::what() const noexcept {
+    return "Grade is too high!";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const noexcept {
+    return "Grade is too low!";
+}
+
+// Surcharge opérateur <<
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& b) {
+    out << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
+    return out;
+}
+🧪 Exemple de test – Fichier main.cpp
+
+/******************************************************************************************************************** */
+#include "Bureaucrat.hpp"
+
+int main() {
+    try {
+        Bureaucrat a("Alice", 2);
+        std::cout << a << std::endl;
+
+        a.incrementGrade();  // Alice passe au grade 1
+        std::cout << a << std::endl;
+
+        a.incrementGrade();  // Erreur : grade trop haut
+    }
+    catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    try {
+        Bureaucrat b("Bob", 151);  // Erreur à la construction
+    }
+    catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+✅ Résultat attendu
+vbnet
+Copier
+Modifier
+Alice, bureaucrat grade 2.
+Alice, bureaucrat grade 1.
+Exception: Grade is too high!
+Exception: Grade is too low!
+Souhaitez-vous qu’on ajoute d’autres fonctionnalités, comme la gestion de formulaires ou d’autres classes associées (par exemple Form) ?
+
+
+
+
+
+
+
+Vous avez dit :
+peut on déclarer GradeTooHighException et GradeTooLowException en déhors de la class Bureaucrat
+ChatGPT a dit :
+Oui, on peut déclarer GradeTooHighException et GradeTooLowException en dehors de la classe Bureaucrat, mais cela a des implications de conception et de lisibilité.
+
+✅ 1. Oui techniquement
+Voici ce que cela donnerait si on les déclarait en dehors :
+
+📄 GradeExceptions.hpp
+
+/******************************************************************************************************************** */
+#ifndef GRADE_EXCEPTIONS_HPP
+#define GRADE_EXCEPTIONS_HPP
+
+#include <exception>
+
+class GradeTooHighException : public std::exception {
+public:
+    const char* what() const noexcept override;
+};
+
+class GradeTooLowException : public std::exception {
+public:
+    const char* what() const noexcept override;
+};
+
+#endif
+📄 GradeExceptions.cpp
+
+/******************************************************************************************************************** */
+#include "GradeExceptions.hpp"
+
+const char* GradeTooHighException::what() const noexcept {
+    return "Grade is too high!";
+}
+
+const char* GradeTooLowException::what() const noexcept {
+    return "Grade is too low!";
+}
+📄 Bureaucrat.hpp
+
+/******************************************************************************************************************** */
+#include "GradeExceptions.hpp"
+
+class Bureaucrat {
+    // ...
+    void incrementGrade();
+    void decrementGrade();
+};
+📄 Bureaucrat.cpp
+
+/******************************************************************************************************************** */
+#include "Bureaucrat.hpp"
+
+void Bureaucrat::incrementGrade() {
+    if (grade <= 1)
+        throw GradeTooHighException();
+    grade--;
+}
+
+void Bureaucrat::decrementGrade() {
+    if (grade >= 150)
+        throw GradeTooLowException();
+    grade++;
+}
+⚠️ 2. Mais attention côté conception
+Placer les exceptions à l’intérieur de la classe permet :
+
+de regrouper logiquement les exceptions spécifiques à une classe,
+
+de réduire la pollution de l’espace global de noms,
+
+d’exprimer que ces exceptions n’ont de sens que dans le contexte de Bureaucrat.
+
+C’est pourquoi on préfère souvent les écrire comme classes imbriquées :
+
+
+/******************************************************************************************************************** */
+class Bureaucrat {
+public:
+    class GradeTooHighException : public std::exception { ... };
+    class GradeTooLowException : public std::exception { ... };
+};
+✅ En résumé
+Déclaration des exceptions	Avantages	Inconvénients
+Dans la classe	Encapsulation, clarté, portée limitée	Code un peu plus long dans la même classe
+En dehors de la classe	Réutilisable ailleurs, séparation des responsabilités	Moins clair que l’exception est liée à Bureaucrat
+
+👉 Recommandation : pour ce projet, déclare-les à l’intérieur de Bureaucrat, sauf si tu comptes réutiliser les mêmes exceptions dans plusieurs classes.
