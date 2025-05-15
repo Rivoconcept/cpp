@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 12:37:34 by rivoinfo          #+#    #+#             */
-/*   Updated: 2025/05/15 15:30:36 by rivoinfo         ###   ########.fr       */
+/*   Created: 2025/05/15 12:37:34 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/05/15 18:12:27 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <string>
 #include <exception>
 
+class Bureaucrat;
+
 class Form
 {
     private:
@@ -25,10 +27,34 @@ class Form
         bool _formSigned;
         const int _gradeToSign;
         const int _gradeToExecute;
-
     
-    public:
+    public:        
+        Form();
+        Form(const std::string name, int gts, int gte);
+        Form(const Form& other);
+        Form& operator=(const Form& other);
+        ~Form();
 
+        const std::string& getName() const;
+        bool getFormSigned() const;
+        int getGradeToSign() const;
+        int getGradeToExecute() const;
+
+        class GradeTooHighException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+
+        class GradeTooLowException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+
+        void beSigned(const Bureaucrat& bureaucrat);
 };
+
+std::ostream& operator<<(std::ostream& out, const Form& form);
 
 #endif

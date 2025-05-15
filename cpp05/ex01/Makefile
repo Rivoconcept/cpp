@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/15 09:15:09 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/05/15 18:35:02 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUREAUCRAT = Bureaucrat.cpp
+BUREAUCRAT = main.cpp Bureaucrat.cpp Form.cpp
  
 DIR_BUREAUCRAT = ./
 SRC_BUREAUCRAT = $(addprefix $(DIR_BUREAUCRAT),$(BUREAUCRAT))
 
 OBJ_BUREAUCRAT = $(SRC_BUREAUCRAT:.cpp=.o)
 
-NAME = Bureaucrat
+NAME = Form
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

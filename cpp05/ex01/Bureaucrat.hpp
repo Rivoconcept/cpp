@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:47:29 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 10:53:05 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:36:00 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string>
 #include <exception>
+
+class Form;
 
 class Bureaucrat
 {
@@ -33,8 +35,6 @@ class Bureaucrat
         const std::string& getName() const;
         int getGrade() const;
 
-        void incrementGrade();
-        void decrementGrade();
 
         class GradeTooHighException : public std::exception
         {
@@ -47,6 +47,13 @@ class Bureaucrat
             public:
                 virtual const char* what() const throw();
         };
+
+        void incrementGrade();
+        void decrementGrade();
+
+        void signForm(Form& form) const
+;
+        
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& bureaucrat);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:41:28 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 11:17:08 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:34:27 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,33 +77,4 @@ std::ostream& operator<<(std::ostream& out, const Bureaucrat& bureaucrat)
 {
     out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
     return (out);
-}
-
-int main()
-{
-    try {
-        Bureaucrat a("Alice", 2);
-        std::cout << a << std::endl;
-
-        a.incrementGrade();
-        std::cout << a << std::endl;
-
-        a.incrementGrade();
-
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
-
-    try
-    {
-        Bureaucrat b("Bob", 151);
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
-
-    return 0;
 }
