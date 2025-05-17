@@ -160,9 +160,7 @@ int main() {
     return 0;
 }
 ✅ Résultat attendu
-vbnet
-Copier
-Modifier
+
 Alice, bureaucrat grade 2.
 Alice, bureaucrat grade 1.
 Exception: Grade is too high!
