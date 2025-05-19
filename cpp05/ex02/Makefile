@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/15 18:35:02 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/05/19 17:31:26 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUREAUCRAT = main.cpp Bureaucrat.cpp Form.cpp
+BUREAUCRAT = main.cpp Bureaucrat.cpp AForm.cpp
  
 DIR_BUREAUCRAT = ./
 SRC_BUREAUCRAT = $(addprefix $(DIR_BUREAUCRAT),$(BUREAUCRAT))

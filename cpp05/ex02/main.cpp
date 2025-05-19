@@ -6,27 +6,46 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:33:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 18:33:26 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:31:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+
+#include <iostream>
+
+class DrawTree
+{
+    public:
+        DrawTree();
+        ~DrawTree();
+
+        void draw() const;
+};
+
+DrawTree::DrawTree() {}
+
+DrawTree::~DrawTree() {}
+
+void DrawTree::draw() const
+{
+    std::cout << "    *           *    \n";
+    std::cout << "   ***         ***   \n";
+    std::cout << "  *****       *****  \n";
+    std::cout << " *******     ******* \n";
+    std::cout << "*********   *********\n";
+    std::cout << "   |||         |||   \n";
+    std::cout << "   |||         |||   \n";
+    std::cout << "   |||         |||   " << std::endl;
+}
 
 int main()
 {
     try
     {
-        Bureaucrat bob("Bob", 50);
-        Form formA("FormA", 45, 30);  // grade requis pour signer = 45
-
-        std::cout << formA << std::endl;
-        bob.signForm(formA);          // Bob a un grade de 50, donc il échouera
-        std::cout << formA << std::endl;
-
-        Bureaucrat alice("Alice", 40);
-        alice.signForm(formA);        // Alice a un grade suffisant pour signer
-        std::cout << formA << std::endl;
+       DrawTree tree;
+       tree.draw();
     }
     catch (std::exception& e)
     {

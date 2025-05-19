@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:47:29 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 18:36:00 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:30:36 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <string>
 #include <exception>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -51,7 +51,7 @@ class Bureaucrat
         void incrementGrade();
         void decrementGrade();
 
-        void signForm(Form& form) const
+        void signForm(AForm& form) const
 ;
         
 };
