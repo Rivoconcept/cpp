@@ -3,7 +3,7 @@
 
 House::House() {}
 
-House::House(const Human& h, const ADog& d): _human(new Human(h)), _dog(new ADog(d)) {}
+House::House(const Human& h, const Dog& d): _human(new Human(h)), _dog(new Dog(d)) {}
 
 
 void House::dailyLife() const

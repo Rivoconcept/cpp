@@ -4,19 +4,19 @@
 #include <iostream>
 #include <string>
 #include "Human.hpp"
-#include "ADog.hpp"
+#include "Dog.hpp"
 
 class Human;
-class ADog;
+class Dog;
 
 class House
 {
     private:
         Human* _human;
-        ADog*    _dog;
+        Dog*    _dog;
     public:
         House();
-        House(const Human& h, const ADog& d);
+        House(const Human& h, const Dog& d);
         ~House();
 
         void dailyLife() const;

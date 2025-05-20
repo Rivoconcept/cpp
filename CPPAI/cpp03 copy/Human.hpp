@@ -3,17 +3,17 @@
 #include <iostream>
 #include <string>
 
-#include "ADog.hpp"
+#include "Dog.hpp"
 
 class Human
 {
     private:
         std::string _name;
         int _age;
-        ADog* _dog;
+        Dog* _dog;
     
     public:
-        Human(std::string name, int age, ADog* dog);
+        Human(std::string name, int age, Dog* dog);
         Human(const Human& other);
         Human& operator=(const Human& other);
         ~Human();

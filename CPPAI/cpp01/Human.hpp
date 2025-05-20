@@ -17,6 +17,7 @@ class Human
         ~Human();
 
         void walkDog() const;
+        
 };
 
 #endif
