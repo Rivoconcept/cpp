@@ -1,9 +1,11 @@
-#ifndef BULLDOG_H
-#define BULLDOG_H
+#ifndef BULLDOG_HPP
+#define BULLDOG_HPP
 
 #include <iostream>
 #include <string>
+#include "IAnimal.hpp"
 #include "ADog.hpp"
+
 
 class Bulldog : public ADog
 {
@@ -14,7 +16,7 @@ class Bulldog : public ADog
         ~Bulldog();
 
         void makeSound() const;
-        ADog* clone() const;
+        IAnimal* clone() const;
 };
 
 #endif

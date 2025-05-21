@@ -9,15 +9,7 @@ int ADog::getAge() const
     return (this->_age);
 }
 
-ADog::ADog(const ADog& other)
-{
-    *this = other;
-}
-
-ADog* ADog::clone() const
-{
-    return (new ADog(*this));
-}
+ADog::ADog(const ADog& other): _name(other._name), _age(other._age) {}
 
 ADog& ADog::operator=(const ADog& other)
 {
@@ -32,9 +24,4 @@ ADog& ADog::operator=(const ADog& other)
 const std::string& ADog::getName() const
 {
     return (this->_name);
-}
-
-void ADog::makeSound() const
-{
-    std::cout << this->_name << ": Default Dog sound..." << std::endl; 
 }

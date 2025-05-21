@@ -1,29 +1,25 @@
-#ifndef ADOG_H
-#define ADOG_H
+#ifndef DOG_HPP
+#define DOG_HPP
 
 #include <iostream>
 #include <string>
+#include "IAnimal.hpp"
 
-class ADog
+class ADog : public IAnimal
 {
-    private:
+    protected:
         std::string _name;
         int _age;
 
     public:
         ADog(std::string name, int age);
-        ADog(const ADog& other);
+        ADog(const ADog& dog);
         ADog& operator=(const ADog& other);
-        ~ADog();
+        virtual ~ADog();
 
         int getAge() const;
         const std::string& getName() const;
-
-        virtual void makeSound() const = 0;
-        virtual ADog* clone() const = 0;
 };
-
-//std::ostream& operator<<(std::ostream& out, const ADog& ADog);
 
 
 #endif

@@ -1,25 +1,23 @@
-#ifndef HOUSE_H
-#define HOUSE_H
+#ifndef HOUSE_HPP
+#define HOUSE_HPP
 
 #include <iostream>
-#include <string>
+#include <vector>
 #include "Human.hpp"
-#include "ADog.hpp"
-
-class Human;
-class ADog;
 
 class House
 {
     private:
-        Human* _human;
-        ADog*    _dog;
+        std::vector<Human*> _residents;
+
     public:
         House();
-        House(const Human& h, const ADog& d);
+        House(const House& other);
+        House& operator=(const House& other);
         ~House();
 
-        void dailyLife() const;
+        void addResident(Human* human); // Copie le résident (deep copy)
+        void callEveryone() const;      // Fait aboyer tous les chiens
 };
 
 #endif

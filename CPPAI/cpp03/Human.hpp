@@ -10,10 +10,10 @@ class Human
     private:
         std::string _name;
         int _age;
-        ADog* _dog;
+        IAnimal* _dog;
     
     public:
-        Human(std::string name, int age, ADog* dog);
+        Human(std::string name, int age, const IAnimal* dog);
         Human(const Human& other);
         Human& operator=(const Human& other);
         ~Human();

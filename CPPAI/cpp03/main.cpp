@@ -1,18 +1,21 @@
-#include "Dog.hpp"
+#include "ADog.hpp"
 #include "Human.hpp"
 #include "House.hpp"
+#include "Bulldog.hpp"
+#include "IAnimal.hpp"
 
-int main()
-{
-    Dog* original = new Dog("Billy", 5);
-    Human h("Tom", 30, original);
-    House house(h, *original);
+int main() {
+    IAnimal* dog1 = new Bulldog("Rex", 5);
+    Human* john = new Human("John", 30, dynamic_cast<ADog*>(dog1));
 
-    house.dailyLife();
+    House house;
+    house.addResident(john);
 
-    delete original;  // Doit pouvoir être supprimé sans casser l’objet `h`
+    house.callEveryone();
 
- 
+    delete john;
+    delete dog1;
 
     return 0;
 }
+

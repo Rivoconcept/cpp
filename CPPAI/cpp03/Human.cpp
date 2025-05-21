@@ -1,6 +1,6 @@
 #include "Human.hpp"
 
-Human::Human(std::string name, int age, ADog* dog) : _name(name), _age(age), _dog(new ADog(*dog)) {}
+Human::Human(std::string name, int age, const IAnimal* dog) : _name(name), _age(age), _dog(dog->clone()) {}
 
 Human::Human(const Human& other): _dog(NULL)
 {
@@ -13,10 +13,8 @@ Human& Human::operator=(const Human& other)
     {
         this->_name = other._name;
         this->_age = other._age;
-        if (this->_dog)
-            delete this->_dog;
-        
-        this->_dog = new ADog(*other._dog);
+        delete this->_dog;
+        this->_dog = other._dog->clone();
     }
     return (*this);
 }
@@ -33,6 +31,6 @@ Human::~Human()
 
 void Human::walkDog() const
 {
-    this->_dog->bark();
+    this->_dog->makeSound();
 }
 
