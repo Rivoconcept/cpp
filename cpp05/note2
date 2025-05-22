@@ -5,17 +5,24 @@ Traduction du texte en français :
 Maintenant que vous avez des formulaires de base, il est temps d'en créer quelques-uns de plus qui font réellement quelque chose.
 Dans tous les cas, la classe de base Form doit être une classe abstraite et doit donc être renommée AForm. Gardez à l'esprit que 
 les attributs du formulaire doivent rester privés et qu'ils appartiennent à la classe de base.
+
 Ajoutez les classes concrètes suivantes :
 
-ShrubberyCreationForm : Niveaux requis : signature 145, exécution 137 Crée un fichier <cible>_shrubbery dans
+ShrubberyCreationForm : 
+Niveaux requis : signature 145, exécution 137 Crée un fichier <cible>_shrubbery dans
  le répertoire de travail et y écrit des arbres ASCII.
-RobotomyRequestForm : Niveaux requis : signature 72, exécution 45 Fait des bruits de forage, 
+
+RobotomyRequestForm :
+ Niveaux requis : signature 72, exécution 45 Fait des bruits de forage, 
 puis informe que <cible> a été robotomisé avec succès 50% du temps. Sinon, il informe que la robotomisation a échoué.
-PresidentialPardonForm : Niveaux requis : signature 25, exécution 5 Informe que <cible> a été gracié par
- Zaphod Beeblebrox. Toutes ces classes ne prennent qu'un seul paramètre dans leur constructeur : 
+
+PresidentialPardonForm :
+Niveaux requis : signature 25, exécution 5 Informe que <cible> a été gracié par
+ Zaphod Beeblebrox. 
+ 
+ Toutes ces classes ne prennent qu'un seul paramètre dans leur constructeur : 
  la cible du formulaire. Par exemple, "maison" si vous voulez planter des arbustes à la maison.
-10C++ - Module 05
-Répétition et Exceptions
+
 
 Maintenant, ajoutez la fonction membre execute(Bureaucrat const & executor) const au formulaire
  de base et implémentez une fonction pour exécuter l'action du formulaire dans les classes concrètes. 

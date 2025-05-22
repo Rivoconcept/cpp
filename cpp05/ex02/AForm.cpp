@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:32:27 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/17 16:21:29 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:05:13 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ AForm& AForm::operator=(const AForm& other)
 
 AForm::~AForm() {}
 
-bool AForm::getFormSigned() const
+bool AForm::isFormSigned() const
 {
     return (this->_formSigned);
 }
@@ -54,6 +54,11 @@ int AForm::getGradeToSign() const
 int AForm::getGradeToExecute() const
 {
     return (this->_gradeToExecute);
+}
+
+const char* AForm::FormNotSignedException::what() const throw()
+{
+    return ("Form has not been signed");
 }
 
 const char* AForm::GradeTooHighException::what() const throw()
@@ -76,7 +81,7 @@ void AForm::beSigned(const Bureaucrat& bureaucrat)
 std::ostream& operator<<(std::ostream& out, const AForm& form)
 {
     out << "Form's name is: \"" << form.getName() 
-    << "\"\nIt's signed: \"" << (form.getFormSigned() ? "Yes" : "No")
+    << "\"\nIt's signed: \"" << (form.isFormSigned() ? "Yes" : "No")
     << "\"\nGrade required to sign: \"" << form.getGradeToSign() 
     << "\"\nGrade required to execute: \"" << form.getGradeToExecute() << "\"" << std::endl; 
     return (out);

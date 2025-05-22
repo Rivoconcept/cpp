@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:37:34 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/17 16:20:44 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:03:47 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,16 @@ class AForm
         ~AForm();
 
         const std::string& getName() const;
-        bool getFormSigned() const;
+        bool isFormSigned() const;
         int getGradeToSign() const;
         int getGradeToExecute() const;
-
+        
+        class FormNotSignedException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+        
         class GradeTooHighException : public std::exception
         {
             public:

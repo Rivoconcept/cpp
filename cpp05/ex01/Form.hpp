@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:37:34 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 18:12:27 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:00:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class Form
         ~Form();
 
         const std::string& getName() const;
-        bool getFormSigned() const;
+        bool isFormSigned() const;
         int getGradeToSign() const;
         int getGradeToExecute() const;
 
