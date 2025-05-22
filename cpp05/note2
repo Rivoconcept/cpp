@@ -1,0 +1,115 @@
+Voici la traduction et l'explication du texte que vous avez fourni, sans inclure de code :
+
+Traduction du texte en français :
+
+Maintenant que vous avez des formulaires de base, il est temps d'en créer quelques-uns de plus qui font réellement quelque chose.
+Dans tous les cas, la classe de base Form doit être une classe abstraite et doit donc être renommée AForm. Gardez à l'esprit que 
+les attributs du formulaire doivent rester privés et qu'ils appartiennent à la classe de base.
+Ajoutez les classes concrètes suivantes :
+
+ShrubberyCreationForm : Niveaux requis : signature 145, exécution 137 Crée un fichier <cible>_shrubbery dans
+ le répertoire de travail et y écrit des arbres ASCII.
+RobotomyRequestForm : Niveaux requis : signature 72, exécution 45 Fait des bruits de forage, 
+puis informe que <cible> a été robotomisé avec succès 50% du temps. Sinon, il informe que la robotomisation a échoué.
+PresidentialPardonForm : Niveaux requis : signature 25, exécution 5 Informe que <cible> a été gracié par
+ Zaphod Beeblebrox. Toutes ces classes ne prennent qu'un seul paramètre dans leur constructeur : 
+ la cible du formulaire. Par exemple, "maison" si vous voulez planter des arbustes à la maison.
+10C++ - Module 05
+Répétition et Exceptions
+
+Maintenant, ajoutez la fonction membre execute(Bureaucrat const & executor) const au formulaire
+ de base et implémentez une fonction pour exécuter l'action du formulaire dans les classes concrètes. 
+ Vous devez vérifier que le formulaire est signé et que le niveau du bureaucrate qui tente d'exécuter 
+ le formulaire est suffisamment élevé. Sinon, lancez une exception appropriée.
+Que vous vérifiiez les exigences dans chaque classe concrète ou dans la classe de base (puis appeliez 
+une autre fonction pour exécuter le formulaire) dépend de vous. Cependant, une manière est plus élégante que l'autre.
+Enfin, ajoutez la fonction membre executeForm(AForm const & form) const à la classe Bureaucrat. 
+Elle doit tenter d'exécuter le formulaire. En cas de succès, affichez quelque chose comme :
+<bureaucrate> a exécuté <formulaire>
+Sinon, affichez un message d'erreur explicite.
+Implémentez et soumettez des tests pour vous assurer que tout fonctionne comme prévu.
+
+Explication des concepts et des exigences :
+
+Ce texte décrit une tâche de programmation en C++, axée sur la création d'une hiérarchie 
+de classes pour gérer différents types de formulaires administratifs, avec des règles 
+spécifiques pour leur signature et leur exécution par des "bureaucrates" (une autre classe probablement définie ailleurs).
+
+Voici les points clés expliqués :
+
+Classe de Base Abstraite (AForm) :
+
+L'ancienne classe Form doit devenir une classe abstraite, renommée AForm. 
+Une classe abstraite ne peut pas être instanciée directement ; 
+elle sert de modèle pour d'autres classes (les classes dérivées ou concrètes). 
+Elle contient généralement des fonctions virtuelles pures (qui doivent être implémentées par les classes dérivées).
+Attributs privés appartenant à la classe de base : Les données membres (attributs) communes à tous les formulaires 
+(comme le nom du formulaire, s'il est signé, les niveaux requis pour la signature et l'exécution) doivent 
+être déclarées private dans AForm. Cela garantit l'encapsulation et que l'accès à ces attributs 
+se fait uniquement via les méthodes de la classe (ou des classes amies/dérivées si conçu ainsi).
+Classes Concrètes (Dérivées) :
+Ce sont des classes qui héritent de AForm et implémentent ses fonctionnalités spécifiques. Elles peuvent être instanciées.
+
+ShrubberyCreationForm :
+Niveaux requis : Un bureaucrate doit avoir un niveau de signature d'au moins 145 et un niveau 
+d'exécution d'au moins 137 pour manipuler ce formulaire. (En général, dans ce type d'exercice,
+ un niveau plus bas signifie un grade plus élevé).
+Action : Crée un fichier nommé d'après la cible (par exemple, si la cible est "jardin",
+ le fichier sera "jardin_shrubbery"). Ce fichier contiendra des dessins d'arbres en caractères ASCII.
+RobotomyRequestForm :
+Niveaux requis : Signature 72, exécution 45.
+Action : Simule une tentative de robotomisation. Elle doit d'abord émettre des 
+"bruits de forage". Ensuite, il y a 50% de chances que la robotomisation de la 
+<cible> réussisse et 50% de chances qu'elle échoue, avec un message approprié pour chaque cas.
+PresidentialPardonForm :
+Niveaux requis : Signature 25, exécution 5.
+Action : Informe simplement que la <cible> a été graciée par "Zaphod Beeblebrox" 
+(une référence probable au Guide du voyageur galactique).
+Constructeur : Toutes ces classes concrètes doivent avoir un constructeur qui 
+prend un seul paramètre : une chaîne de caractères représentant la cible du formulaire.
+Fonction execute :
+
+Une nouvelle fonction membre execute(Bureaucrat const & executor) const doit 
+être ajoutée à la classe de base AForm. Le const à la fin signifie que cette 
+méthode ne modifie pas l'état de l'objet AForm lui-même (bien que l'action du
+ formulaire puisse avoir des effets externes, comme créer un fichier).
+Dans chaque classe concrète, cette fonction execute doit être implémentée 
+pour réaliser l'action spécifique du formulaire (créer un fichier, faire des bruits, etc.).
+Vérifications préalables à l'exécution : Avant d'exécuter l'action, cette 
+fonction (ou une fonction qu'elle appelle) doit impérativement vérifier deux conditions :
+Le formulaire doit être signé.
+Le niveau (grade) du Bureaucrat (passé en argument executor) doit être suffisamment élevé 
+(c'est-à-dire inférieur ou égal au niveau d'exécution requis par le formulaire).
+Exceptions : Si l'une de ces conditions n'est pas remplie, une exception appropriée 
+doit être lancée. Les exceptions sont un mécanisme de C++ pour gérer les erreurs d'exécution.
+Emplacement des vérifications : Le texte suggère qu'il y a une manière "plus élégante" 
+de gérer ces vérifications. Souvent, il est plus propre de faire les vérifications communes
+ (comme si le formulaire est signé ou si le grade est suffisant) dans la méthode execute 
+ de la classe de base AForm. Si les conditions sont remplies,
+ la classe de base peut alors appeler une méthode virtuelle pure (ou protégée) qui sera 
+ surchargée par les classes concrètes pour effectuer l'action spécifique. Cela évite la 
+ duplication de code de vérification dans chaque classe concrète.
+Fonction executeForm dans la classe Bureaucrat :
+
+La classe Bureaucrat (qui n'est pas définie ici mais est supposée exister) doit avoir
+ une nouvelle fonction membre executeForm(AForm const & form) const.
+Cette fonction prend une référence constante vers un AForm en argument.
+Son rôle est de tenter d'appeler la méthode execute du formulaire passé en argument, 
+en se passant lui-même (this bureaucrate) comme exécuteur.
+Gestion du succès/échec :
+Si l'exécution du formulaire (l'appel à form.execute(*this)) réussit 
+(c'est-à-dire qu'aucune exception n'est lancée), elle doit afficher un message de succès comme :
+ "<nom_du_bureaucrate> a exécuté <nom_du_formulaire>".
+Si l'exécution échoue (c'est-à-dire si form.execute(*this) lance une exception),
+ la fonction executeForm doit intercepter cette exception et afficher un message 
+ d'erreur explicite. Cela implique généralement un bloc try-catch.
+Tests :
+
+Enfin, il est demandé d'implémenter et de soumettre des tests pour s'assurer que 
+toutes les fonctionnalités (création de formulaires, signature, exécution, gestion
+ des erreurs et des exceptions, messages de sortie) fonctionnent correctement.
+En résumé, cette tâche vous demande d'étendre un système de gestion de formulaires
+ en utilisant les principes de la programmation orientée objet tels que l'abstraction,
+  l'héritage, le polymorphisme (implicite avec la fonction execute virtuelle), et la gestion des exceptions.
+   L'objectif est de créer un système modulaire où de nouveaux types de formulaires peuvent 
+   être facilement ajoutés tout en respectant des règles communes de validation et d'exécution.
