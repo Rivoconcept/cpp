@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-DOG = main.cpp ADog.cpp Bulldog.cpp Human.cpp House.cpp
+DOG = main.cpp ADog.cpp Bulldog.cpp Berger.cpp Human.cpp House.cpp
  
 DIR_DOG = ./
 SRC_DOG = $(addprefix $(DIR_DOG),$(DOG))
