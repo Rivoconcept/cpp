@@ -6,11 +6,12 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/23 18:27:49 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/05/24 16:23:31 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUREAUCRAT = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+BUREAUCRAT = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
+			RobotomyRequestForm.cpp PresidentialPardonForm.cpp
  
 DIR_BUREAUCRAT = ./
 SRC_BUREAUCRAT = $(addprefix $(DIR_BUREAUCRAT),$(BUREAUCRAT))

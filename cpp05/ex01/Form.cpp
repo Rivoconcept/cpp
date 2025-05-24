@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:32:27 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:01:03 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:22:00 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 Form::Form() : _name("DefaultForm"), _formSigned(false), _gradeToSign(150), _gradeToExecute(150) {}
 
-Form::Form(const std::string name, int gts, int gte) : _name(name), _formSigned(false), _gradeToSign(gts), _gradeToExecute(gte)
+Form::Form(const std::string name, int gts, int gte) 
+    : _name(name), _formSigned(false), _gradeToSign(gts), _gradeToExecute(gte)
 {
     if (gts < 1 || gte < 1)
         throw GradeTooHighException();
@@ -23,7 +24,9 @@ Form::Form(const std::string name, int gts, int gte) : _name(name), _formSigned(
         throw GradeTooLowException();
 }
 
-Form::Form(const Form& other) : _name(other._name), _formSigned(other._formSigned), _gradeToSign(other._gradeToSign), _gradeToExecute(other._gradeToExecute) {}
+Form::Form(const Form& other) 
+    : _name(other._name), _formSigned(other._formSigned), \
+        _gradeToSign(other._gradeToSign), _gradeToExecute(other._gradeToExecute) {}
 
 const std::string& Form::getName() const
 {

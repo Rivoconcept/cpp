@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:37:34 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:03:47 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:43:31 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class AForm
         AForm(const std::string name, int gts, int gte);
         AForm(const AForm& other);
         AForm& operator=(const AForm& other);
-        ~AForm();
+        virtual ~AForm();
 
         const std::string& getName() const;
         bool isFormSigned() const;
