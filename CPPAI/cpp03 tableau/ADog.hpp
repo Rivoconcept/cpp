@@ -19,7 +19,8 @@ class ADog : public IAnimal
 
         int getAge() const;
         const std::string& getName() const;
-};
 
+        virtual ADog* clone() const = 0;
+};
 
 #endif

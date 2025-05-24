@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:31:33 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:18:46 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:25:11 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <fstream>
-
-class DrawTree;
 
 class ShrubberyCreationForm : public AForm
 {

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
-class Bureaucrat;
 
 class PresidentialPardonForm : public AForm
 {
@@ -20,7 +20,7 @@ class PresidentialPardonForm : public AForm
 
         const std::string& getTarget() const;
 
-        void excecute(const Bureaucrat& executor) const;
+        void execute(const Bureaucrat& executor) const;
 };
  
 

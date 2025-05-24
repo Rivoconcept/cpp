@@ -15,7 +15,7 @@ class Berger : public ADog
         ~Berger();
 
         void makeSound() const;
-        IAnimal* clone() const;
+        ADog* clone() const;
 };
 
 #endif

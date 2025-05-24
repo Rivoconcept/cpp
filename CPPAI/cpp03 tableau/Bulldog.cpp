@@ -18,7 +18,7 @@ void Bulldog::makeSound() const
     std::cout << this->_name << " dit : WOUF WOUF WOUF 🐶" << std::endl;
 }
 
-IAnimal* Bulldog::clone() const
+ADog* Bulldog::clone() const
 {
     return new Bulldog(*this);
 }

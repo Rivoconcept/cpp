@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "AForm.hpp"
-
-class Bureaucrat;
+#include "Bureaucrat.hpp"
 
 class RobotomyRequestForm : public AForm
 {

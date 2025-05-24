@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/21 17:46:10 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/05/23 16:52:53 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DOG = main.cpp ADog.cpp Bulldog.cpp Berger.cpp Human.cpp House.cpp
+DOG = main.cpp ADog.cpp Bulldog.cpp Berger.cpp Human.cpp House.cpp DogFactory.cpp
  
 DIR_DOG = ./
 SRC_DOG = $(addprefix $(DIR_DOG),$(DOG))

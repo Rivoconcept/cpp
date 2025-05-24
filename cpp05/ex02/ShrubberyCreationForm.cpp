@@ -6,14 +6,11 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:25:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:26:31 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:29:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
-
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) 
-    : AForm(), _target(target) {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) 
     : AForm("ShrubberyCreationForm", 145, 137), _target(target) {}

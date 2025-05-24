@@ -13,7 +13,7 @@ class Human
         IAnimal* _dog;
     
     public:
-        Human(std::string name, int age, const IAnimal* dog);
+        Human(std::string name, int age, const ADog* dog);
         Human(const Human& other);
         Human& operator=(const Human& other);
         ~Human();

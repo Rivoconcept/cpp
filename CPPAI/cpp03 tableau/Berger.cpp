@@ -21,7 +21,7 @@ void Berger::makeSound() const
     std::cout << this->_name << " dit : WOW WOW WOW 🐶" << std::endl;
 }
 
-IAnimal* Berger::clone() const
+ADog* Berger::clone() const
 {
     return new Berger(*this);
 }

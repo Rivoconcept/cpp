@@ -16,7 +16,7 @@ class Bulldog : public ADog
         ~Bulldog();
 
         void makeSound() const;
-        IAnimal* clone() const;
+        ADog* clone() const;
 };
 
 #endif

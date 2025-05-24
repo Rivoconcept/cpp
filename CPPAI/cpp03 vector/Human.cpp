@@ -1,6 +1,6 @@
 #include "Human.hpp"
 
-Human::Human(std::string name, int age, const IAnimal* dog) : _name(name), _age(age), _dog(dog->clone()) {}
+Human::Human(std::string name, int age, const ADog* dog) : _name(name), _age(age), _dog(dog->clone()) {}
 
 Human::Human(const Human& other): _dog(NULL)
 {
