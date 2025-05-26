@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:32:27 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:05:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:01:16 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ const char* AForm::GradeTooLowException::what() const throw()
 {
     return ("The grade is too low");
 }
+
+const char* AForm::GeneralException::what() const throw()
+{
+    return ("Error: Form does not exist.");
+}
+
 
 void AForm::beSigned(const Bureaucrat& bureaucrat)
 {

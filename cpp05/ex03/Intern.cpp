@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:51:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/24 16:49:46 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:07:42 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ AForm* Intern::createPresidential(const std::string& target)
 
 AForm* Intern::makeForm(const std::string& form, const std::string& target) const
 {
-    const std::string names[] = {
-        "shrubbery creation",
-        "robotomy request",
-        "presidential pardon"
-    };
+    const std::string names[] = {"shrubbery creation", "robotomy request", "presidential pardon"};
 
     AForm* (*functions[])(const std::string&) = {&Intern::createShrubbery, &Intern::createRobotomy, &Intern::createPresidential};
 
@@ -57,7 +53,6 @@ AForm* Intern::makeForm(const std::string& form, const std::string& target) cons
             return (functions[i](target));
         }
     }
-
-    std::cerr << "Error: form \"" << form << "\" does not exist." << std::endl;
+    throw AForm::GeneralException();
     return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:37:34 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/24 16:43:03 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:53:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ class AForm
         {
             public:
                 virtual const char* what() const throw();
+        };
+
+        class GeneralException : public std::exception
+        {
+            public:
+                const char* what() const throw();
         };
 
         void beSigned(const Bureaucrat& bureaucrat);

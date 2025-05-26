@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:33:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/24 16:39:47 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:48:17 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main()
     }
     catch (std::exception& e)
     {
-        std::cerr << "Exception: " << e.what() << std::endl;
+        std::cout << "Exception: " << e.what() << std::endl;
     }
 
     return 0;
