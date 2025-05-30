@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:25:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/23 18:29:04 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:29 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ const std::string& ShrubberyCreationForm::getTarget() const
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 {
-    if (this->isFormSigned())
+    if (!this->isFormSigned())
         throw AForm::FormNotSignedException();
+        
     if (executor.getGrade() > this->getGradeToExecute())
         throw AForm::GradeTooLowException();
 
-        
     std::ofstream file((_target + "_shrubbery").c_str());
     if (!file)
     {
@@ -60,5 +60,5 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
             << "   |||         |||   ";
          
     file.close();
-        
 }
+
