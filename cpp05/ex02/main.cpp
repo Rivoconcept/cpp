@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:33:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/30 16:52:59 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:00:36 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main()
         {
             std::cout << "\nRobotomyRequestForm Test:\n";
             Bureaucrat joe("Joe", 40);
-            RobotomyRequestForm form("Bender");
+            RobotomyRequestForm form("Breaker");
 
             form.beSigned(joe);
             form.execute(joe);
