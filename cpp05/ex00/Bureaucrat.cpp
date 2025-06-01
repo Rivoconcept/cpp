@@ -6,13 +6,19 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:41:28 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/15 18:34:27 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:40:45 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() {}
+Bureaucrat::Bureaucrat() : _name("Default_bureaucrat"), _grade(150)
+{
+    if (_grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    if (_grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+}
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name)
 {

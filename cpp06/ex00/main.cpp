@@ -5,38 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 18:33:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/26 17:47:53 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/06/01 11:31:01 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/06/01 14:58:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#include "ScalarConverter.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
-    try {
-        Bureaucrat a("Alice", 2);
-        std::cout << a << std::endl;
-
-        a.incrementGrade();
-        std::cout << a << std::endl;
-
-        a.incrementGrade();
-
-    }
-    catch (std::exception& e)
+    if (argc != 2 || (argc == 2 && !argv[1][0]))
     {
-        std::cout << "Exception: " << e.what() << std::endl;
+        std::cout << "Bad parameter! Use: ./convert <literal>" << std::endl;
+        exit(EXIT_FAILURE);
     }
+    std::string literal;
 
-    try
-    {
-        Bureaucrat b("Bob", 151);
-    }
-    catch (std::exception& e)
-    {
-        std::cout << "Exception: " << e.what() << std::endl;
-    }
-
-    return 0;
+    literal = static_cast<std::string>(argv[1]);
+    
+    ScalarConverter::convert(literal);
+        
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:33:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/05/26 17:47:53 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:51:29 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int main()
 
     try
     {
+        std::cout << std::endl;
+        
         Bureaucrat b("Bob", 151);
     }
     catch (std::exception& e)
