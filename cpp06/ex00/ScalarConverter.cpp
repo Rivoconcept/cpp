@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/01 15:21:07 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:08:27 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,82 @@
 
 ScalarConverter::ScalarConverter() {}
 
-ScalarConverter::ScalarConverter(const ScalarConverter& other)
-{
-    void*(other);
-}
-ScalarConverter::ScalarConverter(const ScalarConverter& other)
-{
-    void*(other);
-}
+ScalarConverter::ScalarConverter(const ScalarConverter& other) { *this = other; }
 
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 {
-    void*(other);
+     (void)other;
     return (*this);
 }
 
 ScalarConverter::~ScalarConverter() {}
 
-static bool isChar(const std::string& str) {
-    return str.length() == 1 && !std::isdigit(str[0]);
+bool ScalarConverter::isCharLiteral(const std::string& str)
+{
+    return (str.length() == 1 && !std::isdigit(str[0]));
 }
 
-static bool isFloat(const std::string& str) {
-    if (str == "-inff" || str == "+inff" || str == "nanf") return true;
-    char* end;
-    std::strtof(str.c_str(), &end);
-    return (*end == 'f' && *(end + 1) == '\0');
+bool ScalarConverter::isFloatLiteral(const std::string& str)
+{
+    if (str == "-inff" || str == "+inff" || str == "nanf")
+        return true;
+
+    try
+    {
+        size_t pos;
+        std::stof(str, &pos);
+        return (str.back() == 'f' && pos == str.length() - 1);
+    }
+    catch (...)
+    {
+        return false;
+    }
 }
 
-static bool isDouble(const std::string& str) {
-    if (str == "-inf" || str == "+inf" || str == "nan") return true;
-    char* end;
-    std::strtod(str.c_str(), &end);
-    return *end == '\0';
+
+bool ScalarConverter::isDoubleLiteral(const std::string& str)
+{
+    if (str == "-inf" || str == "+inf" || str == "nan")
+        return true;
+
+    try
+    {
+        size_t pos;
+        std::stod(str, &pos);
+        return (pos == str.length());
+    }
+    catch (...)
+    {
+        return false;
+    }
 }
 
-static bool isInt(const std::string& str) {
-    char* end;
-    std::strtol(str.c_str(), &end, 10);
-    return *end == '\0';
+
+bool ScalarConverter::isIntLiteral(const std::string& str)
+{
+    try
+    {
+        size_t pos;
+        std::stoi(str, &pos);
+        return (pos == str.length());
+    } 
+    catch (...)
+    {
+        return false;
+    }
 }
+
 
 void ScalarConverter::convert(const std::string& literal)
 {
      const std::string names[] = {"shrubbery creation", "robotomy request", "presidential pardon"};
 
-    AForm* (*functions[])(const std::string&) = {&Intern::createShrubbery, &Intern::createRobotomy, &Intern::createPresidential};
+    bool (*functions[])(const std::string&) = {
+        &ScalarConverter::isCharLiteral, 
+        &ScalarConverter::isIntLiteral, 
+        &ScalarConverter::isFloatLiteral,
+        &ScalarConverter::isDoubleLiteral
+    };
 
     for (int i = 0; i < 3; ++i)
     {
