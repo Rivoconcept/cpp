@@ -5,11 +5,9 @@
 #include <string>
 #include "ASpell.hpp"
 
-class ASpell;
-
 class ATarget
 {
-    private:
+    protected:
         std::string _type;
     
     public:
@@ -23,7 +21,6 @@ class ATarget
         virtual ATarget* clone() const = 0;
 
         void getHitBySpell(const ASpell& spell) const;
-
 };
 
 #endif

@@ -8,20 +8,20 @@ ATarget& ATarget::operator=(const ATarget& other)
 {
     if (this != &other)
     {
-        this->_type = other._type;
+        _type = other._type;
     }
     return (*this);
 }
 
-const std::string& ATarget::getType() const
-{
-    return (this->_type);
-}
-
 ATarget::~ATarget() {}
 
-
-void ATarget::getHitBySpell(const ASpell& speel) const
+const std::string& ATarget::getType() const
 {
-    std::cout << this->_type << " has been " << speel.getEffects() << "!" << std::endl;
+    return (_type);
 }
+
+void ATarget::getHitBySpell(const ASpell& spell) const
+{
+    std::cout << _type << " has been " << spell.getEffects() << "!" << std::endl;
+}
+
