@@ -6,18 +6,18 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/05/15 18:34:41 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/06/03 17:06:26 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUREAUCRAT = main.cpp Bureaucrat.cpp
+CONVERT = main.cpp ScalarConverter.cpp
  
-DIR_BUREAUCRAT = ./
-SRC_BUREAUCRAT = $(addprefix $(DIR_BUREAUCRAT),$(BUREAUCRAT))
+DIR_CONVERT = ./
+SRC_CONVERT = $(addprefix $(DIR_CONVERT),$(CONVERT))
 
-OBJ_BUREAUCRAT = $(SRC_BUREAUCRAT:.cpp=.o)
+OBJ_CONVERT = $(SRC_CONVERT:.cpp=.o)
 
-NAME = Bureaucrat
+NAME = Convert
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -28,11 +28,11 @@ all : $(NAME)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(NAME) : $(OBJ_BUREAUCRAT)
+$(NAME) : $(OBJ_CONVERT)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_BUREAUCRAT)
+	$(RM) $(OBJ_CONVERT)
 	
 fclean : clean
 	$(RM) $(NAME)

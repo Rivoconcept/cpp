@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:00:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/02 15:41:16 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:20:13 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
+//#include <sstream>
 #include <iomanip>
 #include <limits>
+#include <cmath>
+
+#include <cstdlib>
+#include <climits>
+#include <cfloat>
 #include <cmath>
 
 
@@ -33,6 +38,11 @@ class ScalarConverter
         static bool isDoubleLiteral(const std::string&);
         static bool isIntLiteral(const std::string&);
         static bool isCharLiteral(const std::string&);
+
+        static void fromChar(const std::string&);
+        static void fromInt(const std::string&);
+        static void fromFloat(const std::string&);
+        static void fromDouble(const std::string&);
 
     public:
         static void convert(const std::string& literal);
