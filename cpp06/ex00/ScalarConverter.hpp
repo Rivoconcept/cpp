@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:00:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/03 18:20:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:36:39 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 #define SCALARCONVERTER_HPP
 
 #include <iostream>
-#include <string>
-//#include <sstream>
 #include <iomanip>
 #include <limits>
 #include <cmath>
-
-#include <cstdlib>
-#include <climits>
-#include <cfloat>
-#include <cmath>
-
+#include <stdexcept>
 
 class ScalarConverter
 {
