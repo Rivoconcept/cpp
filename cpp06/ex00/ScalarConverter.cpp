@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/04 17:36:41 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:47:25 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ bool ScalarConverter::isIntLiteral(const std::string& str)
     }
 }
 
-void ScalarConverter::fromChar(const std::string& literal) {
+void ScalarConverter::fromChar(const std::string& literal)
+{
     char c = literal[0];
 
     std::cout << "char: '" << c << "'" << std::endl;
@@ -89,8 +90,10 @@ void ScalarConverter::fromChar(const std::string& literal) {
     std::cout << "double: " << static_cast<double>(c) << std::endl;
 }
 
-void ScalarConverter::fromInt(const std::string& literal) {
-    try {
+void ScalarConverter::fromInt(const std::string& literal)
+{
+    try
+    {
         int n = std::stoi(literal);
 
         if (n < std::numeric_limits<char>::min() || n > std::numeric_limits<char>::max())
@@ -104,12 +107,15 @@ void ScalarConverter::fromInt(const std::string& literal) {
         std::cout << std::fixed << std::setprecision(1);
         std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(n) << std::endl;
-    } catch (std::exception& e) {
+    }
+    catch (std::exception& e)
+    {
         std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
     }
 }
 
-void ScalarConverter::fromFloat(const std::string& literal) {
+void ScalarConverter::fromFloat(const std::string& literal)
+{
     try {
         float f = std::stof(literal);
 
@@ -133,7 +139,8 @@ void ScalarConverter::fromFloat(const std::string& literal) {
     }
 }
 
-void ScalarConverter::fromDouble(const std::string& literal) {
+void ScalarConverter::fromDouble(const std::string& literal)
+{
     try {
         double d = std::stod(literal);
 

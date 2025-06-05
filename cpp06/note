@@ -1,5 +1,5 @@
 Écrivez une classe ScalarConverter qui contiendra une seule méthode statique nommée convert, laquelle prendra 
-en paramètre une représentation sous forme de chaîne de caractères d’un littéral C++ dans sa forme la plus courante,
+en paramètre une représentation sous forme de chaîne de caractères d un littéral C++ dans sa forme la plus courante,
  et affichera sa valeur dans les types scalaires suivants :
 
 char
@@ -10,9 +10,9 @@ float
 
 double
 
-Comme cette classe n’a pas besoin de stocker quoi que ce soit, elle ne doit pas être instanciable par les utilisateurs.
+Comme cette classe n a pas besoin de stocker quoi que ce soit, elle ne doit pas être instanciable par les utilisateurs.
 
-À l’exception des paramètres de type char, seule la notation décimale sera utilisée.
+À l exception des paramètres de type char, seule la notation décimale sera utilisée.
 
 Exemples de littéraux char : 'c', 'a', ...
 
@@ -31,13 +31,13 @@ Vous devez également gérer ces pseudo-littéraux (vous savez, pour le fun) : -
 
 Écrivez un programme pour tester que votre classe fonctionne comme prévu.
 
-Vous devez d’abord détecter le type du littéral passé en paramètre, le convertir depuis une chaîne de caractères vers son type réel,
+Vous devez d abord détecter le type du littéral passé en paramètre, le convertir depuis une chaîne de caractères vers son type réel,
  puis le convertir explicitement vers les trois autres types de données. Enfin, affichez les résultats comme montré ci-dessous.
 
-Si une conversion n’a aucun sens ou dépasse les limites, affichez un message pour informer l’utilisateur 
+Si une conversion n a aucun sens ou dépasse les limites, affichez un message pour informer l utilisateur 
 que la conversion de type est impossible. Incluez tout en-tête nécessaire pour gérer les limites numériques et les valeurs spéciales.
 
-Exemples d’exécution :
+Exemples d exécution :
 
 
 ./convert 0
