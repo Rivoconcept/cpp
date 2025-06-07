@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 11:31:01 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/01 14:58:04 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:35:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ int main(int argc, char **argv)
 
     literal = static_cast<std::string>(argv[1]);
     
-    ScalarConverter::convert(literal);
-        
+    try
+    {
+        ScalarConverter::convert(literal);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     return (0);
 }

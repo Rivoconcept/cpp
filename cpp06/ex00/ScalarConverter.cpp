@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/05 17:47:25 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:32:23 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,33 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 
 ScalarConverter::~ScalarConverter() {}
 
-bool ScalarConverter::isCharLiteral(const std::string& str)
+const char* ScalarConverter::InvalidLiteralExecption::what() const throw()
 {
-    return (str.length() == 1 && !std::isdigit(str[0]));
+  return "Conversion type unknown or invalid literal";   
 }
 
-bool ScalarConverter::isFloatLiteral(const std::string& str)
+
+
+bool ScalarConverter::isCharLiteral(const std::string& str)
+{
+    return (str.length() == 1 && !std::isdigit(str[0]) && std::isprint(str[0]));
+}
+
+bool ScalarConverter::isIntLiteral(const std::string& str)
+{
+    try
+    {
+        size_t pos;
+        std::stoi(str, &pos);
+        return (pos == str.length());
+    } 
+    catch (...)
+    {
+        return false;
+    }
+}
+
+/*bool ScalarConverter::isFloatLiteral(const std::string& str)
 {
     if (str == "-inff" || str == "+inff" || str == "nanf")
         return true;
@@ -62,22 +83,7 @@ bool ScalarConverter::isDoubleLiteral(const std::string& str)
     {
         return false;
     }
-}
-
-
-bool ScalarConverter::isIntLiteral(const std::string& str)
-{
-    try
-    {
-        size_t pos;
-        std::stoi(str, &pos);
-        return (pos == str.length());
-    } 
-    catch (...)
-    {
-        return false;
-    }
-}
+}*/
 
 void ScalarConverter::fromChar(const std::string& literal)
 {
@@ -114,7 +120,7 @@ void ScalarConverter::fromInt(const std::string& literal)
     }
 }
 
-void ScalarConverter::fromFloat(const std::string& literal)
+/*void ScalarConverter::fromFloat(const std::string& literal)
 {
     try {
         float f = std::stof(literal);
@@ -162,8 +168,14 @@ void ScalarConverter::fromDouble(const std::string& literal)
     } catch (std::exception& e) {
         std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
     }
-}
+}*/
 
+/*,
+        &ScalarConverter::isFloatLiteral,
+        &ScalarConverter::isDoubleLiteral
+,
+        &ScalarConverter::fromFloat,
+        &ScalarConverter::fromDouble*/
 
 void ScalarConverter::convert(const std::string& literal)
 {
@@ -172,16 +184,12 @@ void ScalarConverter::convert(const std::string& literal)
 
     Checker checkers[] = {
         &ScalarConverter::isCharLiteral,
-        &ScalarConverter::isIntLiteral,
-        &ScalarConverter::isFloatLiteral,
-        &ScalarConverter::isDoubleLiteral
+        &ScalarConverter::isIntLiteral
     };
 
     Converter converters[] = {
         &ScalarConverter::fromChar,
-        &ScalarConverter::fromInt,
-        &ScalarConverter::fromFloat,
-        &ScalarConverter::fromDouble
+        &ScalarConverter::fromInt
     };
 
     for (int i = 0; i < 4; ++i)
@@ -193,7 +201,7 @@ void ScalarConverter::convert(const std::string& literal)
         }
     }
 
-    std::cout << "Conversion type unknown or invalid literal" << std::endl;
+    throw ScalarConverter::InvalidLiteralExecption();
 }
 
 
