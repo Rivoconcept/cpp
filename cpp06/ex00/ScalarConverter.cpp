@@ -38,37 +38,50 @@ bool ScalarConverter::isCharLiteral(const std::string& str)
 
 bool ScalarConverter::isIntLiteral(const std::string& str)
 {
-    try
-    {
-        size_t pos;
-        std::stoi(str, &pos);
-        return (pos == str.length());
-    } 
-    catch (...)
-    {
+    std::istringstream iss(str);
+    long n;
+    char extra;
+
+    if (!(iss >> n))
         return false;
-    }
+
+    if (iss >> extra)
+        return false;
+
+    if (n < std::numeric_limits<int>::min() || n > std::numeric_limits<int>::max())
+        return false;
+
+    return true;
 }
 
-/*bool ScalarConverter::isFloatLiteral(const std::string& str)
+
+bool ScalarConverter::isFloatLiteral(const std::string& str)
 {
     if (str == "-inff" || str == "+inff" || str == "nanf")
         return true;
 
-    try
-    {
-        size_t pos;
-        std::stof(str, &pos);
-        return (str.back() == 'f' && pos == str.length() - 1);
-    }
-    catch (...)
-    {
+    if (str.empty() || str[str.length() - 1] != 'f')
         return false;
-    }
+
+    std::string floatPart = str.substr(0, str.length() - 1);
+    std::istringstream iss(floatPart);
+    double d; 
+    char c;
+
+    if (!(iss >> d))
+        return false;
+
+    if (iss >> c)
+        return false;
+
+    if (d < -std::numeric_limits<float>::max() || d > std::numeric_limits<float>::max())
+        return false;
+
+    return true;
 }
 
 
-bool ScalarConverter::isDoubleLiteral(const std::string& str)
+/*bool ScalarConverter::isDoubleLiteral(const std::string& str)
 {
     if (str == "-inf" || str == "+inf" || str == "nan")
         return true;
@@ -98,31 +111,77 @@ void ScalarConverter::fromChar(const std::string& literal)
 
 void ScalarConverter::fromInt(const std::string& literal)
 {
-    try
-    {
-        int n = std::stoi(literal);
-
-        if (n < std::numeric_limits<char>::min() || n > std::numeric_limits<char>::max())
-            std::cout << "char: impossible" << std::endl;
-        else if (!std::isprint(static_cast<char>(n)))
-            std::cout << "char: Non displayable" << std::endl;
-        else
-            std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
-
-        std::cout << "int: " << n << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(n) << std::endl;
-    }
-    catch (std::exception& e)
+    std::istringstream iss(literal);
+    int n;
+    
+    if (!(iss >> n) || !iss.eof())
     {
         std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
+        return;
     }
+    iss >> n;
+    if (n < std::numeric_limits<char>::min() || n > std::numeric_limits<char>::max())
+        std::cout << "char: impossible" << std::endl;
+    else if (!std::isprint(static_cast<char>(n)))
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
+
+    std::cout << "int: " << n << std::endl;
+    std::cout << std::fixed << std::setprecision(1);
+    std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
+    std::cout << "double: " << static_cast<double>(n) << std::endl;
 }
+
+void ScalarConverter::fromFloat(const std::string& literal)
+{
+    std::string value = literal;
+    bool isSpecial = false;
+
+    // Gérer les littéraux spéciaux
+    if (value == "+inff" || value == "-inff" || value == "nanf")
+    {
+        isSpecial = true;
+        value = value.substr(0, value.length() - 1); // Enlever le 'f' pour la conversion
+    }
+
+    std::istringstream iss(value);
+    float f;
+    if (!(iss >> f) || !iss.eof())
+    {
+        std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
+        return;
+    }
+
+    // CHAR
+    if (std::isnan(f) || f < std::numeric_limits<char>::min() || f > std::numeric_limits<char>::max())
+        std::cout << "char: impossible" << std::endl;
+    else if (!std::isprint(static_cast<char>(f)))
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
+
+    // INT
+    if (f < static_cast<float>(std::numeric_limits<int>::min()) ||
+        f > static_cast<float>(std::numeric_limits<int>::max()))
+        std::cout << "int: impossible" << std::endl;
+    else
+        std::cout << "int: " << static_cast<int>(f) << std::endl;
+
+    // FLOAT
+    std::cout << std::fixed << std::setprecision(1);
+    if (isSpecial)
+        std::cout << "float: " << literal << std::endl; // Utilise la version originale
+    else
+        std::cout << "float: " << f << "f" << std::endl;
+
+    // DOUBLE
+    std::cout << "double: " << static_cast<double>(f) << std::endl;
+}
+
 
 /*void ScalarConverter::fromFloat(const std::string& literal)
 {
-    try {
         float f = std::stof(literal);
 
         if (std::isnan(f) || f < std::numeric_limits<char>::min() || f > std::numeric_limits<char>::max())
@@ -140,12 +199,9 @@ void ScalarConverter::fromInt(const std::string& literal)
         std::cout << std::fixed << std::setprecision(1);
         std::cout << "float: " << f << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(f) << std::endl;
-    } catch (std::exception& e) {
-        std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
-    }
-}
+}*/
 
-void ScalarConverter::fromDouble(const std::string& literal)
+/*void ScalarConverter::fromDouble(const std::string& literal)
 {
     try {
         double d = std::stod(literal);
@@ -184,12 +240,14 @@ void ScalarConverter::convert(const std::string& literal)
 
     Checker checkers[] = {
         &ScalarConverter::isCharLiteral,
-        &ScalarConverter::isIntLiteral
+        &ScalarConverter::isIntLiteral,
+        &ScalarConverter::isFloatLiteral
     };
 
     Converter converters[] = {
         &ScalarConverter::fromChar,
-        &ScalarConverter::fromInt
+        &ScalarConverter::fromInt,
+        &ScalarConverter::fromFloat
     };
 
     for (int i = 0; i < 4; ++i)
