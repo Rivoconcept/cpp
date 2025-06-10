@@ -79,7 +79,6 @@ bool ScalarConverter::isFloatLiteral(const std::string& str)
     return true;
 }
 
-
 bool ScalarConverter::isDoubleLiteral(const std::string& str)
 {
     if (str == "+inf" || str == "-inf" || str == "nan")
@@ -92,7 +91,6 @@ bool ScalarConverter::isDoubleLiteral(const std::string& str)
     if (!(iss >> d))
         return false;
 
-    // S'il reste des caractères après le nombre, ce n'est pas un double valide
     if (iss >> c)
         return false;
 
@@ -168,7 +166,7 @@ void ScalarConverter::fromFloat(const std::string& literal)
         std::cout << "int: " << static_cast<int>(f) << std::endl;
 
     std::cout << std::fixed << std::setprecision(1);
-    if (isSpecial)
+    if (isSpecial && (f < -std::numeric_limits<float>::max() || f > std::numeric_limits<float>::max()))
         std::cout << "float: " << literal << std::endl;
     else
         std::cout << "float: " << f << "f" << std::endl;
