@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:00:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/10 08:38:12 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:01:47 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ class ScalarConverter
         ScalarConverter(const ScalarConverter&);
         ScalarConverter& operator=(const ScalarConverter&);
         ~ScalarConverter();
+        
+        static bool handleSpecialLiterals(const std::string& value);
         
         static bool isCharLiteral(const std::string&);
         static bool isIntLiteral(const std::string&);

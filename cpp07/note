@@ -1,0 +1,15 @@
+Implémentez les modèles de fonctions suivants :
+
+• swap : échange les valeurs de deux paramètres donnés. Ne renvoie rien.
+
+• min : compare les deux valeurs passées en paramètres et renvoie la plus petite.
+Si elles sont égales, la deuxième valeur est renvoyée.
+
+• max : compare les deux valeurs passées en paramètres et renvoie la plus grande.
+Si elles sont égales, la deuxième valeur est renvoyée.
+
+Ces fonctions peuvent être appelées avec n'importe quel type d'argument. 
+
+La seule exigence est que les deux arguments soient du même type et prennent en charge tous les opérateurs de comparaison.
+Les modèles doivent être définis dans les fichiers d'en-tête.
+
