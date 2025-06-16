@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/12 19:36:55 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:01:38 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,21 @@ bool ScalarConverter::isDoubleLiteral(const std::string& str)
         return true;
 
     std::istringstream iss(str);
-    double d;
-    char c;
 
-    if (!(iss >> d))
-        return false;
-
-    if (iss >> c)
-        return false;
-
-    return true;
+    long double ld;
+    if (iss >> ld)
+    {
+        iss >> std::ws;
+        if (iss.eof())
+        {
+            if (str.size() > 0 && str[str.size()-1] == 'f')
+                return false;
+                
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 
@@ -135,42 +140,6 @@ void ScalarConverter::fromInt(const std::string& literal)
     std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(n) << std::endl;
 }
-
-/*void ScalarConverter::fromFloat(const std::string& literal)
-{
-    std::cout << "from float" << std::endl;
-    std::istringstream iss(literal);
-    float f;
-
-    if (!(iss >> f))
-    {
-        std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
-        return;
-    }
-
-    if (std::isnan(f) || f < std::numeric_limits<char>::min() || f > std::numeric_limits<char>::max())
-        std::cout << "char: impossible" << std::endl;
-    else if (!std::isprint(static_cast<char>(f)))
-        std::cout << "char: Non displayable" << std::endl;
-    else
-        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-
-    if (f < static_cast<float>(std::numeric_limits<int>::min()) ||
-        f > static_cast<float>(std::numeric_limits<int>::max()))
-        std::cout << "int: impossible" << std::endl;
-    else
-        std::cout << "int: " << static_cast<int>(f) << std::endl;
-
-    std::cout << std::fixed << std::setprecision(1);
-    if (std::isinf(f) || f < -std::numeric_limits<float>::max() || f > std::numeric_limits<float>::max())
-        std::cout << "float: " << (f > 0 ? "+inff" : "-inff") << std::endl;
-    else if (std::isnan(f))
-        std::cout << "float: nanf" << std::endl;
-    else
-        std::cout << "float: " << f << "f" << std::endl;
-
-    std::cout << "double: " << static_cast<double>(f) << std::endl;
-}*/
 
 void ScalarConverter::fromFloat(const std::string& literal)
 {
@@ -219,43 +188,43 @@ void ScalarConverter::fromDouble(const std::string& literal)
     std::cout << "from double" << std::endl;
     
     std::istringstream iss(literal);
-    double d;
+    long double ld;
 
-    if (!(iss >> d) || !iss.eof())
+    if (!(iss >> ld) || !(iss >> std::ws).eof())
     {
         std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
         return;
     }
 
-    if (std::isnan(d) || d < std::numeric_limits<char>::min() || d > std::numeric_limits<char>::max())
+    if (std::isnan(ld) || ld < std::numeric_limits<char>::min() || ld > std::numeric_limits<char>::max())
         std::cout << "char: impossible" << std::endl;
-    else if (!std::isprint(static_cast<char>(d)))
+    else if (!std::isprint(static_cast<char>(ld)))
         std::cout << "char: Non displayable" << std::endl;
     else
-        std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
+        std::cout << "char: '" << static_cast<char>(ld) << "'" << std::endl;
 
-    if (d < static_cast<double>(std::numeric_limits<int>::min()) || d > static_cast<double>(std::numeric_limits<int>::max()))
+    if (ld < static_cast<double>(std::numeric_limits<int>::min()) || ld > static_cast<double>(std::numeric_limits<int>::max()))
         std::cout << "int: impossible" << std::endl;
     else
-        std::cout << "int: " << static_cast<int>(d) << std::endl;
+        std::cout << "int: " << static_cast<int>(ld) << std::endl;
 
     std::cout << std::fixed << std::setprecision(1);
     
-    float f = static_cast<float>(d);
-    if (std::isinf(f) || d < -std::numeric_limits<float>::max() || d > std::numeric_limits<float>::max())
-        std::cout << "float: " << (d > 0 ? "+inff" : "-inff") << std::endl;
+    float f = static_cast<float>(ld);
+    if (std::isinf(f) || ld < -std::numeric_limits<float>::max() || ld > std::numeric_limits<float>::max())
+        std::cout << "float: " << (ld > 0 ? "+inff" : "-inff") << std::endl;
     else if (std::isnan(f))
         std::cout << "float: nanf" << std::endl;
     else
         std::cout << "float: " << f << "f" << std::endl;
 
 
-    if (std::isinf(d))
-        std::cout << "double: " << (d > 0 ? "+inf" : "-inf") << std::endl;
-    else if (std::isnan(d))
+    if (std::isinf(ld) || ld < -std::numeric_limits<double>::max() || ld > std::numeric_limits<double>::max())
+        std::cout << "double: " << (ld > 0 ? "+inf" : "-inf") << std::endl;
+    else if (std::isnan(ld))
         std::cout << "double: nan" << std::endl;
     else
-        std::cout << "double: " << d << std::endl;
+        std::cout << "double: " << ld << std::endl;
 }
 
 
