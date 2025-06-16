@@ -1,15 +1,43 @@
-Implémentez les modèles de fonctions suivants :
+Voici la traduction en français :
 
-• swap : échange les valeurs de deux paramètres donnés. Ne renvoie rien.
-
-• min : compare les deux valeurs passées en paramètres et renvoie la plus petite.
-Si elles sont égales, la deuxième valeur est renvoyée.
-
-• max : compare les deux valeurs passées en paramètres et renvoie la plus grande.
-Si elles sont égales, la deuxième valeur est renvoyée.
+Implémenter les modèles de fonctions suivants :
+• swap : Échange les valeurs des deux paramètres donnés. Ne retourne rien.
+• min : Compare les deux valeurs passées en paramètres et retourne la plus petite.
+Si elles sont égales, retourne la seconde.
+• max : Compare les deux valeurs passées en paramètres et retourne la plus grande.
+Si elles sont égales, retourne la seconde.
 
 Ces fonctions peuvent être appelées avec n'importe quel type d'argument. 
+La seule exigence est que les deux arguments doivent être du même type et
+ doivent supporter tous les opérateurs de comparaison.
 
-La seule exigence est que les deux arguments soient du même type et prennent en charge tous les opérateurs de comparaison.
 Les modèles doivent être définis dans les fichiers d'en-tête.
 
+que veut dire cette ligne
+Ces fonctions peuvent être appelées avec n'importe quel type d'argument. 
+La seule exigence est que les deux arguments doivent être du même type et 
+doivent supporter tous les opérateurs de comparaison.
+Cette ligne signifie que les fonctions swap, min et max sont des templates 
+(modèles de fonctions) en C++, ce qui leur permet de fonctionner avec 
+n\'importe quel type de données, à condition que :
+
+Les deux arguments passés soient du même type
+
+Par exemple, vous pouvez utiliser min(3, 5) (deux int), min(3.5, 2.1) (deux double), ou min("abc", "def") (deux std::string).
+
+Mais pas min(3, 4.2) (un int et un double), car les types diffèrent.
+
+Le type utilisé doit supporter les opérateurs de comparaison (<, >, ==, etc.)
+
+Cela fonctionne avec les types standards (int, float, std::string, etc.), car ils ont déjà ces opérateurs définis.
+
+Si vous utilisez un type personnalisé (comme une classe), vous devez surcharger ces opérateurs pour que min/max puissent comparer les objets.
+
+En résumé :
+Fonctionne avec tout type (primitifs, objets, conteneurs, etc.).
+
+Les deux arguments doivent être du même type.
+
+Le type doit pouvoir être comparé (via operator<, operator>, etc.).
+
+C’est la puissance des templates en C++ : une seule implémentation fonctionne pour plusieurs types, à condition qu’ils respectent certaines contraintes.

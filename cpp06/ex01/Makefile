@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/06/03 17:06:26 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/06/14 10:59:44 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CONVERT = main.cpp ScalarConverter.cpp
+CONVERT = main.cpp Serializer.cpp
  
 DIR_CONVERT = ./
 SRC_CONVERT = $(addprefix $(DIR_CONVERT),$(CONVERT))

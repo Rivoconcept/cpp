@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:42:51 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/16 18:36:33 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:33:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ const T* min(const T* a, const T* b)
         throw std::invalid_argument("Null pointer in min");
     return (*a < *b) ? a : b;
 }
+
 
 template <typename T>
 const T& max(const T &a, const T &b)

@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:37:44 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/10 17:37:45 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/14 10:58:50 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define SERIALIZER_HPP
 
 #include <iostream>
-#include <cstdint>
+#include <stdint.h>
 #include "Data.hpp"
 
 class Serializer

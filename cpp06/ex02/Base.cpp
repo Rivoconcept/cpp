@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:10:25 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/10 19:05:23 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:42:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ Base * generate(void)
 
 void identify(Base* p)
 {
+    if (p == NULL)
+    {
+        std::cout << "Unknown\n";
+        return ;
+    }
     if (p == dynamic_cast<A*>(p))
         std::cout << "A\n";
     else if (p == dynamic_cast<B*>(p))

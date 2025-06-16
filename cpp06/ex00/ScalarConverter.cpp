@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/16 14:01:38 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:47:02 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,6 @@ void ScalarConverter::fromFloat(const std::string& literal)
         std::cout << "float: " << f << "f" << std::endl;
     std::cout << "double: " << d << std::endl;
 }
-
-
 
 void ScalarConverter::fromDouble(const std::string& literal)
 {

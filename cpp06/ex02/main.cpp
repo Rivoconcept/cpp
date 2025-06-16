@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 11:31:01 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/10 19:03:44 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:43:52 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int main(void)
 {
     Base* ptrBase = generate();
+
+    std::cout << "Identification by Pointer: ";
+    identify(NULL);
 
     std::cout << "Identification by Pointer: ";
     identify(ptrBase);
