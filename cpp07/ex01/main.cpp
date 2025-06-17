@@ -6,43 +6,81 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:41:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/16 18:33:23 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:10:25 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "whatever.hpp"
+// #include "iter.hpp"
 
-int main( void )
+#include <iostream>
+#include <stdexcept>
+#include <cstddef> // pour size_t
+
+// 1. Définition de is_same_myFunc<T, U>
+template<typename T, typename U>
+struct is_same_myFunc {
+    enum { value = 0 }; // false
+};
+
+template<typename T>
+struct is_same_myFunc<T, T> {
+    enum { value = 1 }; // true
+};
+
+// 2. printInt qui vérifie que T == int
+template<typename T>
+void printInt(T &val)
 {
-    int a = 2;
-    int b = 3;
-    ::swap( a, b );
-    std::cout << "a = " << a << ", b = " << b << std::endl;
-    std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
-    std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
-    std::string c = "chaine1";
-    std::string d = "chaine2";
-    ::swap(c, d);
-    std::cout << "c = " << c << ", d = " << d << std::endl;
-    std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
-    std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
-    
-    {
-        std::string* ptr1 = NULL;
-        std::string* ptr2 = NULL;
+    int type_check[is_same_myFunc<T, int>::value ? 1 : -1]; // Erreur si T ≠ int
+    (void)type_check;
+
+    std::cout << val << " ";
+}
+
+// 3. iter générique
+template <typename T, typename F>
+void iter(T* array, size_t length, F function)
+{
+    if (!array || length == 0)
+        throw std::invalid_argument("An error of argument!!!");
+
+    for (size_t i = 0; i < length; ++i)
+        function(array[i]); // Appel de la fonction
+}
+
+// 4. main
+int main(void)
+{
+    { 
+        int tabInt[] = {5, 35, 87, 42, 9};
+        size_t tabSize = sizeof(tabInt) / sizeof(tabInt[0]);
+
+        std::cout << "The contents of the array: ";
         try
         {
-            ::swap(ptr1, ptr2);
+            iter(tabInt, tabSize, &printInt<int>);
         }
-        catch (const std::invalid_argument& e)
+        catch(const std::exception& e)
         {
-            std::cerr << "Erreur: " << e.what() << std::endl;
-            return (1);
+            std::cerr << e.what() << '\n';
         }
-        
-        std::cout << "*ptr1 = " << *ptr1 << ", *ptr2 = " << *ptr2 << std::endl;
-        delete ptr1; delete ptr2;
-    }
 
-    return (0);
+        std::cout << std::endl;
+        return 0;
+    }
+    {
+        const char *tabInt[2] = {"skd", "lkdfj"};
+
+        std::cout << "The contents of the array: ";
+        try
+        {
+            iter(tabInt, 2, &printInt<int>);;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
+        std::cout << std::endl;
+    }
 }
