@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   Array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:42:51 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/18 17:25:46 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:23:08 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@
 #include <string>
 #include <stdexcept>
 #include <cstddef>
+
+template <typename T>
+
+class Array
+{
+    private:
+        T* _array;
+        unsigned int _size;
+         
+    public:
+        Array();
+        Array(unsigned int n);
+        Array& operator=(const Array& other);
+        ~Array();
+};
 
 template <typename T, typename F>
 void iter(T* array, size_t length, F function)
