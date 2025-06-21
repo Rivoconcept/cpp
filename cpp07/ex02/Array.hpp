@@ -6,20 +6,19 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:42:51 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/18 18:23:08 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/21 14:54:59 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITER_HPP
-#define ITER_HPP
+#ifndef ARRAY_HPP
+#define ARRAY_HPP
 
 #include <iostream>
 #include <string>
-#include <stdexcept>
-#include <cstddef>
+#include <cstdlib>
+#include <ctime>
 
 template <typename T>
-
 class Array
 {
     private:
@@ -28,20 +27,16 @@ class Array
          
     public:
         Array();
-        Array(unsigned int n);
+        explicit Array(unsigned int n);
+        Array(const Array& other);
         Array& operator=(const Array& other);
         ~Array();
+
+        T& operator[](unsigned int index);
+        const T& operator[](unsigned int index) const;
+        unsigned int size() const;
 };
 
-template <typename T, typename F>
-void iter(T* array, size_t length, F function)
-{
-    if (!array || length <= 0)
-        throw std::invalid_argument("Bad parameter!!!");
-        
-    for (size_t i = 0; i < length; ++i)
-    {
-        function(array[i]);
-    }
-}
+#include "Array.tpp"
+
 #endif
