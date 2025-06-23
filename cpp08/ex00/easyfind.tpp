@@ -1,68 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Array.tpp                                          :+:      :+:    :+:   */
+/*   easyfind.tpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:29:46 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/21 15:00:04 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:21:13 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Array.hpp"
+#include "easyfind.hpp"
 
 template <typename T>
-Array<T>::Array() : _array(NULL), _size(0) {}
+easyfind<T>::easyfind() : _easyfind(NULL), _size(0) {}
 
 template <typename T>
-Array<T>::Array(unsigned int n) : _array(new T[n]()), _size(n) {}
+easyfind<T>::easyfind(unsigned int n) : _easyfind(new T[n]()), _size(n) {}
 
 template <typename T>
-Array<T>::Array(const Array& other) : _array(new T[other._size]), _size(other._size)
+easyfind<T>::easyfind(const easyfind& other) : _easyfind(new T[other._size]), _size(other._size)
 {
     for (unsigned int i = 0; i < _size; ++i)
-        _array[i] = other._array[i];
+        _easyfind[i] = other._easyfind[i];
 }
 
 template <typename T>
-Array<T>& Array<T>::operator=(const Array& other)
+easyfind<T>& easyfind<T>::operator=(const easyfind& other)
 {
     if (this != &other)
 {
-        delete[] _array;
+        delete[] _easyfind;
         _size = other._size;
-        _array = new T[_size];
+        _easyfind = new T[_size];
         for (unsigned int i = 0; i < _size; ++i)
-            _array[i] = other._array[i];
+            _easyfind[i] = other._easyfind[i];
     }
     return (*this);
 }
 
 template <typename T>
-Array<T>::~Array()
+easyfind<T>::~easyfind()
 {
-    delete[] _array;
+    delete[] _easyfind;
 }
 
 template <typename T>
-T& Array<T>::operator[](unsigned int index)
-{
-    if (index >= _size)
-        throw std::out_of_range("Index out of bounds");
-    return _array[index];
-}
-
-template <typename T>
-const T& Array<T>::operator[](unsigned int index) const
+T& easyfind<T>::operator[](unsigned int index)
 {
     if (index >= _size)
         throw std::out_of_range("Index out of bounds");
-    return _array[index];
+    return _easyfind[index];
 }
 
 template <typename T>
-unsigned int Array<T>::size() const
+const T& easyfind<T>::operator[](unsigned int index) const
+{
+    if (index >= _size)
+        throw std::out_of_range("Index out of bounds");
+    return _easyfind[index];
+}
+
+template <typename T>
+unsigned int easyfind<T>::size() const
 {
     return _size;
 }
