@@ -15,27 +15,20 @@
 
 #include <iostream>
 #include <string>
-#include <cstdlib>
-#include <ctime>
+#include <algorithm>
+#include <vector>
+#include <stdexcept>
 
 template <typename T>
-class easyfind
+typename T::iterator easyfind(T& container, int value)
 {
-    private:
-        T* _easyfind;
-        int _size;
-         
-    public:
-        easyfind();
-        explicit easyfind(unsigned int n);
-        easyfind(const easyfind& other);
-        easyfind& operator=(const easyfind& other);
-        ~easyfind();
-
-        T& operator[](unsigned int index);
-        const T& operator[](unsigned int index) const;
-        unsigned int size() const;
-};
+    typename T::iterator it = std::find(container.begin(), container.end(), value);
+    if (it == container.end())
+    {
+        throw std::runtime_error("Value not found in container");
+    }
+    return it;
+}
 
 #include "easyfind.tpp"
 

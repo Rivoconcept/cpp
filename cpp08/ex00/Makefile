@@ -6,7 +6,7 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/06/21 14:49:48 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/06/24 18:24:44 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_CONVERT = $(addprefix $(DIR_CONVERT),$(CONVERT))
 
 OBJ_CONVERT = $(SRC_CONVERT:.cpp=.o)
 
-NAME = Array
+NAME = easyfind
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
