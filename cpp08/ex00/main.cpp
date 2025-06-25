@@ -6,11 +6,11 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/24 19:03:00 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:58:39 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "easyfind.hpp"
+#include "easyfind.hpp"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -63,17 +63,15 @@ int main(int argc, char **argv)
 
     std::vector<int> tokens = ft_split_to_ints(str, ' ');
     
-   /* try
+    try
     {
         std::vector<int>::iterator it = easyfind(tokens, 3);
         std::cout << "Found: " << *it << " at position " << (it - tokens.begin()) << std::endl;
-
-        easyfind(tokens, 99);
     }
     catch (const std::exception& e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
-    }*/
+    }
 
     return 0;
 }
