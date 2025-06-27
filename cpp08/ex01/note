@@ -1,0 +1,32 @@
+Voici la traduction en français :
+
+Un premier exercice simple est la manière idéale pour bien commencer.
+
+Écrivez un modèle de fonction easyfind qui accepte un type T. Il prend deux paramètres :
+
+le premier est de type T,
+
+le second est un entier.
+
+En supposant que T est un conteneur d'entiers, cette fonction doit trouver 
+la première occurrence du second paramètre dans le premier paramètre.
+
+Si aucune occurrence n'est trouvée, vous pouvez soit lever une exception, 
+soit retourner une valeur d'erreur de votre choix. Si vous avez besoin d'inspiration, 
+analysez le comportement des conteneurs standards.
+
+Bien sûr, implémentez et fournissez vos propres tests pour vérifier que tout fonctionne comme prévu.
+
+Vous n'avez pas besoin de gérer les conteneurs associatifs.
+
+Notes supplémentaires :
+L'exercice demande de créer une fonction générique (template) qui fonctionne
+ avec différents types de conteneurs (comme std::vector, std::list, etc.).
+
+L'idée est de reproduire un comportement similaire à std::find, mais avec une interface simplifiée.
+
+La gestion des erreurs peut se faire :
+
+En lançant une exception (par exemple, std::runtime_error ou une exception personnalisée).
+
+En retournant une valeur spéciale (comme -1, nullptr, ou un itérateur de fin).

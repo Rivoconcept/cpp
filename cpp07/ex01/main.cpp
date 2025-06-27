@@ -24,7 +24,7 @@ void printString(std::string val)
 
 int main(void)
 {
-    { 
+    {
         int tabInt[] = {5, 35, 87, 42, 9};
         size_t tabSize = sizeof(tabInt) / sizeof(tabInt[0]);
 
