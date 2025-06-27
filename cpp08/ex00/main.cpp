@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/27 16:18:27 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:49:32 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,31 @@ int main(int argc, char **argv)
     if (argc < 3 || (argc == 2 && !argv[1][0]))
     {
         std::cout << "Use at least 3 parameters: ./easyfind <more arguments separated by spaces>" << std::endl;
-        return 1;
+        return (1);
     }
 
     std::string str;
+
     for (int i = 1; i < argc - 1; ++i)
     {
         str += argv[i];
         if (i != argc - 1)
             str += " ";
     }
-
-
+    
+    std::istringstream iss(argv[argc]);
+    int nbrToFind;
+    if (iss >> nbrToFind)
+    {
+        std::cout << "Bad parameter on nbrToFind" << std::endl;
+        return (1);
+    }
 
     std::vector<int> tokens = ft_split_to_ints(str, ' ');
     
-    std::size_t pos;
     try
     {
-        std::vector<int>::iterator it = easyfind(tokens, std::strtod(static_cast<std::string>(argv[argc - 1]), &pos));
+        std::vector<int>::iterator it = easyfind(tokens, nbrToFind);
         std::cout << "Found: " << *it << " at position " << (it - tokens.begin()) << std::endl;
     }
     catch (const std::exception& e)
