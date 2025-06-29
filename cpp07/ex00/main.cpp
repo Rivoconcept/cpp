@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:41:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/16 18:36:53 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:26:11 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ int main( void )
 {
     int a = 2;
     int b = 3;
+    
     ::swap( a, b );
     std::cout << "a = " << a << ", b = " << b << std::endl;
     std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
     std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
+    
     std::string c = "chaine1";
     std::string d = "chaine2";
+    
     ::swap(c, d);
     std::cout << "c = " << c << ", d = " << d << std::endl;
     std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
@@ -36,13 +39,13 @@ int main( void )
         }
         catch (const std::invalid_argument& e)
         {
-            std::cerr << "Erreur: " << e.what() << std::endl;
+            std::cerr << "Error: " << e.what() << std::endl;
             return (1);
         }
         
         std::cout << "*ptr1 = " << *ptr1 << ", *ptr2 = " << *ptr2 << std::endl;
         delete ptr1; delete ptr2;
     }
-
+    
     return (0);
 }

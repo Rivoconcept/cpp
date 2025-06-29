@@ -6,7 +6,7 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/06/16 18:22:52 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/06/29 09:12:27 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_CONVERT = $(addprefix $(DIR_CONVERT),$(CONVERT))
 
 OBJ_CONVERT = $(SRC_CONVERT:.cpp=.o)
 
-NAME = templateFunction
+NAME = iter
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

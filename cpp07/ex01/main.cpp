@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:41:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/18 17:41:53 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:29:10 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void printString(std::string val)
 
 int main(void)
 {
-    {
+    { 
         int tabInt[] = {5, 35, 87, 42, 9};
         size_t tabSize = sizeof(tabInt) / sizeof(tabInt[0]);
 
