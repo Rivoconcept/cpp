@@ -1,32 +1,25 @@
-Voici la traduction en français :
+Développez une classe Span capable de stocker un maximum de N entiers. 
+N est une variable de type unsigned int et sera le seul paramètre passé
+au constructeur.
 
-Un premier exercice simple est la manière idéale pour bien commencer.
+Cette classe devra avoir une fonction membre addNumber() pour ajouter
+ un seul nombre au Span. Elle sera utilisée pour le remplir. 
+ Toute tentative d'ajouter un nouvel élément 
+ s'il y a déjà N éléments stockés devra lancer une exception.
 
-Écrivez un modèle de fonction easyfind qui accepte un type T. Il prend deux paramètres :
+Ensuite, implémentez deux fonctions membres : 
+shortestSpan() et longestSpan().
+Elles devront respectivement trouver le plus petit 
+écart ou le plus grand écart (ou distance, si vous préférez) 
+entre tous les nombres stockés, et le retourner. 
+S'il n'y a aucun nombre stocké, ou un seul, 
+aucun écart ne peut être calculé. Dans ce cas, lancez une exception.
 
-le premier est de type T,
+Bien sûr, vous écrirez vos propres tests, 
+et ils seront bien plus complets que ceux ci-dessous.
+ Testez votre Span avec au moins 10 000 nombres. Plus serait encore mieux.
 
-le second est un entier.
-
-En supposant que T est un conteneur d'entiers, cette fonction doit trouver 
-la première occurrence du second paramètre dans le premier paramètre.
-
-Si aucune occurrence n'est trouvée, vous pouvez soit lever une exception, 
-soit retourner une valeur d'erreur de votre choix. Si vous avez besoin d'inspiration, 
-analysez le comportement des conteneurs standards.
-
-Bien sûr, implémentez et fournissez vos propres tests pour vérifier que tout fonctionne comme prévu.
-
-Vous n'avez pas besoin de gérer les conteneurs associatifs.
-
-Notes supplémentaires :
-L'exercice demande de créer une fonction générique (template) qui fonctionne
- avec différents types de conteneurs (comme std::vector, std::list, etc.).
-
-L'idée est de reproduire un comportement similaire à std::find, mais avec une interface simplifiée.
-
-La gestion des erreurs peut se faire :
-
-En lançant une exception (par exemple, std::runtime_error ou une exception personnalisée).
-
-En retournant une valeur spéciale (comme -1, nullptr, ou un itérateur de fin).
+Note : La traduction conserve les termes techniques 
+(Span, unsigned int, exceptions) et les noms de fonctions tels quels, 
+car ils font partie du code. La structure 
+et les consignes sont respectées pour une compréhension claire en français.

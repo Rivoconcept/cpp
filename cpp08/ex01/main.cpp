@@ -6,17 +6,15 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/27 16:49:32 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:53:08 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "easyfind.hpp"
-#include <iostream>
+#include "Span.hpp"
+
 #include <sstream>
 #include <iomanip>
 #include <limits>
-#include <vector>
-#include <cmath>
 
 std::vector<int> ft_split_to_ints(const std::string& str, char delimiter)
 {
@@ -47,39 +45,52 @@ std::vector<int> ft_split_to_ints(const std::string& str, char delimiter)
 
 int main(int argc, char **argv)
 {
-    if (argc < 3 || (argc == 2 && !argv[1][0]))
+    if (argc < 2)
     {
-        std::cout << "Use at least 3 parameters: ./easyfind <more arguments separated by spaces>" << std::endl;
+        std::cout << "Use: ./Span <number1> <number2> ... <numberN>" << std::endl;
         return (1);
     }
 
     std::string str;
 
-    for (int i = 1; i < argc - 1; ++i)
+    for (int i = 1; i < argc; ++i)
     {
         str += argv[i];
         if (i != argc - 1)
             str += " ";
     }
     
-    std::istringstream iss(argv[argc - 1]);
-    int nbrToFind;
-    if (!(iss >> nbrToFind))
-    {
-        std::cout << "Bad parameter on nbrToFind" << std::endl;
-        return (1);
-    }
-
-    std::vector<int> tokens = ft_split_to_ints(str, ' ');
-    
+    std::vector<int> tokens;
     try
     {
-        std::vector<int>::iterator it = easyfind(tokens, nbrToFind);
-        std::cout << "Found: " << *it << " at position " << (it - tokens.begin()) << std::endl;
+        tokens = ft_split_to_ints(str, ' ');
     }
     catch (const std::exception& e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
+    
+    if (tokens.empty())
+    {
+        std::cerr << "Error: No valid numbers provided." << std::endl;
+        return 1;
+    }
+    
+    try
+    {
+        Span sp(tokens.size());
+        for (std::vector<int>::iterator it = tokens.begin(); it != tokens.end(); ++it)
+        {
+            sp.addNumber(*it);
+        }
+        std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
+        std::cout << "Longest span: " << sp.longestSpan() << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Span Error: " << e.what() << std::endl;
+        return 1;
     }
 
     return 0;
