@@ -59,6 +59,7 @@
         "span": "cpp",
         "text_encoding": "cpp",
         "variant": "cpp",
-        "note": "cpp"
+        "note": "cpp",
+        "*.tpp": "cpp"
     }
 }

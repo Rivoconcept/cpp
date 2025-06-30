@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPAN_HPP
-#define SPAN_HPP
+#ifndef MUTANTSTACK_HPP
+#define MUTANTSTACK_HPP
 
 #include <algorithm> 
 #include <iostream>
@@ -20,24 +20,24 @@
 #include <string>
 
 
-class Span
+class MutantStack
 {
     private:
         unsigned int _maxSize;
         std::vector<int> _numbers;
     
     public:
-        Span(unsigned int N);
-        Span(const Span& other);
-        Span& operator=(const Span& other);
-        ~Span();
+        MutantStack(unsigned int N);
+        MutantStack(const MutantStack& other);
+        MutantStack& operator=(const MutantStack& other);
+        ~MutantStack();
 
         unsigned int getMaxSize() const;
 
         void addNumber(int n);
 
-        int shortestSpan() const;
-        int longestSpan() const;
+        int shortestMutantStack() const;
+        int longestMutantStack() const;
 
 };
 
