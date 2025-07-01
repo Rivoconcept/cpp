@@ -19,12 +19,11 @@
 #include <vector>
 #include <string>
 
-
+template <typename T>
 class MutantStack
 {
     private:
-        unsigned int _maxSize;
-        std::vector<int> _numbers;
+        T* int
     
     public:
         MutantStack(unsigned int N);
