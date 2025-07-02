@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:55:38 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/02 15:05:09 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:17:51 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,59 +17,52 @@
 #include <stdexcept>
 #include <algorithm>
 #include <stack>
+#include <deque>
 #include <cstddef>
-#include <stack>
-#include <cstddef>
+
 
 template <typename T>
-class MutantStack : public std::stack<T>
+class MutantStack
 {
 private:
-    // Stockage des éléments (remplace le conteneur sous-jacent)
-    T* _elements;
-    size_t _capacity;
-    size_t _size;
+    std::stack<T> _stack;
+
+    // Helper pour accéder au conteneur sous-jacent (std::deque par défaut)
+    typedef typename std::stack<T>::container_type Container;
+    Container& getContainer();
 
 public:
+    // Constructeurs et opérateurs
     MutantStack();
     MutantStack(const MutantStack& other);
     MutantStack& operator=(const MutantStack& other);
     ~MutantStack();
 
-    // Interface stack de base
-    void push(const T& value);
-    void pop();
-    T& top();
-    const T& top() const;
+    // Méthodes de std::stack redirigées
     bool empty() const;
     size_t size() const;
+    T& top();
+    const T& top() const;
+    void push(const T& val);
+    void pop();
 
     // Itérateur personnalisé
-    class iterator
+    class Iterator
     {
     private:
-        T* _ptr;
+        typename Container::iterator _it;
 
     public:
-        iterator(T* ptr);
-        
-        // Opérateurs requis
-        T& operator*() const;
-        iterator& operator++();
-        iterator operator++(int);
-        bool operator==(const iterator& other) const;
-        bool operator!=(const iterator& other) const;
-        
-        // Opérateurs supplémentaires
-        iterator& operator--();
-        iterator operator--(int);
-        iterator operator+(int n) const;
-        iterator operator-(int n) const;
-        T* operator->() const;
+        Iterator(typename Container::iterator it);
+        T& operator*();
+        Iterator& operator++();
+        Iterator operator++(int);
+        bool operator==(const Iterator& other) const;
+        bool operator!=(const Iterator& other) const;
     };
 
-    iterator begin();
-    iterator end();
+    Iterator begin();
+    Iterator end();
 };
 
 #include "MutantStack.tpp"

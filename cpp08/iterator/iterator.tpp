@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.tpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:55:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/01 18:57:15 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/02 08:20:36 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,18 @@ void Container<T>::push_back(const T& value)
 template <typename T>   
 void Container<T>::pop_back()
 {
-    if (_size > 0)
+    if (_size == 0)
+        return;
+    
+    T* new_array = new T[_size - 1];
+    
+    for (unsigned int i = 0; i < _size - 1; ++i)
     {
-        --_size;
+        new_array[i] = _array[i];
     }
+    
+    delete[] _array;
+    
+    _array = new_array;
+    --_size;
 }

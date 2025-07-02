@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
+#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/06/29 13:45:59 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/07/02 11:38:46 by rivoinfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CONVERT = main.cpp Span.cpp
+CONVERT = main.cpp
  
 DIR_CONVERT = ./
 SRC_CONVERT = $(addprefix $(DIR_CONVERT),$(CONVERT))
 
 OBJ_CONVERT = $(SRC_CONVERT:.cpp=.o)
 
-NAME = Span
+NAME = MutantStack
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
