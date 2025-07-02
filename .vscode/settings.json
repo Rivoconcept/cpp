@@ -60,6 +60,7 @@
         "text_encoding": "cpp",
         "variant": "cpp",
         "note": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "list": "cpp"
     }
 }
