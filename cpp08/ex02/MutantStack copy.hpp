@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   MutantStack.hpp                                    :+:      :+:    :+:   */
+/*   MutantStack copy.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:55:38 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/03 17:21:13 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:55:25 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,32 @@
 #define MUTANTSTACK_HPP
 
 #include <iostream>
-#include <stdexcept>
 #include <stack>
+#include <vector>
 
-template <typename T>
-class MutantStack : public std::stack<T>
+template <typename T, typename Container = std::vector<T> >
+class MutantStack : public std::stack<T, Container>
 {
-private:
-    T* _array;
-    size_t _size;
-
 public:
     MutantStack();
     MutantStack(const MutantStack& other);
     MutantStack& operator=(const MutantStack& other);
     ~MutantStack();
 
-    class iterator
-    {
-    private:
-        T* _it;
 
-    public:
-        iterator(T* it);
-        T& operator*();
-        iterator& operator++();
-        iterator operator++(int);
-        iterator& operator--();
-        iterator operator--(int);
-        iterator operator+(int n) const;
-        iterator operator-(int n) const;
-        bool operator!=(const iterator& other) const;
-        bool operator==(const iterator& other) const;
-        T* operator->();
-    };
-
-    T& operator[](unsigned int index);
-    const T& operator[](unsigned int index) const;
-
-    /*bool empty() const;
-    size_t size() const;
-    T& top();
-    const T& top() const;
-    void push(const T& val);
-    void pop();*/
+    typedef typename Container::iterator iterator;
+    typedef typename Container::const_iterator const_iterator;
+    typedef typename Container::reverse_iterator reverse_iterator;
+    typedef typename Container::const_reverse_iterator const_reverse_iterator;
 
     iterator begin();
     iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
+    reverse_iterator rbegin();
+    reverse_iterator rend();
+    const_reverse_iterator rbegin() const;
+    const_reverse_iterator rend() const;
 };
 
 #include "MutantStack.tpp"

@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:27:15 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/02 18:44:23 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:21:01 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ const T& MutantStack<T>::operator[](unsigned int index) const
     return _array[index];
 }
 
-template <typename T>
+/*template <typename T>
 bool MutantStack<T>::empty() const { return _size == 0; }
 
 template <typename T>
@@ -164,7 +164,7 @@ void MutantStack<T>::pop()
     delete[] _array;
     _array = new_array;
     --_size;
-}
+}*/
 
 template <typename T>
 typename MutantStack<T>::iterator MutantStack<T>::begin()

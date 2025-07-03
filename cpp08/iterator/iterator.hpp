@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:55:38 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/02 11:15:12 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:40:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,7 @@ class Container
                 T* _it;
 
             public:
-                Iterator(T* it);
-                T& operator*();
-                Iterator& operator++();
-                Iterator& operator--();
-                Iterator operator--(int);
-                Iterator operator+(int n) const;
-                Iterator operator-(int n) const;
-                bool operator!=(const Iterator& other) const;
-                bool operator==(const Iterator& other) const;
-                T* operator->();
+
         };
 
         Iterator begin();

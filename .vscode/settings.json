@@ -61,6 +61,7 @@
         "variant": "cpp",
         "note": "cpp",
         "*.tpp": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "stack": "cpp"
     }
 }
