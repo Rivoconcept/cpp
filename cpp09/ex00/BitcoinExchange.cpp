@@ -37,7 +37,12 @@ const std::deque<std::string>& BitcoinExchange::getDataBase() const
     return (_dataBase);
 }
 
-void BitcoinExchange::dataEntry(const std::string& inputFile)
+const std::deque<std::string>& BitcoinExchange::getFileContent() const
+{
+    return (_fileContent);
+}
+
+void BitcoinExchange::putDataBase(const std::string& inputFile)
 {
     std::ifstream ifs(inputFile.c_str());
     if (!ifs)
@@ -54,7 +59,7 @@ void BitcoinExchange::dataEntry(const std::string& inputFile)
     ifs.close();
 } 
 
-void BitcoinExchange::getFileContent(const std::string& file)
+void BitcoinExchange::putFileContent(const std::string& file)
 {
     std::ifstream ifs(file.c_str());
     if (!ifs)

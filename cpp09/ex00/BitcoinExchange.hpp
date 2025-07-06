@@ -27,17 +27,18 @@ class BitcoinExchange
         std::deque<std::string> _dataBase;
 
     public:
-    
+
         BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& other);
         BitcoinExchange& operator=(const BitcoinExchange& other);
         ~BitcoinExchange();
 
         const std::deque<std::string>& getDataBase() const;
+        const std::deque<std::string>& getFileContent() const;
 
-        void getFileContent(const std::string& file);
-    
-        void dataEntry(const std::string& inputFile);
+        void putFileContent(const std::string& file);
+        void putDataBase(const std::string& inputFile);
+        
         void formatValue(const std::string& value);
         
 };

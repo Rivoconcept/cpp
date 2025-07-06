@@ -39,6 +39,34 @@
     return (output);
 }*/
 
+
+bool isLeapYear(int year) 
+{
+    if (year % 400 == 0)
+        return true;
+    if (year % 100 == 0)
+        return false;
+    if (year % 4 == 0)
+        return true;
+    return false;
+}
+
+bool is_valid_date(int day, int month, int year)
+{
+    if (year < 1 || month < 1 || month > 12 || day < 1)
+        return false;
+
+    int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (month == 2 && isLeapYear(year))
+        days_in_month[1] = 29;
+
+    if (day > days_in_month[month - 1])
+        return false;
+
+    return true;
+}
+
 int main(int argc, char **argv)
 {
 
@@ -56,15 +84,16 @@ int main(int argc, char **argv)
         return (1);
     }
     
+    BitcoinExchange btc;
     try
     {
-        BitcoinExchange btc;
-        btc.dataEntry("data.csv");
+        btc.putDataBase("data.csv");
+        btc.putFileContent("input.txt");
         std::deque<std::string> base = btc.getDataBase();
-        for (std::deque<std::string>::iterator it = base.begin(); it != base.end(); ++it)
+        /*for (std::deque<std::string>::iterator it = base.begin(); it != base.end(); ++it)
         {
             std::cout << *it << std::endl;
-        }
+        }*/
 
     }
     catch (const std::exception& e)
@@ -76,13 +105,12 @@ int main(int argc, char **argv)
     {
         std::cout << "----------------- FILE ----------------------" << std::endl;
 
-        BitcoinExchange btc;
-        btc.dataEntry("input.txt");
-        std::deque<std::string> file = btc.getDataBase();
-        for (std::deque<std::string>::iterator it = file.begin(); it != file.end(); ++it)
+        
+        std::deque<std::string> file = btc.getFileContent();
+        /*for (std::deque<std::string>::iterator it = file.begin(); it != file.end(); ++it)
         {
             std::cout << *it << std::endl;
-        }
+        }*/
 
     }
     catch (const std::exception& e)
