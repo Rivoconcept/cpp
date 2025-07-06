@@ -50,7 +50,7 @@ void Warlock::learnSpell(ASpell* spell)
     }
 
     _spells[_countSpells++] = spell->clone();
-
+    
 }
 void Warlock::forgetSpell(std::string spellName)
 {

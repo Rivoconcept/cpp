@@ -6,11 +6,11 @@
 #    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/07/05 16:57:51 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/07/06 17:28:14 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BTC = main.cpp
+BTC = main.cpp BitcoinExchange.cpp
  
 DIR_BTC = ./
 SRC_BTC = $(addprefix $(DIR_BTC),$(BTC))

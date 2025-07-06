@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:11:45 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/03/13 18:31:25 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/06 15:33:09 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Contact
 		std::string	darkestSecret;
 		
 	public:
-
+	
 		typedef struct s_params
 		{
 			std::string firstName;
