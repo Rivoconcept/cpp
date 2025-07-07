@@ -62,6 +62,8 @@
         "note": "cpp",
         "*.tpp": "cpp",
         "list": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     }
 }
