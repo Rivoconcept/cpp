@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 17:19:19 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/07 14:03:04 by rivoinfo         ###   ########.fr       */
+/*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/07/07 20:00:06 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "BitcoinExchange.hpp"
 
@@ -29,6 +30,76 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 }
 
 BitcoinExchange::~BitcoinExchange() {}
+
+bool BitcoinExchange::isFloatLiteral(const std::string& str)
+{
+    if (str == "-inff" || str == "+inff" || str == "nanf")
+        return true;
+
+    if (str.empty() || str[str.length() - 1] != 'f')
+        return false;
+
+    std::string floatPart = str.substr(0, str.length() - 1);
+    std::istringstream iss(floatPart);
+    double d; 
+    char c;
+
+    if (!(iss >> d))
+        return false;
+
+    if (!std::isfinite(static_cast<float>(d)))
+        return false;
+
+    if (iss >> c)
+        return false;
+
+    if (d < -std::numeric_limits<float>::max() || d > std::numeric_limits<float>::max())
+        return false;
+
+    return true;
+}
+
+bool handleSpecialLiterals(const std::string& literal)
+{
+    if (literal == "nan" || literal == "+inf" || literal == "-inf") {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: " << literal << "f" << std::endl;
+        std::cout << "double: " << literal << std::endl;
+        return true;
+    }
+    if (literal == "nanf" || literal == "+inff" || literal == "-inff") {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: " << literal << std::endl;
+        std::cout << "double: " << literal.substr(0, literal.length() - 1) << std::endl;
+        return true;
+    }
+    return false;
+}
+
+const float BitcoinExchange::fromFloat(const std::string& literal)
+{
+    std::istringstream iss(literal);
+    double d;
+
+    if (literal == "nanf" || literal == "+inff" || literal == "-inff")
+    
+
+    if (!(iss >> d))
+        throw std::runtime_error("Conversion to float: impossible");
+
+    float f = static_cast<float>(d);
+
+    std::cout << std::fixed << std::setprecision(1);
+    if (std::isinf(f) || d < -std::numeric_limits<float>::max() || d > std::numeric_limits<float>::max())
+        std::cout << "float: " << (f > 0 ? "+inff" : "-inff") << std::endl;
+    else if (std::isnan(f))
+        std::cout << "float: nanf" << std::endl;
+    else
+        std::cout << "float: " << f << "f" << std::endl;
+    return (f);
+}
 
 const std::deque<std::string>& BitcoinExchange::getDataBase() const
 {
@@ -51,7 +122,7 @@ bool BitcoinExchange::isLeapYear(int year)
     return false;
 }
 
-bool BitcoinExchange::is_valid_date(int day, int month, int year)
+bool BitcoinExchange::isValidDate(int year, int month, int day)
 {
     if (year < 1 || month < 1 || month > 12 || day < 1)
         return false;
@@ -67,9 +138,64 @@ bool BitcoinExchange::is_valid_date(int day, int month, int year)
     return true;
 }
 
-std::vector<int> BitcoinExchange::ft_split_to_ints(const std::string& str, char delimiter)
+const std::string& BitcoinExchange::myRegexReplace(std::string& str, const std::string& charsToReplace, char c)
 {
-    std::vector<int> output;
+    if (str.empty() || charsToReplace.empty())
+        return str;
+
+    for (size_t i = 0; i < str.size(); ++i)
+    {
+        for (size_t j = 0; j < charsToReplace.size(); ++j)
+        {
+            if (charsToReplace[j] == str[i])
+            {
+                str[i] = c;
+                break;
+            }
+        }
+    }
+    return str;
+}
+std::string BitcoinExchange::removeOtherSpace(const std::string& str)
+{
+    std::string (result);
+    bool inSpace = false;
+
+    for (size_t i = 0; i < str.size(); ++i)
+    {
+        if (isspace(static_cast<unsigned char>(str[i])))
+        {
+            if (!inSpace)
+            {
+                result += ' ';
+                inSpace = true;
+            }
+        }
+        else
+        {
+            result += str[i];
+            inSpace = false;
+        }
+    }
+    
+    if (!result.empty() && result[0] == ' ')
+    {
+        result.erase(0, 1);
+    }
+    
+    if (!result.empty() && result[result.size() - 1] == ' ')
+    {
+        result.erase(result.size() - 1, 1);
+    }
+
+    return (result);
+}
+
+
+
+std::deque<float> BitcoinExchange::ftSplitToFloat(const std::string& str, char delimiter)
+{
+    std::deque<float> output;
     std::istringstream iss(str);
     std::string token;
     
@@ -78,7 +204,7 @@ std::vector<int> BitcoinExchange::ft_split_to_ints(const std::string& str, char 
         if (!token.empty())
         {
             std::istringstream iss_token(token);
-            long n;
+            float n;
             char extra;
             
             if (!(iss_token >> n) || (iss_token >> extra))
@@ -94,12 +220,12 @@ std::vector<int> BitcoinExchange::ft_split_to_ints(const std::string& str, char 
     return (output);
 }
 
-void BitcoinExchange::putDataBase(const std::string& inputFile)
+void BitcoinExchange::putDataBase(const std::string& fileName)
 {
-    std::ifstream ifs(inputFile.c_str());
+    std::ifstream ifs(fileName.c_str());
     if (!ifs)
     {
-        throw std::runtime_error("Error: cannot open file '" + inputFile + "'");
+        throw std::runtime_error("Error: cannot open file '" + fileName + "'");
     }
     
     std::string line;
@@ -109,37 +235,50 @@ void BitcoinExchange::putDataBase(const std::string& inputFile)
         _dataBase.push_back(line);
     }
     ifs.close();
-} 
+}
 
-void BitcoinExchange::putFileContent(const std::string& file)
+void BitcoinExchange::putFileContent(const std::string& fileName)
 {
-    std::ifstream ifs(file.c_str());
+    std::ifstream ifs(fileName.c_str());
     if (!ifs)
     {
-        throw std::runtime_error("Error: cannot open file '" + file + "'");
+        throw std::runtime_error("Error: cannot open file '" + fileName + "'");
     }
     
     std::string line;
-    std::deque<int> tabLine;
     
     while (std::getline(ifs, line))
     {
-        line = std::regex_replace(line, std::regex("[-,]"), " ");
-        tabLine = ft_split_to_ints(line, ' ');
+        _fileContent.push_back(line);
     }
     ifs.close();
-}
+} 
 
-void BitcoinExchange::findValue(const std::deque<std::string> dataFile)
+void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile)
 {
-    if (dataFile.empty())
-        return ;
-    
-    int d, m, y;
-
-    for (std::deque<std::string>::iterator it; dataFile.begin() != dataFile.end(); ++it)
-    {
+    if (dataFile.empty() || dataBase.empty())
+        return;
         
-    }
+    std::string line;
+    std::deque<float> tabLine;
 
+    (void)dataBase;
+
+    for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
+    {
+        line = *it;
+        line = myRegexReplace(line, "-|", ' ');
+        line = removeOtherSpace(line);
+        
+        tabLine = ftSplitToFloat(line, ' ');
+
+        for (std::deque<float>::const_iterator itTabLine = tabLine.begin(); itTabLine != tabLine.end(); ++itTabLine)
+        {
+            std::cout << *itTabLine << " ";
+        }
+        std::cout << std::endl;
+    }
 }
+
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 17:13:38 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/07 13:57:08 by rivoinfo         ###   ########.fr       */
+/*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/07/07 19:58:31 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <string>
 #include <sstream>
 # include <fstream>
-#include <limits> 
-#include <regex>
+#include <limits>
+#include <cmath>
+#include <iomanip>
 #include <deque>
 
 class BitcoinExchange
@@ -29,9 +30,14 @@ class BitcoinExchange
         std::deque<std::string> _fileContent;
         std::deque<std::string> _dataBase;
 
+        static bool isFloatLiteral(const std::string&);
+        static const float fromFloat(const std::string&);
+
         static bool isLeapYear(int year);
-        static bool is_valid_date(int day, int month, int year);
-        static std::deque<int> ft_split_to_string(const std::string& str, char delimiter);
+        static bool isValidDate(int day, int month, int year);
+        static const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
+        static std::string removeOtherSpace(const std::string& str);
+        static std::deque<float> ftSplitToFloat(const std::string& str, char delimiter);
 
     public:
 
@@ -43,10 +49,17 @@ class BitcoinExchange
         const std::deque<std::string>& getDataBase() const;
         const std::deque<std::string>& getFileContent() const;
 
-        void putFileContent(const std::string& file);
-        void putDataBase(const std::string& inputFile);
+        void putFileContent(const std::string& fileName);
+        void putDataBase(const std::string& fileName);
         
-        void findValue(const std::deque<std::string> dataFile);
+        void findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile);
+
+
+        class InvalidLiteralExecption : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
         
 };
 

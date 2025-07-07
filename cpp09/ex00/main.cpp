@@ -6,39 +6,11 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/06 18:02:43 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:43:26 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
-/*std::vector<int> ft_split_to_ints(const std::string& str, char delimiter)
-{
-    std::vector<int> output;
-    std::istringstream iss(str);
-    std::string token;
-    
-    while (std::getline(iss, token, delimiter))
-    {
-        if (!token.empty())
-        {
-            std::istringstream iss_token(token);
-            long n;
-            char extra;
-            
-            if (!(iss_token >> n) || (iss_token >> extra))
-                throw std::runtime_error("Token invalide: '" + token + "'");
-            
-            if (n < std::numeric_limits<int>::min() || n > std::numeric_limits<int>::max())
-                throw std::runtime_error("Nombre hors limites: " + token);
-            
-            output.push_back(static_cast<int>(n));
-        }
-    }
-    
-    return (output);
-}*/
-
 
 bool isLeapYear(int year) 
 {
@@ -89,7 +61,10 @@ int main(int argc, char **argv)
     {
         btc.putDataBase("data.csv");
         btc.putFileContent("input.txt");
-        std::deque<std::string> base = btc.getDataBase();
+        std::deque<std::string> dataFile = btc.getFileContent();
+        std::deque<std::string> dataBase = btc.getDataBase();
+
+        btc.findValue(dataBase, dataFile);
         /*for (std::deque<std::string>::iterator it = base.begin(); it != base.end(); ++it)
         {
             std::cout << *it << std::endl;

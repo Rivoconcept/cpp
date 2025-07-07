@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 14:40:49 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/06/16 18:47:02 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/07 19:55:54 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void ScalarConverter::fromDouble(const std::string& literal)
 }
 
 
-bool ScalarConverter::handleSpecialLiterals(const std::string& literal)
+bool handleSpecialLiterals(const std::string& literal)
 {
     if (literal == "nan" || literal == "+inf" || literal == "-inf") {
         std::cout << "char: impossible" << std::endl;
