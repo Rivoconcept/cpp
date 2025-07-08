@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/07 19:58:31 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:08:43 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ class BitcoinExchange
         std::deque<std::string> _fileContent;
         std::deque<std::string> _dataBase;
 
-        static bool isFloatLiteral(const std::string&);
-        static const float fromFloat(const std::string&);
+        static void displayValue(float);
+        static float fromFloat(const std::string& literal);
 
         static bool isLeapYear(int year);
         static bool isValidDate(int day, int month, int year);
         static const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
+        static std::string removeSpaces(const std::string& str);
         static std::string removeOtherSpace(const std::string& str);
-        static std::deque<float> ftSplitToFloat(const std::string& str, char delimiter);
+        static std::deque<float> ftSplitToFloat(const std::deque<std::string>& dataBase, const std::string& str, char delimiter);
+        static void findDuplicates(std::deque<std::string>& dataBase);
 
     public:
 
@@ -55,7 +57,7 @@ class BitcoinExchange
         void findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile);
 
 
-        class InvalidLiteralExecption : public std::exception
+        class generalException : public std::exception
         {
             public:
                 virtual const char* what() const throw();
