@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/08 20:08:58 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:46:26 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,18 @@ const char* BitcoinExchange::generalException::what() const throw()
   return ("This program has many errors");   
 }
 
-void BitcoinExchange::displayValue(float value)
+const std::string BitcoinExchange::formatNumber(float value)
 {
+    std::ostringstream oss;
     if (value == std::floor(value) && std::abs(value) >= 1e9)
     {
-        std::cout << std::fixed << std::setprecision(0) << value << " ";
-        std::cout.unsetf(std::ios::fixed);
+        oss << std::fixed << std::setprecision(0) << value;
     }
     else
-        std::cout << value << " ";
+    {
+        oss << value;
+    }
+    return oss.str();
 }
 
 
@@ -64,8 +67,8 @@ float BitcoinExchange::fromFloat(const std::string& literal)
     if (!(iss >> d))
         throw std::runtime_error("Conversion to float: impossible");
         
-    // if (d < 0)
-    //     throw std::runtime_error("Error: not a positive number.");
+    if (d < 0)
+        throw std::runtime_error("Error: not a positive number.");
     
     f = static_cast<float>(d);
 
@@ -195,8 +198,6 @@ std::string BitcoinExchange::removeOtherSpace(const std::string& str)
     return (result);
 }
 
-
-
 std::deque<float> BitcoinExchange::ftSplitToFloat(const std::deque<std::string>& dataBase, const std::string& str, char delimiter)
 {
     std::deque<float> output;
@@ -214,18 +215,18 @@ std::deque<float> BitcoinExchange::ftSplitToFloat(const std::deque<std::string>&
             if (!(iss_token >> n) || (iss_token >> extra))
                 throw std::runtime_error("Token invalide: '" + token + "'");
             
-            if ((n < 0 || n > 1000) && !dataBase.empty() && dataBase[0] == "date | value")
-                throw std::runtime_error("Error: too large a number.");
-            
             output.push_back(fromFloat(token));
         }
     }
     std::ostringstream oss;
-    oss << "bad input => " << output[0] << "-" << output[1] << "-" << output[2];
+    oss << "bad input => " << formatNumber(output[0]) << "-" << formatNumber(output[1]) << "-" << formatNumber(output[2]);
     std::string err = oss.str();
     
     if (!isValidDate(output[0], output[1], output[2]))
         throw std::runtime_error(err);
+
+    if ((output[3] > 1000) && !dataBase.empty() && dataBase[0] == "date | value")
+        throw std::runtime_error("Error: too large a number.");
         
     return (output);
 }
@@ -312,11 +313,10 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
         throw std::runtime_error("The data.csv is empty!!!");
 
     std::string lineFile;
-    std::string lineDataBase;
+    std::string lineDB;
     std::deque<float> tabLine;
+    std::deque<float> tabDB;
     
-    (void)dataBase;
-
     for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
     {
         lineFile = *it;
@@ -327,11 +327,30 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
         {
             tabLine = ftSplitToFloat(dataFile, lineFile, ' ');
  
-            for (std::deque<float>::const_iterator itTabLine = tabLine.begin(); itTabLine != tabLine.end(); ++itTabLine)
+            for (std::deque<std::string>::const_iterator itdb = dataBase.begin() + 1; itdb != dataFile.end(); ++itdb)
             {
-                displayValue(*itTabLine);
+                lineDB = *itdb;
+                lineDB = myRegexReplace(lineFile, "-,", ' ');
+                try
+                {
+                    tabDB = ftSplitToFloat(dataBase, lineDB, ' ');
+                    if (tabLine[0] == tabDB[0])
+                    {
+                        std::cerr << "yes" << std::endl;
+                        break ;
+
+                    }
+                    /*for (std::deque<float>::const_iterator itTabLine = tabLine.begin(); itTabLine != tabLine.end(); ++itTabLine)
+                    {
+                        displayValue(*itTabLine);
+                    }*/
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+                
             }
-            std::cout << std::endl;
         }
         catch(const std::exception& e)
         {
@@ -339,6 +358,7 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
         }
     }
 }
+
 
 
 

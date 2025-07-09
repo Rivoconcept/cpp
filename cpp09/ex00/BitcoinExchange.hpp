@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/08 20:08:43 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:46:32 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class BitcoinExchange
         std::deque<std::string> _fileContent;
         std::deque<std::string> _dataBase;
 
-        static void displayValue(float);
+        static const std::string formatNumber(float);
         static float fromFloat(const std::string& literal);
 
         static bool isLeapYear(int year);
