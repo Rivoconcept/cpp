@@ -1,16 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   MutantStack.tpp                                    :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 17:55:42 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/03 18:24:25 by rhanitra         ###   ########.fr       */
+/*   Created: 2025/07/10 16:55:48 by rhanitra          #+#    #+#             */
+/*   Updated: 2025/07/10 20:11:19 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MutantStack.hpp"
+#ifndef RPN_HPP
+#define RPN_HPP
+
+#include <iostream>
+#include <exception>
+# include <string>
+#include <sstream>
+# include <fstream>
+#include <limits>
+#include <cmath>
+#include <iomanip>
+#include <stack>
+#include <list>
+
+template <typename T, typename Container = std::list<T> >
+class MutantStack : public std::stack<T, Container>
+{
+public:
+    MutantStack();
+    MutantStack(const MutantStack& other);
+    MutantStack& operator=(const MutantStack& other);
+    ~MutantStack();
+
+    typedef typename Container::iterator iterator;
+    typedef typename Container::const_iterator const_iterator;
+    typedef typename Container::reverse_iterator reverse_iterator;
+    typedef typename Container::const_reverse_iterator const_reverse_iterator;
+
+    iterator begin();
+    iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
+    reverse_iterator rbegin();
+    reverse_iterator rend();
+    const_reverse_iterator rbegin() const;
+    const_reverse_iterator rend() const;
+};
 
 template <typename T, typename Container>
 MutantStack<T, Container>::MutantStack() : std::stack<T, Container>() {}
@@ -77,3 +113,32 @@ typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Contai
 {
     return this->c.rend();
 }
+
+class RPN
+{
+    private:
+        MutantStack<std::string> _arg;
+        MutantStack<std::string> _operator;
+        std::stack<float> _operand;
+
+        static bool isNumeric(const std::string &str);
+        static MutantStack<std::string>::iterator easyfind(MutantStack<std::string>& container, const std::string& value);
+        static bool isOperator(const std::string& token);
+       
+    public:
+       
+        RPN(const std::string& argv);
+        RPN(const RPN& other);
+        RPN& operator=(const RPN& other);
+        ~RPN();
+
+        float fromFloat(const std::string& literal);
+        void runRPN(const std::string& argv);
+        void handleError(void) const;
+        
+        std::stack<float> ft_split_to_doubles(const std::string& str, char delimiter);
+};
+    
+void runRPN(const std::string& argv);
+
+#endif

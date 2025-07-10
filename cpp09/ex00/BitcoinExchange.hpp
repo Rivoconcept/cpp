@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/10 09:29:16 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:41:50 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,13 @@ class BitcoinExchange
         std::deque<std::string> _fileContent;
         std::deque<std::string> _dataBase;
 
+        static float fromFloat(const std::string& literal);
+        static bool isLeapYear(int year);
+        static std::string removeSpaces(const std::string& str);
+        static void findDuplicates(std::deque<std::string>& dataBase);
+       
     public:
-
+       
         BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& other);
         BitcoinExchange& operator=(const BitcoinExchange& other);
@@ -40,17 +45,14 @@ class BitcoinExchange
         const std::deque<std::string>& getDataBase() const;
         const std::deque<std::string>& getFileContent() const;
 
+        const std::string formatNumber(float);
+        bool isValidDate(int day, int month, int year);
+        const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
+        std::deque<float> ftSplitToFloat(const std::string& str, char delimiter);
+        
         void putFileContent(const std::string& fileName);
         void putDataBase(const std::string& fileName);
 
-        const std::string formatNumber(float);
-        float fromFloat(const std::string& literal);
-        bool isLeapYear(int year);
-        bool isValidDate(int day, int month, int year);
-        const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
-        std::string removeSpaces(const std::string& str);
-        std::deque<float> ftSplitToFloat(const std::string& str, char delimiter);
-        void findDuplicates(std::deque<std::string>& dataBase);
               
 };
     
