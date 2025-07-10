@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/10 09:03:12 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/10 09:27:44 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 }
 
 BitcoinExchange::~BitcoinExchange() {}
-
-const char* BitcoinExchange::generalException::what() const throw()
-{
-  return ("This program has many errors");   
-}
 
 const std::string BitcoinExchange::formatNumber(float value)
 {
@@ -261,8 +256,21 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
     ifs.close();
 } 
 
-void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile)
+void findValue(const std::string& dbName, char *inputFileName)
 {
+    std::istringstream iss(inputFileName);
+    std::string file;
+    
+    if (!(iss >> file))
+        throw std::runtime_error("Error: could not open file.");
+
+    BitcoinExchange btc;
+
+    btc.putDataBase(dbName);
+    btc.putFileContent(file);
+    std::deque<std::string> dataFile = btc.getFileContent();
+    std::deque<std::string> dataBase = btc.getDataBase();
+
     for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
     {
         std::string lineFileOriginal = *it;
@@ -273,10 +281,10 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
 
         try
         {
-            lineFile = myRegexReplace(lineFile, "-|", ' ');
-            std::deque<float> tabLine = ftSplitToFloat(lineFile, ' ');
+            lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
+            std::deque<float> tabLine = btc.ftSplitToFloat(lineFile, ' ');
 
-            if (!isValidDate(tabLine[0], tabLine[1], tabLine[2]))
+            if (!btc.isValidDate(tabLine[0], tabLine[1], tabLine[2]))
                 throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
 
             if ((tabLine[3] > 1000) && !dataFile.empty())
@@ -296,15 +304,13 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
             }
 
             if (itdb->substr(0, 4) == "date")
-            {
                 throw std::runtime_error("The date is too low");
-            }
 
             std::string dbLine = *itdb;
-            dbLine = myRegexReplace(dbLine, "-,", ' ');
-            std::deque<float> dbTab = ftSplitToFloat(dbLine, ' ');
+            dbLine = btc.myRegexReplace(dbLine, "-,", ' ');
+            std::deque<float> dbTab = btc.ftSplitToFloat(dbLine, ' ');
              
-            std::cout << lineFileOriginal.substr(0, 10) << " => " << formatNumber(tabLine[3]) << " = " << formatNumber(tabLine[3] * dbTab[3]) << std::endl;
+            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(tabLine[3]) << " = " << btc.formatNumber(tabLine[3] * dbTab[3]) << std::endl;
 
         } 
         catch (const std::exception& e) 
