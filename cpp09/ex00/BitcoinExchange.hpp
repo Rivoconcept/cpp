@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/09 18:58:34 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/10 08:59:57 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ class BitcoinExchange
         static bool isValidDate(int day, int month, int year);
         static const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
         static std::string removeSpaces(const std::string& str);
-        static std::deque<float> ftSplitToFloat(const std::deque<std::string>& dataBase, const std::string& str, char delimiter);
+        static std::deque<float> ftSplitToFloat(const std::string& str, char delimiter);
         static void findDuplicates(std::deque<std::string>& dataBase);
 
     public:

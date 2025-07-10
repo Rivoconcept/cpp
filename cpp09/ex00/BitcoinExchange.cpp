@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/09 20:21:12 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/10 09:03:12 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ std::string BitcoinExchange::removeSpaces(const std::string& str)
     return (result);
 }
 
-std::deque<float> BitcoinExchange::ftSplitToFloat(const std::deque<std::string>& dataBase, const std::string& str, char delimiter)
+std::deque<float> BitcoinExchange::ftSplitToFloat(const std::string& str, char delimiter)
 {
     std::deque<float> output;
     std::istringstream iss(str);
@@ -184,9 +184,6 @@ std::deque<float> BitcoinExchange::ftSplitToFloat(const std::deque<std::string>&
         }
     }
 
-    if ((output[3] > 1000) && !dataBase.empty() && dataBase[0] == "date|value")
-        throw std::runtime_error("Error: too large a number.");
-        
     return (output);
 }
 
@@ -266,18 +263,24 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
 
 void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile)
 {
-
     for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
     {
         std::string lineFileOriginal = *it;
         std::string lineFile = *it;
+
+        if (lineFileOriginal.empty())
+            continue;
+
         try
         {
             lineFile = myRegexReplace(lineFile, "-|", ' ');
-            std::deque<float> tabLine = ftSplitToFloat(dataFile, lineFile, ' ');
-            
-            if (!isValidDate(tabLine[0], tabLine[1], tabLine[2]) && !lineFileOriginal.empty())
+            std::deque<float> tabLine = ftSplitToFloat(lineFile, ' ');
+
+            if (!isValidDate(tabLine[0], tabLine[1], tabLine[2]))
                 throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
+
+            if ((tabLine[3] > 1000) && !dataFile.empty())
+                throw std::runtime_error("Error: too large a number.");
 
             std::deque<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
 
@@ -296,129 +299,17 @@ void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const s
             {
                 throw std::runtime_error("The date is too low");
             }
-            if (!lineFile.empty())
-                std::cout << *itdb << std::endl;
 
-        } catch (const std::exception& e) {
+            std::string dbLine = *itdb;
+            dbLine = myRegexReplace(dbLine, "-,", ' ');
+            std::deque<float> dbTab = ftSplitToFloat(dbLine, ' ');
+             
+            std::cout << lineFileOriginal.substr(0, 10) << " => " << formatNumber(tabLine[3]) << " = " << formatNumber(tabLine[3] * dbTab[3]) << std::endl;
+
+        } 
+        catch (const std::exception& e) 
+        {
             std::cerr << e.what() << std::endl;
         }
     }
 }
-
-/*void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile)
-{
-    if (dataFile.empty())
-        throw std::runtime_error("The input.txt is empty!!!");
-    if (dataBase.empty())
-        throw std::runtime_error("The data.csv is empty!!!");
-
-    
-    std::string lineFileOriginal;
-    std::string lineFile;
-    std::deque<float> tabLine;
-    
-    for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
-    {
-        lineFileOriginal = *it;
-        lineFile = *it;
-        try
-        { 
-            lineFile = myRegexReplace(lineFile, "-|", ' ');
-            tabLine = ftSplitToFloat(dataFile, lineFile, ' ');
-            if (!isValidDate(tabLine[0], tabLine[1], tabLine[2]) && !lineFileOriginal.empty())
-                throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
-            
-            std::deque<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
-            std::string dbLine = *itdb;
-            if (itdb != dataBase.end() && (itdb->substr(0, 10) != lineFileOriginal.substr(0, 10)))
-            {
-                if (itdb != dataBase.begin() && !dbLine.empty())
-                    itdb--;
-                if (*itdb == "date,exchange_rate")
-                    itdb++;
-            }
-            else if (itdb + 1 != dataBase.end() && (itdb->substr(0, 10) != lineFileOriginal.substr(0, 10)))
-                itdb++;
-
-            std::cout << *itdb << std::endl;
-
-            
-            for (std::deque<std::string>::const_iterator itdb = dataBase.begin() + 1; itdb != dataBase.end(); ++itdb)
-            {
-                lineDB = *itdb;
-                lineDB = myRegexReplace(lineFile, "-,", ' ');
-
-                    tabDB = ftSplitToFloat(dataBase, lineDB, ' ');
-                    if (tabLine[0] == tabDB[0])
-                    {
-                        std::cout << "yes" << std::endl;
-                        break ;
-
-                   // }
-                    for (std::deque<float>::const_iterator itTabLine = tabLine.begin(); itTabLine != tabLine.end(); ++itTabLine)
-                    {
-                        displayValue(*itTabLine);
-                    }
-
-                
-           // }
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-    }
-}*/
-
-/*void BitcoinExchange::findValue(const std::deque<std::string>& dataBase, const std::deque<std::string>& dataFile)
-{
-    if (dataFile.empty())
-        throw std::runtime_error("The input.txt is empty!!!");
-    if (dataBase.empty())
-        throw std::runtime_error("The data.csv is empty!!!");
-
-    std::string lineFile;
-    std::string lineDB;
-    std::deque<float> tabLine;
-    std::deque<float> tabDB;
-    
-    for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
-    {
-        lineFile = *it;
-        lineFile = myRegexReplace(lineFile, "-|", ' ');
-        lineFile = removeOtherSpace(lineFile);
-        
-        try
-        {
-            tabLine = ftSplitToFloat(dataFile, lineFile, ' ');
- 
-            for (std::deque<std::string>::const_iterator itdb = dataBase.begin() + 1; itdb != dataBase.end(); ++itdb)
-            {
-                lineDB = *itdb;
-                lineDB = myRegexReplace(lineFile, "-,", ' ');
-
-                    tabDB = ftSplitToFloat(dataBase, lineDB, ' ');
-                    if (tabLine[0] == tabDB[0])
-                    {
-                        std::cout << "yes" << std::endl;
-                        break ;
-
-                    }
-                    for (std::deque<float>::const_iterator itTabLine = tabLine.begin(); itTabLine != tabLine.end(); ++itTabLine)
-                    {
-                        displayValue(*itTabLine);
-                    }
-
-                
-            }
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-    }
-}*/
-
-
-
-
