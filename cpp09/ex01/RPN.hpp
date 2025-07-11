@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:55:48 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/10 20:11:19 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:02:07 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ public:
     typedef typename Container::const_iterator const_iterator;
     typedef typename Container::reverse_iterator reverse_iterator;
     typedef typename Container::const_reverse_iterator const_reverse_iterator;
+
+    T& MutantStack<T, Container>::operator[](unsigned int index)
+    {
+    if (index >= this->size())
+        throw std::out_of_range("Index out of bounds");
+    return this->c[index];
+    }
+
+    const T& MutantStack<T, Container>::operator[](unsigned int index) const
+    {
+        if (index >= this->size())
+            throw std::out_of_range("Index out of bounds");
+        return this->c[index];
+    }
+        
 
     iterator begin();
     iterator end();
@@ -114,15 +129,14 @@ typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Contai
     return this->c.rend();
 }
 
+
 class RPN
 {
     private:
-        MutantStack<std::string> _arg;
-        MutantStack<std::string> _operator;
+        MutantStack<std::string> _argv;
         std::stack<float> _operand;
 
         static bool isNumeric(const std::string &str);
-        static MutantStack<std::string>::iterator easyfind(MutantStack<std::string>& container, const std::string& value);
         static bool isOperator(const std::string& token);
        
     public:
@@ -132,11 +146,23 @@ class RPN
         RPN& operator=(const RPN& other);
         ~RPN();
 
+        const MutantStack<std::string>& getArgv() const;
+
+        std::string& operator[](unsigned int index);
+        const std::string& operator[](unsigned int index) const;
+
+
+        class GeneralException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+
         float fromFloat(const std::string& literal);
-        void runRPN(const std::string& argv);
         void handleError(void) const;
         
         std::stack<float> ft_split_to_doubles(const std::string& str, char delimiter);
+
 };
     
 void runRPN(const std::string& argv);
