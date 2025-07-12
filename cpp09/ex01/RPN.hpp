@@ -38,21 +38,9 @@ public:
     typedef typename Container::reverse_iterator reverse_iterator;
     typedef typename Container::const_reverse_iterator const_reverse_iterator;
 
-    T& MutantStack<T, Container>::operator[](unsigned int index)
-    {
-    if (index >= this->size())
-        throw std::out_of_range("Index out of bounds");
-    return this->c[index];
-    }
-
-    const T& MutantStack<T, Container>::operator[](unsigned int index) const
-    {
-        if (index >= this->size())
-            throw std::out_of_range("Index out of bounds");
-        return this->c[index];
-    }
+    T& operator[](size_t index);
+    const T& operator[](size_t index) const;
         
-
     iterator begin();
     iterator end();
     const_iterator begin() const;
@@ -127,6 +115,29 @@ template <typename T, typename Container>
 typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Container>::rend() const
 {
     return this->c.rend();
+}
+
+
+template <typename T, typename Container>
+T& MutantStack<T, Container>::operator[](size_t index)
+{
+    if (index >= this->size())
+        throw std::out_of_range("Index out of bounds");
+    
+    typename Container::iterator it = this->c.begin();
+    std::advance(it, index);
+    return *it;
+}
+
+template <typename T, typename Container>
+const T& MutantStack<T, Container>::operator[](size_t index) const
+{
+    if (index >= this->size())
+        throw std::out_of_range("Index out of bounds");
+    
+    typename Container::const_iterator it = this->c.begin();
+    std::advance(it, index);
+    return *it;
 }
 
 
