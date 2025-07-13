@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:02:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/13 11:07:44 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/13 11:18:35 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,9 @@ void runRPN(const std::string& argv)
 
     MutantStack<std::string> expression = calc.getArgv();
     std::stack<float> rpn;
-
+    float a;
+    float b;
+    
     for (MutantStack<std::string>::const_iterator it = expression.begin(); it != expression.end(); ++it)
     {
         std::string arg = *it;
@@ -146,8 +148,8 @@ void runRPN(const std::string& argv)
             if (rpn.size() < 2)
                 throw RPN::GeneralException();
                 
-            float b = rpn.top(); rpn.pop();
-            float a = rpn.top(); rpn.pop();
+            b = rpn.top(); rpn.pop();
+            a = rpn.top(); rpn.pop();
             
             if (arg == "+")
                 rpn.push(a + b);
