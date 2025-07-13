@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/11 15:24:49 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:26:41 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 4)
+    if (argc < 2)
     {
-        std::cerr << "use: ./RPN <nbr1> <nbr2> <operator> ..." << std::endl;
+        std::cerr << "use: ./RPN <expression>" << std::endl;
         return (1);
     }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:02:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/11 15:58:37 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/13 11:07:44 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-RPN::RPN(const std::string& argv) : _operand()
+RPN::RPN(const std::string& argv)
 {
     
     std::istringstream iss(argv);
@@ -35,7 +35,6 @@ RPN& RPN::operator=(const RPN& other)
     if (this != &other)
     {
         _argv = other._argv;
-        _operand = other._operand;
     }
     return (*this);
 }
@@ -86,23 +85,15 @@ void RPN::handleError(void) const
     for (MutantStack<std::string>::const_iterator it = _argv.begin(); it != _argv.end(); ++it)
     {
         std::string arg = *it;
-
-        if (!isNumeric(arg) && !isOperator(arg))
-            throw std::runtime_error("token is not valid");
         
         if (it == _argv.begin() && isOperator(arg))
             throw std::runtime_error("Operator at start");
-        
-        if (arg == "0" && it != _argv.begin())
-        {
-            MutantStack<std::string>::const_iterator prev = it;
-            --prev;
-            if (*prev == "/")
-                throw std::runtime_error("Division by zero");
-        }
 
         if (arg.find_first_of("()") != std::string::npos)
             throw std::runtime_error("Parentheses not allowed in RPN");
+
+        if (!isNumeric(arg) && !isOperator(arg))
+            throw std::runtime_error("token is not valid");
         
         if (isOperator(arg))
             opCount++;
@@ -143,62 +134,36 @@ void runRPN(const std::string& argv)
 
     calc.handleError();
 
-    MutantStack<std::string> rpn = calc.getArgv();
+    MutantStack<std::string> expression = calc.getArgv();
+    std::stack<float> rpn;
 
-
-    for (MutantStack<std::string>::const_iterator it = rpn.begin(); it != rpn.end(); ++it)
+    for (MutantStack<std::string>::const_iterator it = expression.begin(); it != expression.end(); ++it)
     {
         std::string arg = *it;
-        
-        std::cout << *it << " ";
 
-    }
-    std::cout << std::endl;
-      
-}
-
-double evaluateRPN(const std::string& expr) {
-    std::stack<double> stack;
-    std::string token;
-    size_t pos = 0;
-
-    while ((pos = expr.find(' ')) != std::string::npos) {
-        token = expr.substr(0, pos);
-        expr.erase(0, pos + 1);
-
-        if (token == "+" || token == "-" || token == "*" || token == "/") {
-            if (stack.size() < 2) {
-                std::cerr << "Erreur : Pas assez d'opérandes pour '" << token << "'\n";
-                return NAN; // Not a Number
-            }
-            double b = stack.top(); stack.pop();
-            double a = stack.top(); stack.pop();
+        if (arg == "+" || arg == "-" || arg == "*" || arg == "/")
+        {
+            if (rpn.size() < 2)
+                throw RPN::GeneralException();
+                
+            float b = rpn.top(); rpn.pop();
+            float a = rpn.top(); rpn.pop();
             
-            if (token == "+") stack.push(a + b);
-            else if (token == "-") stack.push(a - b);
-            else if (token == "*") stack.push(a * b);
-            else if (token == "/") stack.push(a / b); // /0 → ±inf
+            if (arg == "+")
+                rpn.push(a + b);
+            else if(arg == "-")
+                rpn.push(a - b);
+            else if (arg == "*")
+                rpn.push(a * b);
+            else if (arg == "/")
+                rpn.push(a / b);
         } 
-        else {
-            stack.push(std::stod(token)); // Convertit en double
-        }
+        else
+            rpn.push(calc.fromFloat(arg));
     }
-
-    if (stack.size() != 1) {
-        std::cerr << "Erreur : Expression invalide (trop d'opérandes)\n";
-        return NAN;
-    }
-    return stack.top();
-}
-
-int main() {
-    std::string expr = "5 2 / 3 * 1 +"; // (5/2)*3 + 1 = 8.5
-    double result = evaluateRPN(expr);
-    std::cout << "Résultat : " << result << "\n"; // 8.5
-
-    // Test avec division par zéro
-    std::string expr2 = "1 0 /"; // inf
-    std::cout << "1 / 0 = " << evaluateRPN(expr2) << "\n"; // inf
-
-    return 0;
+    
+    if (rpn.size() != 1)
+        throw RPN::GeneralException();
+        
+    std::cout << rpn.top() << std::endl;   
 }

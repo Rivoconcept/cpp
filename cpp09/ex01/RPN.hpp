@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:55:48 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/11 16:02:07 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:42:58 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,10 @@ const T& MutantStack<T, Container>::operator[](size_t index) const
     return *it;
 }
 
-
 class RPN
 {
     private:
         MutantStack<std::string> _argv;
-        std::stack<float> _operand;
 
         static bool isNumeric(const std::string &str);
         static bool isOperator(const std::string& token);
