@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:02:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/13 11:18:35 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:32:16 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,28 @@ RPN& RPN::operator=(const RPN& other)
 
 RPN::~RPN() {}
 
-std::string& RPN::operator[](unsigned int index)
-{
-    return _argv[index];
-}
-
-const std::string& RPN::operator[](unsigned int index) const
-{
-    return _argv[index];
-}
 const MutantStack<std::string>& RPN::getArgv() const
 {
     return (_argv);
 }
 
-bool RPN::isNumeric(const std::string &str)
+/*bool RPN::isNumeric(const std::string &str)
 {
     std::istringstream iss(str);
     float f;
     iss >> std::noskipws >> f;
     return iss.eof() && !iss.fail();
+}*/
+
+bool isNumeric(const std::string &str) {
+    for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
+        if (!std::isdigit(*it)) {
+            return false;
+        }
+    }
+    return !str.empty(); // Retourne false si la chaîne est vide
 }
+
 
 const char* RPN::GeneralException::what() const throw()
 {

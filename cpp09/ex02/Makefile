@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/07/14 15:43:25 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/07/14 19:19:01 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PMERGEME = main.cpp 
+PMERGEME = main.cpp PmergeMe.cpp
  
 DIR_PMERGEME = ./
 SRC_PMERGEME = $(addprefix $(DIR_PMERGEME),$(PMERGEME))
