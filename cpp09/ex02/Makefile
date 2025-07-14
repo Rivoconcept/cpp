@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
+#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/07/10 16:53:33 by rhanitra         ###   ########.fr        #
+#    Updated: 2025/07/14 15:43:25 by rivoinfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RPN = main.cpp RPN.cpp
+PMERGEME = main.cpp 
  
-DIR_RPN = ./
-SRC_RPN = $(addprefix $(DIR_RPN),$(RPN))
+DIR_PMERGEME = ./
+SRC_PMERGEME = $(addprefix $(DIR_PMERGEME),$(PMERGEME))
 
-OBJ_RPN = $(SRC_RPN:.cpp=.o)
+OBJ_PMERGEME = $(SRC_PMERGEME:.cpp=.o)
 
-NAME = RPN
+NAME = PmergeMe
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
@@ -28,11 +28,11 @@ all : $(NAME)
 %.o : %.cpp
 	$(CC) $(FLAGS) -o $@ -c $<
 
-$(NAME) : $(OBJ_RPN)
+$(NAME) : $(OBJ_PMERGEME)
 	$(CC)  $(FLAGS) -o $@ $^ 
 
 clean :
-	$(RM) $(OBJ_RPN)
+	$(RM) $(OBJ_PMERGEME)
 	
 fclean : clean
 	$(RM) $(NAME)
