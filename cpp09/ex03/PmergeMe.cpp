@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/15 19:10:28 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:32:12 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,34 @@
 
 PmergeMe::PmergeMe(const std::string& args) : _timeVec(0), _timeDeq(0)
 {
-
     if (args.empty())
         throw std::runtime_error("no number to sort");
-        
+
     std::istringstream iss(args);
     std::string token;
+    long input;
 
     while (iss >> token)
     {
         if (!isNumeric(token))
             throw std::runtime_error("invalid token");
 
-        _input.push_back(static_cast<int>(fromFloat(token)));
+        std::istringstream litteral(token);
+        if (!(litteral >> input))
+            throw std::runtime_error("Conversion to integer: impossible");
+
+        if (input < 0)
+            throw std::runtime_error("Error: not a positive number.");
+
+        if (input > std::numeric_limits<int>::max())
+            throw std::runtime_error("input integer out of range: " + token);
+
+        int final = static_cast<int>(input);
+        _inputVec.push_back(final);
+        _inputDeq.push_back(final);
     }
-    
-    findDuplicates(_input);
+
+    findDuplicates(_inputVec);
 }
 
 PmergeMe::PmergeMe(const PmergeMe& other)
@@ -41,95 +53,65 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
 {
     if (this != &other)
     {
-        _input = other._input;
+        _inputVec = other._inputVec;
         _sortedVec = other._sortedVec;
+        _inputDeq = other._inputDeq;
         _sortedDeq = other._sortedDeq;
         _timeVec = other._timeVec;
         _timeDeq = other._timeDeq;
     }
     return (*this);
-    
 }
 
 PmergeMe::~PmergeMe() {};
 
-void PmergeMe::setTimeVec(double time)
-{
-    _timeVec = time;
-}
-
-void PmergeMe::setTimeDeq(double time)
-{
-    _timeDeq = time;
-}
-
-double PmergeMe::getTimeVec() const
-{
-    return _timeVec;
-}
-
-double PmergeMe::getTimeDeq() const
-{
-    return _timeDeq;
-}
-
-const std::vector<int>& PmergeMe::getInput() const
-{
-    return (_input);
-}
-
-const std::vector<int>& PmergeMe::getSortedVec() const
-{
-    return (_sortedVec);
-}
-
-const std::deque<int>& PmergeMe::getSortedDeq() const
-{
-    return (_sortedDeq);
-}
-
-
 bool PmergeMe::isNumeric(const std::string &str)
 {
-    std::istringstream iss(str);
-    float f;
-    
-    iss >> std::noskipws >> f;
-    
-    return (iss.eof() && !iss.fail());
+    if (str.empty())
+        return false;
+    for (size_t i = 0; i < str.size(); ++i)
+    {
+        if (!std::isdigit(str[i]))
+            return false;
+    }
+    return true;
 }
 
 void PmergeMe::findDuplicates(std::vector<int>& input)
-{   
+{
     if (input.empty())
-        throw std::runtime_error("Empty file!!!!");
-        
-    int found = 0;
-    std::vector<int>::iterator it = input.begin();
-    
-    while (it != input.end())
+        throw std::runtime_error("Empty input");
+
+    std::vector<int> sorted = input;
+
+    for (size_t i = 0; i < sorted.size(); ++i)
     {
-        found = 0;
-        for (std::vector<int>::iterator itFind = input.begin(); itFind != input.end(); itFind++)
+        for (size_t j = 0; j < sorted.size() - i - 1; ++j)
         {
-            if (*it == *itFind)
-                found++;
+            if (sorted[j] > sorted[j + 1])
+           
+            {
+                std::swap(sorted[j], sorted[j + 1]);
+            }
         }
-        if (found > 1)
+    }
+
+    for (size_t i = 0; i < sorted.size() - 1; ++i)
+    {
+        if (sorted[i] == sorted[i + 1])
         {
             std::ostringstream oss;
-            oss << "The file has duplicates: " << *it;
+            oss << "Duplicate found: " << sorted[i];
             throw std::runtime_error(oss.str());
         }
-        ++it;
     }
 }
 
 void PmergeMe::run()
 {
-    for (std::vector<int>::iterator it = _input.begin(); it != _input.end(); ++it)
+    for (std::vector<int>::iterator it = _inputVec.begin(); it != _inputVec.end(); ++it)
     {
-        std::cout << *it << std::endl;
+        std::cout << *it <<  " ";
     }
 }
 
