@@ -1,0 +1,37 @@
+Cette implémentation donne pour ton exemple :
+textCollapseWrapCopySorted sequence S: 18 23 73 103
+C'est correct pour l'étape 3, car _maxVecS contient les maximums triés en ordre croissant.
+Réponse à ta question sur (73, 103)
+Tu as mentionné vouloir obtenir la paire (73, 103). Cela semble indiquer une confusion avec la structure de S ou une anticipation de l'étape suivante. À l'étape 3, S est une séquence triée d'entiers ([18, 23, 73, 103]), pas une liste de paires. Les paires dans _pairVecS (comme (23, 103), (18, 73)) ne sont pas nécessaires ici. Si tu avais une intention spécifique pour _pairVecS, peux-tu clarifier ? Pour l'instant, je propose de supprimer la création de paires dans _pairVecS dans extractMaxVec, car elle n'est pas requise pour l'étape 3.
+Passage à l'étape 4 avec l'ordre de Jacobsthal
+Puisque ton sujet exige Ascending: exige l'utilisation de l'ordre de Jacobsthal pour l'insertion, passons à l'étape 4 pour intégrer cela. Selon Wikipédia, l'étape 4 est :
+
+Placer le plus petit élément de X, s'il existe, au début de S (il est plus petit que tous les éléments déjà présents dans S).
+
+Cependant, l'algorithme Ford-Johnson optimise l'insertion des éléments restants (les minimums de _pairVecX : [81, 5, 7, 56] et _single = 42) en utilisant l'ordre de Jacobsthal pour déterminer l'ordre d'insertion, minimisant le nombre de comparaisons.
+Ordre de Jacobsthal
+
+Définition : La suite de Jacobsthal est définie comme suit :
+
+$ J_0 = 0, J_1 = 1, J_n = J_{n-1} + 2J_{n-2} $ pour $ n \geq 2 $.
+Suite : $ 0, 1, 1, 3, 5, 11, 21, 43, 85, 171, \ldots $
+
+
+Rôle dans Ford-Johnson : Les nombres de Jacobsthal déterminent l'ordre dans lequel insérer les éléments restants (minimums et élément non apparié) dans S pour minimiser les comparaisons. L'idée est d'insérer les éléments dans un ordre qui exploite la structure partiellement triée de S, en insérant les éléments des paires les plus grandes d'abord, puis les plus petites, selon une séquence dérivée des nombres de Jacobsthal.
+
+Étape 4 : Insérer les éléments restants
+
+Éléments à insérer :
+
+Minimums de _pairVecX : [81, 5, 7, 56].
+Élément non apparié : _single = 42.
+Ces éléments sont stockés dans _pending.
+
+
+Ordre d'insertion :
+
+D'abord, insérer le plus petit élément (si identifiable, mais souvent on l'insère avec les autres).
+Ensuite, insérer les minimums des paires dans l'ordre de Jacobsthal. Les paires sont indexées (0, 1, 2, 3 pour 4 paires), et l'ordre de Jacobsthal (par exemple, 1, 3, 5, 11, ...) indique les indices des paires dont les minimums doivent être insérés.
+
+
+Recherche binaire : Chaque élément est inséré dans _maxVecS à la position correcte en utilisant std::lower_bound pour minimiser les comparaisons.

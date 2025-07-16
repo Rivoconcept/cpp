@@ -23,11 +23,13 @@ class PmergeMe
 {
     private:
         std::vector<int> _inputVec;
-        std::vector<int> _sortedVec;
         std::vector<int> _pending;
-        std::vector<std::pair<int, int> > _pairsVec;
-        std::vector<std::vector<int> > _groups;
-        std::vector<int> _unpaired;
+        std::vector<int> _vecX;
+        std::vector<int> _maxVecS;
+        std::vector<std::pair<int, int> > _pairVecX;
+        std::vector<std::pair<int, int> > _pairVecS;
+        /*std::vector<std::vector<int> > _groups;
+        std::vector<int> _unpaired;*/
         int _single;
         double _timeVec;
 
@@ -35,20 +37,18 @@ class PmergeMe
         static float fromFloat(const std::string& literal);
         static void findDuplicates(std::vector<int>& input);
 
-        void sortPairsVec();
-        void createMainSeqVec();
-        void createPendingVec();
-        
-        void createPairsVec();
-        void recursiveSortGroups(int level);;
-        void PmergeMeVec();
-        void insertPending();
-        
+        std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
+        void extractMaxVec();
+        std::vector<size_t> generateJacobsthal(size_t n);
+        void mergeInsertSort(std::vector<int>& vec);
+
     public:
         PmergeMe(const std::string& args);
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
+
+        const std::vector<int>& getSortedVec() const;
 
 
          void run();

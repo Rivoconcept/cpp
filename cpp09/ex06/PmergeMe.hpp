@@ -50,6 +50,8 @@ class PmergeMe
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
 
+        const std::vector<int>& getSortedVec() const;
+
 
          void run();
 };
