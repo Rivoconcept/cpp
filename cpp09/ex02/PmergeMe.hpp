@@ -3,60 +3,60 @@
 #define PMERGEME_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <exception>
+#include <algorithm>
+#include <utility>
 # include <string>
 #include <sstream>
-# include <fstream>
 #include <limits>
-#include <cmath>
-#include <iomanip>
-#include <stack>
+#include <ctime>
 #include <vector>
 #include <deque>
-#include <chrono>
 
-
+struct ComparePairs
+{
+    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) const
+    {
+        return (a.first < b.first);
+    }
+};
 
 class PmergeMe
 {
     private:
-
-        std::vector<int> _input;
-        std::vector<int> _sortedVec;
-        std::deque<int> _sortedDeq;
+    
+        int _single;
         double _timeVec;
         double _timeDeq;
+        std::vector<int> _inputVec;
+        std::vector<int> _sortedVec;
+        std::deque<int> _inputDeq;
+        std::deque<int> _sortedDeq;
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
-        
-        
-        
+
+        std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
+        std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
+        std::vector<size_t> VecGenerateJacobsthal(size_t maxIndex);
+        std::vector<int> fordJohnsonVecSort(std::vector<int> inputMax);
+        void PmergeMeVector();
+
+        std::deque<std::pair<int, int> > createPairsDec(const std::deque<int>& array);
+        std::deque<int> DeqExtractMinX(const std::deque<std::pair<int, int> >& pairs);
+        std::deque<size_t> DeqGenerateJacobsthal(size_t maxIndex);
+        std::deque<int> fordJohnsonDeqSort(std::deque<int> inputMax);
+        void PmergeMeDeque();
+
     public:
         PmergeMe(const std::string& args);
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
 
-        double getTimeVec() const;
-        double getTimeDeq() const;
+        void mergeInsertSort();
 
-        void setTimeVec(double time);
-        void setTimeDeq(double time);
-
-        const std::vector<int>& getInput() const;
-        const std::vector<int>& getSortedVec() const;
-        const std::deque<int>& getSortedDeq() const;
-
-        // Tri fusion-insertion pour std::vector
-       //  void mergeInsertSortVector(std::vector<int>& arr);
-        
-        // Tri fusion-insertion pour std::deque (même logique)
-        // void mergeInsertSortDeque(std::deque<int>& arr);
-        
-         void run();
-    };
-    
-
+};
 
 #endif
