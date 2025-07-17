@@ -16,35 +16,34 @@
 #include <vector>
 #include <deque>
 #include <ctime>
-#include <set>
-
-
 
 class PmergeMe
 {
     private:
-        std::vector<int> _inputVec;
-        std::vector<int> _pending;
-        std::vector<int> _vecX;
-        std::vector<int> _maxVecS;
-        std::vector<std::pair<int, int> > _pairVecX;
-        std::vector<std::pair<int, int> > _pairVecS;
-        /*std::vector<std::vector<int> > _groups;
-        std::vector<int> _unpaired;*/
+    
         int _single;
         double _timeVec;
+        double _timeDeq;
+        std::vector<int> _inputVec;
+        std::vector<int> _sortedVec;
+        std::deque<int> _inputDeq;
+        std::deque<int> _sortedDeq;
 
         static bool isNumeric(const std::string &str);
-        static float fromFloat(const std::string& literal);
         static void findDuplicates(std::vector<int>& input);
 
         std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
-        void extractMaxVec();
-        std::vector<size_t> generateJacobsthal(size_t n);
+        std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
+        std::vector<size_t> VecGenerateJacobsthal(size_t maxIndex);
+        std::vector<int> fordJohnsonVecSort(std::vector<int> inputMax);
+        void PmergeMeVector();
 
-        std::vector<int> ford_johnson_sort(std::vector<int> A);
+        std::deque<std::pair<int, int> > createPairsDec(const std::deque<int>& array);
+        std::deque<int> DeqExtractMinX(const std::deque<std::pair<int, int> >& pairs);
+        std::deque<size_t> DeqGenerateJacobsthal(size_t maxIndex);
+        std::deque<int> fordJohnsonDeqSort(std::deque<int> inputMax);
+        void PmergeMeDeque();
 
-        void mergeInsertSort(std::vector<int>& vec);
 
     public:
         PmergeMe(const std::string& args);
@@ -52,10 +51,8 @@ class PmergeMe
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
 
-        const std::vector<int>& getSortedVec() const;
+        void mergeInsertSort();
 
-
-         void run();
 };
     
 struct ComparePairs
