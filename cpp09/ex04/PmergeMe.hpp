@@ -3,45 +3,54 @@
 #define PMERGEME_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <exception>
+#include <algorithm>
+#include <utility>
 # include <string>
 #include <sstream>
-# include <fstream>
 #include <limits>
-#include <cmath>
-#include <iomanip>
-#include <stack>
+#include <ctime>
 #include <vector>
 #include <deque>
-#include <ctime>
+#include <set>
+
+struct ComparePairs
+{
+    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) const
+    {
+        return (a.first < b.first);
+    }
+};
 
 class PmergeMe
 {
     private:
-        
-        std::vector<int> _inputVector; // Conteneur vector pour l'entrée
-        std::vector<int> _mainChainVector; // Main chain pour vector
-        std::vector<int> _pendingChainVector; // Pending chain pour vector
-        
-        std::deque<int> _inputDeque;   // Conteneur deque pour l'entrée
-        std::deque<int> _mainChainDeque; // Main chain pour deque
-        std::deque<int> _pendingChainDeque; // Pending chain pour deque
+    
+        int _single;
+        double _timeVec;
+        double _timeDeq;
+        std::vector<int> _inputVec;
+        std::vector<int> _sortedVec;
+        std::deque<int> _inputDeq;
+        std::deque<int> _sortedDeq;
+        std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& input);
+        std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
 
-        // Méthodes pour l'algorithme Ford-Johnson avec vector
-        void createPairsVector();
-        void mergeInsertSortVector();
-        void binaryInsertVector(int element, std::vector<int>& chain, size_t end);
+        std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
+        std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
+        std::vector<size_t> VecGenerateJacobsthal(size_t maxIndex);
+        std::vector<int> fordJohnsonVecSort(std::vector<int> inputMax);
+        void PmergeMeVector();
 
-        // Méthodes pour l'algorithme Ford-Johnson avec deque
-        void createPairsDeque();
-        void mergeInsertSortDeque();
-        void binaryInsertDeque(int element, std::deque<int>& chain, size_t end);
-
-        // Générer les indices de Jacobsthal pour l'ordre d'insertion
-        std::vector<size_t> generateJacobsthalOrder(size_t size);
+        std::deque<std::pair<int, int> > createPairsDeq(const std::deque<int>& array);
+        std::deque<int> DeqExtractMinX(const std::deque<std::pair<int, int> >& pairs);
+        std::deque<size_t> DeqGenerateJacobsthal(size_t maxIndex);
+        std::deque<int> fordJohnsonDeqSort(std::deque<int> inputMax);
+        void PmergeMeDeque();
 
     public:
         PmergeMe(const std::string& args);
@@ -49,8 +58,8 @@ class PmergeMe
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
 
-        void run();
+        void mergeInsertSort();
+
 };
-    
 
 #endif

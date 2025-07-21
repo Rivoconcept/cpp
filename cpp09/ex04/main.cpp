@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:53:00 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/15 19:57:32 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:05:11 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     {
         PmergeMe sort(str);
 
-        sort.run();
+        sort.mergeInsertSort();
     }
     catch (const std::exception& e)
     {

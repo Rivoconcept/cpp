@@ -1,2 +1,0 @@
-Trier récursivement (avec un tri par fusion-insertion) les [n/2] plus grands éléments de chaque paire, créant une séquence 
-triée S de [n/2] des éléments d’entrée, par ordre croissant.
