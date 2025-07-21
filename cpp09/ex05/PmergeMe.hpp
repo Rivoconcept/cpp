@@ -27,19 +27,16 @@ class PmergeMe
 {
     private:
     
-        int                 _single;
-
-        double              _timeVec;
-        std::vector<int>    _inputVec;
-        std::vector<int>    _sortedVec;
-        
-        double              _timeDeq;
-        std::deque<int>     _inputDeq;
-        std::deque<int>     _sortedDeq;
+        int _single;
+        double _timeVec;
+        double _timeDeq;
+        std::vector<int> _inputVec;
+        std::vector<int> _sortedVec;
+        std::deque<int> _inputDeq;
+        std::deque<int> _sortedDeq;
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
-        static void displayArray(size_t i);
 
         std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
         std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
