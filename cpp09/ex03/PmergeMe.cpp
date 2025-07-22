@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/18 15:19:51 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:23:45 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
 }
 
 PmergeMe::~PmergeMe() {};
+
+void PmergeMe::displayArray(size_t i)
+{
+    std::cout << i << " ";
+}
+
 
 bool PmergeMe::isNumeric(const std::string &str)
 {
@@ -451,24 +457,22 @@ void PmergeMe::PmergeMeDeque()
 
 void PmergeMe::mergeInsertSort()
 {
-    for (std::vector<int>::iterator it = _inputVec.begin(); it != _inputVec.end(); ++it)
-    {
-        std::cout << *it << " ";
-    }
+
+    for_each(_inputVec.begin(), _inputVec.end(), displayArray);
     std::cout << std::endl;
     
-    clock_t start = clock();
+    clock_t startTime = clock();
     PmergeMeVector();
-    _timeVec = static_cast<double>(clock() - start) / CLOCKS_PER_SEC * 1e6;
+    _timeVec = (clock() - startTime) / (double)CLOCKS_PER_SEC;
 
-    start = clock();
+    startTime = clock();
     PmergeMeDeque();
-    _timeDeq = static_cast<double>(clock() - start) / CLOCKS_PER_SEC * 1e6;
+    _timeDeq = (clock() - startTime )/ (double)CLOCKS_PER_SEC;
+
 
     std::cout << "After:  ";
-    for (size_t i = 0; i < _sortedVec.size(); ++i)
-        std::cout << _sortedVec[i] << " ";
-    std::cout << "\n";
+    for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
+    std::cout << std::endl;
 
     std::cout << "Time to process a range of " << _inputVec.size() 
                 << " elements with std::vector: " << std::fixed << std::setprecision(5) 

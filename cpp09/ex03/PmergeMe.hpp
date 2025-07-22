@@ -35,6 +35,7 @@ class PmergeMe
         std::deque<int> _inputDeq;
         std::deque<int> _sortedDeq;
 
+        static void displayArray(size_t i);
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
 
