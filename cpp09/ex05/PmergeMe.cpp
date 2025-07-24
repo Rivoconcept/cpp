@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/24 15:16:39 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:10:58 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,8 +343,7 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
         }
     }
 
-    for_each(xi_mapping.begin(), xi_mapping.end(), displayArray);
-    std::cout << std::endl;
+ 
     // Étape 4 : Insérer l'élément apparié au plus petit élément de sorted
     if (!Min.empty())
     {
@@ -357,7 +356,9 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
     std::vector<size_t> jacobOrder = VecGenerateJacobsthal(Min.size());
 
 
-
+   for_each(jacobOrder.begin(), jacobOrder.end(), displayArray);
+    std::cout << std::endl;
+    
     for (size_t i = 0; i < jacobOrder.size() && i < Min.size(); ++i)
     {
         size_t index = jacobOrder[i];
@@ -387,6 +388,8 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
         // Recherche binaire de sorted.begin() jusqu'à xi_pos exclu
         std::vector<int>::iterator pos = std::lower_bound(sorted.begin(), xi_pos, yi);
         sorted.insert(pos, yi);
+  
+        std::cout <<  "yi: " << yi << std::endl;
     }
 
     // Insérer le singleton, si présent

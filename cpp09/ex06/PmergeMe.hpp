@@ -40,6 +40,7 @@ class PmergeMe
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
+        static size_t findIndex(std::vector<int>& array, int value);
         static void displayArray(size_t i);
 
         std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);

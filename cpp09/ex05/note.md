@@ -27,3 +27,28 @@ classez-les d'index plus grands vers des index plus petits. Ainsi, la commande d
 Utilisez cet ordre pour insérer les éléments yi dans S. Pour chaque élément yi, utilisez une recherche dichotomique à partir du début de 
 S jusqu'à xi exclu afin de déterminer où insérer yi.
 
+
+6 7 10 5 8 4 1 2 9 3
+
+7   10  8   2   9   2 7 8 9 10
+6   5   4   1   3
+
+10  8           u = 9
+7   2
+
+10
+<!-- 8
+tab[10] = 8 -->
+8 10
+
+7  10 2 8 
+6  5  1  4    9
+
+10  8
+7   2       v = 2 8 10
+
+10
+8             v =  8 10 
+
+v[0]? 
+2 = f 2 ap = v[2]  

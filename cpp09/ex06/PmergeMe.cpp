@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/24 16:05:09 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:56:29 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,23 +142,24 @@ std::vector<int> PmergeMe::VecExtractMinX(const std::vector<std::pair<int, int> 
     return minX;
 }
 
+
+
 std::vector<size_t> PmergeMe::VecGenerateJacobsthal(size_t maxIndex)
 {
     std::vector<size_t> indices;
-
-    if (maxIndex == 0)
+    if (maxIndex <= 2)
     {
-        return indices;
-    }
-    if (maxIndex == 1)
-    {
-        indices.push_back(0);
+        for (size_t i = 0; i < maxIndex; ++i)
+        {
+            indices.push_back(i);
+        }
         return indices;
     }
 
+    // Générer les nombres de Jacobsthal
     std::vector<size_t> jacob;
-    jacob.push_back(0);
-    jacob.push_back(1);
+    jacob.push_back(0); // J_0
+    jacob.push_back(1); // J_1
     size_t i = 2;
     while (jacob.back() < maxIndex)
     {
@@ -166,151 +167,362 @@ std::vector<size_t> PmergeMe::VecGenerateJacobsthal(size_t maxIndex)
         ++i;
     }
 
+    // Créer les groupes avec tailles basées sur les différences de Jacobsthal
+    std::vector<std::vector<size_t> > groups;
     size_t prev = 1;
     for (size_t j = 2; j < jacob.size() && prev < maxIndex; ++j)
     {
+        std::vector<size_t> group;
         size_t start = prev;
         size_t end = jacob[j] < maxIndex ? jacob[j] : maxIndex;
-        for (size_t k = end; k > start; --k)
+        for (size_t k = end; k > start && k <= maxIndex; --k)
         {
-            indices.push_back(k - 2); 
+            group.push_back(k - 1); // Indices de 0 à maxIndex-1
+        }
+        if (!group.empty())
+        {
+            groups.push_back(group);
         }
         prev = jacob[j];
     }
 
-    std::vector<bool> used(maxIndex, false);
-    for (size_t i = 0; i < indices.size(); ++i)
+    std::set<size_t> usedIndices;
+    for (size_t g = 0; g < groups.size(); ++g)
     {
-        if (indices[i] < maxIndex)
+        for (size_t k = 0; k < groups[g].size(); ++k)
         {
-            used[indices[i]] = true;
+            usedIndices.insert(groups[g][k]);
         }
     }
+    std::vector<size_t> remaining;
     for (size_t i = 0; i < maxIndex; ++i)
     {
-        if (!used[i])
+        if (usedIndices.find(i) == usedIndices.end())
         {
-            indices.push_back(i);
+            remaining.push_back(i);
         }
+    }
+
+    for (size_t g = 0; g < groups.size(); ++g)
+    {
+        for (size_t k = 0; k < groups[g].size(); ++k)
+        {
+            indices.push_back(groups[g][k]);
+        }
+    }
+    for (size_t k = 0; k < remaining.size(); ++k)
+    {
+        indices.push_back(remaining[k]);
     }
 
     return indices;
 }
 
+size_t PmergeMe::findIndex(std::vector<int>& array, int value)
+{
+    for (std::vector<int>::iterator it = array.begin(); it != array.end(); ++it)
+    {
+        if (*it == value)
+            return std::distance(array.begin(), it);
+    }
+    return std::numeric_limits<size_t>::max();
+}
+
+
 std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax) {
-    int n = static_cast<int>(inputMax.size());
+    int n = inputMax.size();
     if (n <= 1) {
         return inputMax;
     }
 
-    // Étape 1 : Créer les paires
-    std::vector<std::pair<int, int> > pairs;
+    if (n <= 3) {
+        std::sort(inputMax.begin(), inputMax.end());
+        return inputMax;
+    }
+
+    std::vector<int> maxS;
+    std::vector<int> minS;
     int single = -1;
+
+    // Trouver la valeur maximale pour dimensionner index
+    int maxValue = *std::max_element(inputMax.begin(), inputMax.end());
+    if (maxValue < 0) {
+        maxValue = 0;
+    }
+    size_t size = static_cast<size_t>(maxValue) + 1;
+    std::vector<int> index(size, 0);
+
+    // Créer les paires et remplir maxS, minS, index
+    for (int i = 0; i + 1 < n; i += 2) {
+        if (inputMax[i] < inputMax[i + 1]) {
+            minS.push_back(inputMax[i]);
+            maxS.push_back(inputMax[i + 1]);
+            if (inputMax[i + 1] >= 0 && static_cast<size_t>(inputMax[i + 1]) < size) {
+                index[inputMax[i + 1]] = inputMax[i];
+            }
+        } else {
+            minS.push_back(inputMax[i + 1]);
+            maxS.push_back(inputMax[i]);
+            if (inputMax[i] >= 0 && static_cast<size_t>(inputMax[i]) < size) {
+                index[inputMax[i]] = inputMax[i + 1];
+            }
+        }
+    }
+
+    // Gérer l'élément non apparié
+    if (n % 2 != 0) {
+        single = inputMax[n - 1];
+        maxS.push_back(single); // Ajouter à maxS pour le tri récursif
+        if (single >= 0 && static_cast<size_t>(single) < size) {
+            index[single] = -1; // Indiquer qu'il n'a pas de minimum apparié
+        }
+    }
+
+    // Trier récursivement maxS
+    std::vector<int> maxSorted = fordJohnsonVecSort(maxS);
+
+    return maxSorted;
+}
+
+/*std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax) {
+    int n = inputMax.size();
+    if (n <= 1) {
+        return inputMax;
+    }
+
+    if (n <= 3) {
+        std::sort(inputMax.begin(), inputMax.end());
+        return inputMax;
+    }
+
+    std::vector<int> maxS;
+    std::vector<int> minS;
+    int single = -1;
+
+    // Trouver la valeur maximale dans inputMax pour dimensionner index
+    int maxValue = *std::max_element(inputMax.begin(), inputMax.end());
+    if (maxValue < 0) {
+        maxValue = 0; // Gérer les cas où toutes les valeurs sont négatives
+    }
+    // Ajouter 1 car les indices commencent à 0
+    size_t size = static_cast<size_t>(maxValue) + 1;
+    std::vector<int> index(size, 0); // Allouer avec la taille nécessaire
 
     for (int i = 0; i + 1 < n; i += 2) {
         if (inputMax[i] < inputMax[i + 1]) {
+            minS.push_back(inputMax[i]);
+            maxS.push_back(inputMax[i + 1]);
+            if (inputMax[i + 1] >= 0 && static_cast<size_t>(inputMax[i + 1]) < size) {
+                index[inputMax[i + 1]] = inputMax[i];
+            }
+        } else {
+            minS.push_back(inputMax[i + 1]);
+            maxS.push_back(inputMax[i]);
+            if (inputMax[i] >= 0 && static_cast<size_t>(inputMax[i]) < size) {
+                index[inputMax[i]] = inputMax[i + 1];
+            }
+        }
+    }
+    
+    if (n % 2 != 0) {
+        single = inputMax[n - 1];
+    }
+
+    std::vector<int> maxSorted = fordJohnsonVecSort(maxS);
+   
+    std::vector<size_t> jacob = VecGenerateJacobsthal(minS.size());
+
+    std::vector<int> Min;
+    for (std::vector<int>::iterator it = maxSorted.begin(); it != maxSorted.end(); ++it) {
+        if (*it >= 0 && static_cast<size_t>(*it) < size) {
+            Min.push_back(index[*it]);
+        }
+    }
+
+    if (!Min.empty()) {
+        maxSorted.insert(maxSorted.begin(), Min[0]);
+    }
+    
+    for (size_t i = 0; i < jacob.size(); ++i) {
+        size_t j = jacob[i] - 1;
+        
+        if (j >= Min.size() || j == 0) {
+            continue;
+        }
+        
+        int xi = findIndex(index, Min[j]);
+
+        // Trouver la position de xi dans sorted
+        std::vector<int>::iterator xi_pos = maxSorted.begin();
+        while (xi_pos != maxSorted.end() && *xi_pos != xi) {
+            ++xi_pos;
+        }
+        if (xi_pos == maxSorted.end()) {
+            xi_pos = maxSorted.end();
+        }
+        
+        std::vector<int>::iterator pos = std::lower_bound(maxSorted.begin(), xi_pos, minS[j]);
+        maxSorted.insert(pos, minS[j]);
+    }
+
+    return maxSorted;
+}*/
+
+/*std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
+{
+    size_t n = static_cast<size_t>(inputMax.size());
+    if (n <= 1)
+    {
+        return inputMax;
+    }
+
+    std::vector<std::pair<int, int> > pairs;
+    int single = -1;
+
+    for (size_t i = 0; i + 1 < n; i += 2)
+    {
+        if (inputMax[i] < inputMax[i + 1])
+        {
             pairs.push_back(std::make_pair(inputMax[i + 1], inputMax[i]));
         } else {
             pairs.push_back(std::make_pair(inputMax[i], inputMax[i + 1]));
         }
     }
-    if (n % 2 != 0) {
+    if (n % 2 != 0)
+    {
         single = inputMax[n - 1];
     }
 
-    // Étape 2 : Trier les maximaux
     std::vector<int> maxS;
-    for (size_t i = 0; i < pairs.size(); ++i) {
+    for (size_t i = 0; i < pairs.size(); ++i)
+    {
         maxS.push_back(pairs[i].first);
     }
 
     std::vector<int> sorted = fordJohnsonVecSort(maxS);
 
-    // Créer une table de correspondance pour associer chaque xi à sa position dans sorted
-    std::vector<std::pair<int, size_t> > xi_to_pos;
-    xi_to_pos.reserve(sorted.size()); // Réserve pour éviter réallocations
-    for (size_t i = 0; i < sorted.size(); ++i) {
-        xi_to_pos.push_back(std::make_pair(sorted[i], i));
-    }
-
-    // Étape 3 : Créer tmp et Min
     size_t size = sorted.empty() ? 0 : sorted.back() + 1;
     std::vector<int> tmp(size, 0);
 
-    for (size_t i = 0; i < pairs.size(); ++i) {
-        if (pairs[i].first < static_cast<int>(tmp.size())) {
+    for (size_t i = 0; i < pairs.size(); ++i)
+    {
+        if (pairs[i].first < static_cast<int>(tmp.size()))
+        {
             tmp[pairs[i].first] = pairs[i].second;
         }
     }
 
     std::vector<int> Min;
-    for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); ++it) {
-        if (*it < static_cast<int>(tmp.size())) {
+    for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); ++it)
+    {
+        if (*it < static_cast<int>(tmp.size()))
+        {
             Min.push_back(tmp[*it]);
         }
     }
+    
+    
+    //std::vector<int> MinJacobOrder;
 
-    // Étape 4 : Insérer Min[0] et créer MinJacobOrder
-    std::vector<size_t> jacobOrder = VecGenerateJacobsthal(Min.size());
-    std::vector<int> MinJacobOrder;
-
-    if (!Min.empty()) {
-        sorted.insert(sorted.begin(), Min[0]); // Insérer y1 (associé à x1)
-        // Mettre à jour xi_to_pos après l'insertion
-        for (size_t i = 0; i < xi_to_pos.size(); ++i) {
-            xi_to_pos[i].second += 1; // Décaler les positions
-        }
+    if (!Min.empty())
+    {
+        sorted.insert(sorted.begin(), Min[0]);
     }
 
-    // Réordonner les éléments restants de Min selon jacobOrder
-    for (size_t i = 0; i < jacobOrder.size(); ++i) {
+    for (size_t i = 0; i < jacobOrder.size(); ++i)
+    {
         size_t idx = jacobOrder[i];
-        if (idx < Min.size() && idx > 0) { // Ignorer idx == 0 car Min[0] déjà utilisé
+        if (idx < Min.size() && idx > 0)
+        { 
             MinJacobOrder.push_back(Min[idx]);
         }
     }
 
-    // Étape 5 : Insérer les éléments de MinJacobOrder dans sorted
-    for (size_t i = 0; i < jacobOrder.size() && i < MinJacobOrder.size(); ++i) {
-        size_t index = jacobOrder[i];
-        if (index >= Min.size() || index == 0) { // Ignorer index == 0 (Min[0] déjà inséré)
+    std::vector<size_t> jacob = VecGenerateJacobsthal(Min.size());
+    
+    for_each(jacob.begin(), jacob.end(), displayArray);
+    std::cout << std::endl;
+
+    
+    for (size_t i = 0; i < jacob.size() && i < Min.size(); ++i)
+    {
+        size_t index = jacob[i] - 1;
+        if (index >= Min.size() || index == 0)
             continue;
+        
+        int xi = findIndex(tmp, Min[index]);
+        std::cout << Min[index]<< std::endl;
+
+        // Trouver la position de xi dans sorted
+        std::vector<int>::iterator xi_pos = sorted.begin();
+        while (xi_pos != sorted.end() && *xi_pos != xi)
+        {
+            ++xi_pos;
         }
-        // Trouver la position de xi dans sorted via la table de correspondance
-        int xi = pairs[index - 1].first; // xi associé à yi
-        size_t pos = static_cast<size_t>(-1);
-        for (size_t j = 0; j < xi_to_pos.size(); ++j) {
-            if (xi_to_pos[j].first == xi) {
-                pos = xi_to_pos[j].second;
-                break;
-            }
+        if (xi_pos == sorted.end())
+        {
+            xi_pos = sorted.end();
         }
-        if (pos >= sorted.size()) {
-            continue; // Sécurité : si xi n'est pas trouvé
-        }
-        std::vector<int>::iterator xi_pos = sorted.begin() + pos;
-        // Recherche dichotomique de MinJacobOrder[i] dans sorted[0, xi_pos)
-        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, MinJacobOrder[i]);
-        sorted.insert(insert_pos, MinJacobOrder[i]);
-        // Mettre à jour xi_to_pos après l'insertion
-        for (size_t j = 0; j < xi_to_pos.size(); ++j) {
-            if (xi_to_pos[j].second >= static_cast<size_t>(insert_pos - sorted.begin())) {
-                xi_to_pos[j].second += 1; // Décaler les positions après insert_pos
-            }
-        }
+       
+        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, Min[index]);
+        sorted.insert(insert_pos, Min[index]);
+       
     }
 
     // Insérer le singleton, si présent
-    if (single != -1) {
+    if (single != -1)
+    {
         std::vector<int>::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), single);
         sorted.insert(pos, single);
     }
 
     return sorted;
+}*/
+
+
+
+void PmergeMe::PmergeMeVector()
+{
+    std::vector<std::pair<int, int> > pairs = createPairsVec(_inputVec);
+
+    std::vector<int> maxX;
+    for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it)
+    {
+        maxX.push_back(it->first);
+    }
+
+    _sortedVec = fordJohnsonVecSort(maxX);
+    std::cout << "max: ";
+    for (std::vector<int>::iterator it = _sortedVec.begin(); it != _sortedVec.end(); it++)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    
+    /*std::vector<int> minX = VecExtractMinX(pairs);
+
+    if (!minX.empty())
+    {
+        std::vector<int>::iterator minIt = std::min_element(minX.begin(), minX.end());
+        std::vector<int>::iterator pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), *minIt);
+        _sortedVec.insert(pos, *minIt);
+        minX.erase(minIt);
+    }
+
+    std::vector<size_t> jacob = VecGenerateJacobsthal(minX.size());
+    std::vector<bool> inserted(minX.size(), false);
+
+    for (size_t i = 0; i < jacob.size(); ++i)
+    {
+        size_t index = jacob[i];
+        if (index < minX.size() && !inserted[index])
+        {
+            std::vector<int>::iterator pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), minX[index]);
+            _sortedVec.insert(pos, minX[index]);
+            inserted[index] = true;
+        }
+    }*/
 }
-
-
-
 
 // DEQUE SIMULATION /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -453,21 +665,21 @@ std::deque<int> PmergeMe::fordJohnsonDeqSort(std::deque<int> inputMax)
 
     std::deque<int> maxSorted = fordJohnsonDeqSort(maxS);
 
-    std::deque<size_t> jacobIndices;
+    std::deque<size_t> jacob;
     if (single != -1)
     {
         pairs.push_back(std::pair<int, int>(std::numeric_limits<int>::max(), single));
-        jacobIndices = DeqGenerateJacobsthal(pairs.size());
+        jacob = DeqGenerateJacobsthal(pairs.size());
     } else
     {
-        jacobIndices = DeqGenerateJacobsthal(pairs.size());
+        jacob = DeqGenerateJacobsthal(pairs.size());
     }
 
     std::deque<bool> inserted(pairs.size(), false);
 
-    for (size_t i = 0; i < jacobIndices.size(); ++i)
+    for (size_t i = 0; i < jacob.size(); ++i)
     {
-        size_t index = jacobIndices[i];
+        size_t index = jacob[i];
         if (index < pairs.size() && !inserted[index])
         {
             int yi = pairs[index].second;
@@ -569,7 +781,7 @@ void PmergeMe::mergeInsertSort()
     std::cout << std::endl;
     
     clock_t startTime = clock();
-    _sortedVec = fordJohnsonVecSort(_inputVec);
+    PmergeMeVector();
     _timeVec = static_cast<double>(clock() - startTime) / (double)CLOCKS_PER_SEC;
 
     /*for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
@@ -587,9 +799,9 @@ void PmergeMe::mergeInsertSort()
    /* std::cout << "Time to process a range of " << _inputVec.size() 
                 << " elements with std::vector: " << std::fixed << std::setprecision(5) 
                 << _timeVec << " us" << std::endl;*/
-   /* std::cout << "Time to process a range of " << _inputDeq.size() 
+    std::cout << "Time to process a range of " << _inputDeq.size() 
                 << " elements with std::deque:  " << std::fixed << std::setprecision(5) 
-                << _timeDeq << " us\n";*/
+                << _timeDeq << " us\n";
 }
 
 
