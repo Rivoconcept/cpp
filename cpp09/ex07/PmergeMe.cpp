@@ -142,15 +142,7 @@ std::vector<int> PmergeMe::VecExtractMinX(const std::vector<std::pair<int, int> 
     return minX;
 }
 
-std::vector<int> PmergeMe::VecExtractMinX(const std::vector<std::pair<int, int> >& pairs)
-{
-    std::vector<int> minX;
-    for (size_t i = 0; i < pairs.size(); ++i)
-    {
-        minX.push_back(pairs[i].second);
-    }
-    return minX;
-}
+
 
 std::vector<size_t> PmergeMe::VecGenerateJacobsthal(size_t maxIndex)
 {
