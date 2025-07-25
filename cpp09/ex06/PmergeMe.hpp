@@ -40,21 +40,25 @@ class PmergeMe
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
-        static size_t findIndex(std::vector<int>& array, int value);
+        
         static void displayArray(size_t i);
-
+        
+        static std::vector<int>::iterator findIt(std::vector<int>& array, int value);
+        static size_t findIndex(std::vector<int>& array, int value);
         std::vector<std::pair<int, int> > createPairsVec(const std::vector<int>& array);
         std::vector<int> VecExtractMinX(const std::vector<std::pair<int, int> >& pairs);
         std::vector<size_t> VecGenerateJacobsthal(size_t maxIndex);
         std::vector<int> fordJohnsonVecSort(std::vector<int> inputMax);
         void PmergeMeVector();
 
+        static std::deque<int>::iterator findIt(std::deque<int>& array, int value);
+        static size_t findIndex(std::deque<int>& array, int value);
         std::deque<std::pair<int, int> > createPairsDeq(const std::deque<int>& array);
         std::deque<int> DeqExtractMinX(const std::deque<std::pair<int, int> >& pairs);
         std::deque<size_t> DeqGenerateJacobsthal(size_t maxIndex);
         std::deque<int> fordJohnsonDeqSort(std::deque<int> inputMax);
         void PmergeMeDeque();
-
+ 
     public:
         PmergeMe(const std::string& args);
         PmergeMe(const PmergeMe& other);
@@ -62,7 +66,6 @@ class PmergeMe
         ~PmergeMe();
 
         void mergeInsertSort();
-
 };
 
 #endif
