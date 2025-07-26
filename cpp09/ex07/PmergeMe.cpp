@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/25 14:16:29 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:46:22 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,25 @@ void PmergeMe::findDuplicates(std::vector<int>& input)
     std::cout << i << " ";
  }
 
+bool PmergeMe::isSorted(const std::vector<int>& vec)
+{
+    if (vec.size() <= 1)
+    {
+        return true;
+    }
+    for (size_t i = 1; i < vec.size(); ++i)
+    {
+        if (vec[i] < vec[i - 1])
+        {
+            std::cout << std::endl;
+            std::cerr << "Sorting error at index " << i << ": " 
+                      << vec[i - 1] << " > " << vec[i] << std::endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 // VECTOR SIMULATION //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 std::vector<std::pair<int, int> > PmergeMe::createPairsVec(const std::vector<int>& input)
@@ -141,8 +160,6 @@ std::vector<int> PmergeMe::VecExtractMinX(const std::vector<std::pair<int, int> 
     }
     return minX;
 }
-
-
 
 std::vector<size_t> PmergeMe::VecGenerateJacobsthal(size_t maxIndex)
 {
@@ -298,24 +315,17 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
     }
 
     std::vector<size_t> jacob = VecGenerateJacobsthal(MinS.size());
-
+    
     for (size_t i = 0; i < jacob.size() && i < MinS.size(); ++i)
     {
         size_t index = jacob[i];
         if (index >= MinS.size() || index == 0)
             continue;
+               
+        std::vector<int>::iterator end_pos = _sortedVec.begin() + std::min(_sortedVec.size(), index + i + 1);
         
-        long unsigned int xi = findIndex(map, MinS[index]);
-        if (xi == std::numeric_limits<size_t>::max())
-            continue;
-        
-        std::vector<int>::iterator xi_pos =  findIt(sorted, xi);
-        if (xi_pos == sorted.end())
-            continue;
-
-        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, MinS[index]);
+        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), end_pos, MinS[index]);
         sorted.insert(insert_pos, MinS[index]);
-        
     }
 
     if (single != -1)
@@ -324,7 +334,7 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
         sorted.insert(pos, single);
     }
 
-    return sorted;
+    return (sorted);
 }
 
 void PmergeMe::PmergeMeVector()
@@ -339,6 +349,9 @@ void PmergeMe::PmergeMeVector()
 
     _sortedVec = fordJohnsonVecSort(maxX);
     
+    for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
+    std::cout << std::endl;
+
     std::vector<int> minX = VecExtractMinX(pairs);
 
     size_t size = _sortedVec.empty() ? 0 : _sortedVec.back() + 1;
@@ -367,6 +380,9 @@ void PmergeMe::PmergeMeVector()
         _sortedVec.insert(_sortedVec.begin(), MinSorted[0]);
     }
 
+    std::cout << "MinFirst: " << MinSorted[0] << std::endl;
+
+
     std::vector<size_t> jacob = VecGenerateJacobsthal(MinSorted.size());
     
     for (size_t i = 0; i < jacob.size() && i < MinSorted.size(); ++i)
@@ -375,17 +391,10 @@ void PmergeMe::PmergeMeVector()
         if (index >= MinSorted.size() || index == 0)
             continue;
         
-        long unsigned int xi = findIndex(map, MinSorted[index]);
-        if (xi == std::numeric_limits<size_t>::max())
-            continue;
+        std::vector<int>::iterator end_pos = _sortedVec.begin() + std::min(_sortedVec.size(), index + i + 1);
         
-        std::vector<int>::iterator xi_pos =  findIt(_sortedVec, xi);
-        if (xi_pos == _sortedVec.end())
-            continue;       
-        
-        std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), xi_pos, MinSorted[index]);
+        std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), end_pos, MinSorted[index]);
         _sortedVec.insert(insert_pos, MinSorted[index]);
-
     }
 
     if (_single != -1)
@@ -583,16 +592,8 @@ std::deque<int> PmergeMe::fordJohnsonDeqSort(std::deque<int> inputMax)
         size_t index = jacob[i];
         if (index >= MinS.size() || index == 0)
             continue;
-        
-        long unsigned int xi = findIndex(map, MinS[index]);
-        if (xi == std::numeric_limits<size_t>::max())
-            continue;
-        
-        std::deque<int>::iterator xi_pos =  findIt(sorted, xi);
-        if (xi_pos == sorted.end())
-            continue;
 
-        std::deque<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, MinS[index]);
+        std::deque<int>::iterator insert_pos = std::lower_bound(sorted.begin(), sorted.end(), MinS[index]);
         sorted.insert(insert_pos, MinS[index]);
         
     }
@@ -603,7 +604,7 @@ std::deque<int> PmergeMe::fordJohnsonDeqSort(std::deque<int> inputMax)
         sorted.insert(pos, single);
     }
 
-    return sorted;
+    return (sorted);
 }
 
 void PmergeMe::PmergeMeDeque()
@@ -654,16 +655,12 @@ void PmergeMe::PmergeMeDeque()
         if (index >= MinSorted.size() || index == 0)
             continue;
         
-        long unsigned int xi = findIndex(map, MinSorted[index]);
-        if (xi == std::numeric_limits<size_t>::max())
-            continue;
+        std::deque<int>::iterator end_pos = _sortedDeq.begin() + std::min(_sortedDeq.size(), index + i + 1);
         
-        std::deque<int>::iterator xi_pos =  findIt(_sortedDeq, xi);
-        if (xi_pos == _sortedDeq.end())
-            continue;       
-        
-        std::deque<int>::iterator insert_pos = std::lower_bound(_sortedDeq.begin(), xi_pos, MinSorted[index]);
+        std::deque<int>::iterator insert_pos = std::lower_bound(_sortedDeq.begin(), end_pos, MinSorted[index]);
         _sortedDeq.insert(insert_pos, MinSorted[index]);
+
+        std::cout << "i: " << i << "    index: " << index << "    Min: " << MinSorted[index] << std::endl;
 
     }
 
@@ -689,11 +686,11 @@ void PmergeMe::mergeInsertSort()
     startTime = clock();
     PmergeMeDeque();
     _timeDeq = (clock() - startTime )/ (double)CLOCKS_PER_SEC;
-   
+
     std::cout << "After:  ";
     for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
     std::cout << std::endl;
-
+   
     std::cout << "Time to process a range of " << _inputVec.size() 
                 << " elements with std::vector: " << std::fixed << std::setprecision(5) 
                 << _timeVec << " us" << std::endl;
@@ -701,6 +698,11 @@ void PmergeMe::mergeInsertSort()
     std::cout << "Time to process a range of " << _inputDeq.size() 
                 << " elements with std::deque:  " << std::fixed << std::setprecision(5) 
                 << _timeDeq << " us" << std::endl;
+                
+    if (!isSorted(_sortedVec))
+    {
+        std::cerr << "Error: _sortedVec is not sorted!" << std::endl;
+    }
 }
 
 

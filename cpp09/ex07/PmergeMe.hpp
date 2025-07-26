@@ -11,18 +11,11 @@
 # include <string>
 #include <sstream>
 #include <limits>
+#include <iterator>
 #include <ctime>
+#include <set>
 #include <vector>
 #include <deque>
-#include <set>
-
-struct ComparePairs
-{
-    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) const
-    {
-        return (a.first < b.first);
-    }
-};
 
 class PmergeMe
 {
@@ -40,7 +33,7 @@ class PmergeMe
 
         static bool isNumeric(const std::string &str);
         static void findDuplicates(std::vector<int>& input);
-        
+        static bool isSorted(const std::vector<int>& vec);
         static void displayArray(size_t i);
         
         static std::vector<int>::iterator findIt(std::vector<int>& array, int value);
