@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/26 17:46:22 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:10:00 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ bool PmergeMe::isSorted(const std::vector<int>& vec, const std::vector<int> init
     if (vec.size() != initVec.size())
     {
         std::cout << std::endl;
+        std::cerr << "sizeVec: " << vec.size() << std::endl;
+        std::cerr << "sizeInput: " << initVec.size() << std::endl;
         std::cerr << "Error size !!!" << std::endl;
     }
     return true;
@@ -261,27 +263,28 @@ std::vector<int>::iterator PmergeMe::findIt(std::vector<int>& array, int value)
 
 std::vector<size_t> PmergeMe::VecgenerateJacobsthalGroup(size_t maxIndex)
 {
-    std::vector<size_t> indices;
-    size_t j1 = 1;
-    size_t j2 = 1;
+    std::vector<size_t> groupSizes;
+    std::vector<size_t> groupIndex(maxIndex, 0);
     if (maxIndex == 0)
-        return indices;
+        return groupSizes;
 
-    indices.push_back(0);
-    while (j1 < maxIndex) {
-        indices.push_back(j1);
-        size_t temp = j1;
+    std::vector<size_t> jacob;
+    jacob.push_back(0);
+    jacob.push_back(1);
+    size_t j1 = 1, j2 = 0;
+    while (j1 < maxIndex)
+    {
         j1 = j1 + 2 * j2;
-        j2 = temp;
+        j2 = jacob.back();
+        jacob.push_back(j1);
     }
 
-    /*for (size_t i = 0; i < maxIndex; ++i)
+    for (size_t i = 1; i < jacob.size(); ++i)
     {
-        if (std::find(indices.begin(), indices.end(), i) == indices.end())
-            indices.push_back(i);
-    }*/
+        groupIndex[jacob[i]] = jacob[i];
+    }
 
-    return (indices);
+    return groupIndex;
 }
 
 std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
@@ -349,16 +352,12 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
 
     std::vector<size_t> jacob = VecGenerateJacobsthal(MinS.size());
 
-    
     for (size_t i = 0; i < jacob.size() && i < MinS.size(); ++i)
     {
         size_t index = jacob[i];
-        // if (jacobSize < index)
-        //     jacobSize = index;
+
         if (index >= MinS.size() || index == 0)
             continue;
-        // std::cout << "jb: " << jacobSize << std::endl;
-        // std::vector<int>::iterator end_pos = sorted.begin() + i + sizeTab++;
         
         std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), sorted.end(), MinS[index]);
         sorted.insert(insert_pos, MinS[index]); 
@@ -372,6 +371,7 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
 
     return (sorted);
 }
+
 
 
 void PmergeMe::PmergeMeVector()
@@ -417,38 +417,33 @@ void PmergeMe::PmergeMeVector()
         _sortedVec.insert(_sortedVec.begin(), MinSorted[0]);
     }
 
-    // std::cout << "MinFirst: " << MinSorted[0] << std::endl;
-
-
     std::vector<size_t> jacob = VecGenerateJacobsthal(MinSorted.size());
 
     std::vector<size_t> jacobG = VecgenerateJacobsthalGroup(MinSorted.size());
-    // size_t sizeTab = 1;
-    // size_t jacobSize = 0;
 
-    // for_each(jacobG.begin(), jacobG.end(), displayArray);
-    // size_t sizeTab = 1;
-    size_t jacobGroup = 0; 
-    for (size_t i = 0; i < jacob.size() && i < MinSorted.size(); ++i)
+    for_each(jacobG.begin(), jacobG.end(), displayArray);
+    std::cout << std::endl;
+
+    size_t limit = 1;
+    for (size_t i = 3; i < jacobG.size() && i < MinSorted.size(); ++i)
     {
-        size_t k = 0;
-        size_t index = jacob[i];
-        if (i ==  jacobG[k])
+        if (jacobG[i] != 0)
         {
-            k++;
-            jacobGroup = i;
-        }
-            
-        if (index >= MinSorted.size() || index == 0)
-            continue;
-        std::cout << "jb: " << jacobGroup << std::endl;
-        
-        // std::vector<int>::iterator end_pos = _sortedVec.begin() + std::min(_sortedVec.size(), index + i + 1);
-        // std::vector<int>::iterator end_pos = _sortedVec.begin() + i + sizeTab;
+
+            size_t index = jacobG[i];
+            while (index-- != limit)
+            {
     
-        std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), MinSorted[index]);
-        _sortedVec.insert(insert_pos, MinSorted[index]);
-        // sizeTab++;
+                std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), MinSorted[index]);
+                _sortedVec.insert(insert_pos, MinSorted[index]);
+                
+        
+                std::cout <<  "  i: " << i << "    index: " << index << "    Min: " << MinSorted[index] << std::endl;
+            }
+            limit = jacobG[i];
+        }
+
+
     }
 
     if (_single != -1)
@@ -713,8 +708,6 @@ void PmergeMe::PmergeMeDeque()
         
         std::deque<int>::iterator insert_pos = std::lower_bound(_sortedDeq.begin(), end_pos, MinSorted[index]);
         _sortedDeq.insert(insert_pos, MinSorted[index]);
-
-        std::cout << "i: " << i << "    index: " << index << "    Min: " << MinSorted[index] << std::endl;
 
     }
 
