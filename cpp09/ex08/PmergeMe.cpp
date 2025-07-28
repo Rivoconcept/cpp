@@ -366,7 +366,24 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
     if (!MinS.empty())
     {
         sorted.insert(sorted.begin(), MinS[0]);
+
     }
+
+    /*std::vector<size_t> jacob = VecGenerateJacobsthal(MinS.size());
+    
+    for (size_t i = 0; i < jacob.size() && i < MinS.size(); ++i)
+    {
+        size_t index = jacob[i];
+        if (index >= MinS.size() || index == 0)
+            continue;
+               
+        
+        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), sorted.end(), MinS[index]);
+        sorted.insert(insert_pos, MinS[index]);
+
+        // std::cout << "i: " << i << "    index: " << index << "    Min: " << sorted[index] << std::endl;
+
+    }*/
 
     std::vector<size_t> jacobG = VecgenerateJacobsthalGroup(MinS.size());
 
@@ -390,7 +407,7 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
                 {
                     index--;
                 }
-                index--;
+                // index--;
             }
         }
             
@@ -398,10 +415,11 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
         {
             if (index == 0)
                 break ; 
+
             std::vector<int>::iterator xi_pos = sorted.begin() + std::min(MinS.size(), index + i + 1);
             std::cout <<  "  i: " << i << "    index: " << index  << "    limit: " << limit << "  Min: " << MinS[index] << std::endl;
 
-            std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), sorted.end(), MinS[index]);
+            std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, MinS[index]);
             sorted.insert(insert_pos, MinS[index]);
             
             i++;
@@ -434,10 +452,10 @@ void PmergeMe::PmergeMeVector()
 
     _sortedVec = fordJohnsonVecSort(maxX);
     
-    for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
-    std::cout << std::endl;
+    /*for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
+    std::cout << std::endl;*/
 
-    return ;
+    // return ;
 
     std::vector<int> minX = VecExtractMinX(pairs);
 
@@ -474,16 +492,22 @@ void PmergeMe::PmergeMeVector()
 
     for (size_t j = 0; j < jacobG.size(); j++)
     {
-        size_t index = jacobG[j] - 1;
+        size_t index = MinSorted.size();
         
-        if (index >= MinSorted.size())
+        if (MinSorted.size() > 3)
         {
-            while (index != MinSorted.size())
+            index = jacobG[j] - 1;
+            
+            if (index >= MinSorted.size())
             {
+                while (index != MinSorted.size())
+                {
+                    index--;
+                }
                 index--;
             }
-            index--;
         }
+            
         while (index != limit && i != MinSorted.size() )
         {      
             if (index == 0)
