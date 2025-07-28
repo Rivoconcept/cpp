@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/24 17:10:58 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:17:04 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -496,7 +496,7 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
     return sorted;
 }*/
 
-/*void PmergeMe::PmergeMeVector()
+void PmergeMe::PmergeMeVector()
 {
     std::vector<std::pair<int, int> > pairs = createPairsVec(_inputVec);
 
@@ -509,9 +509,9 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
     _sortedVec = fordJohnsonVecSort(maxX);
 
     for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
-    std::cout << std::endl;*/
+    std::cout << std::endl;
 
-    /*std::vector<int> minX = VecExtractMinX(pairs);
+    std::vector<int> minX = VecExtractMinX(pairs);
  
     if (!minX.empty())
     {
@@ -564,8 +564,8 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
             _sortedVec.insert(pos, yi);
             inserted[index] = true;
         }
-    }*/
-// }
+    }
+}
 
 
 // DEQUE SIMULATION /////////////////////////////////////////////////////////////////////////////////////////////////

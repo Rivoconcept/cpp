@@ -12,17 +12,9 @@
 #include <sstream>
 #include <limits>
 #include <ctime>
+#include <set>
 #include <vector>
 #include <deque>
-#include <set>
-
-struct ComparePairs
-{
-    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) const
-    {
-        return (a.first < b.first);
-    }
-};
 
 class PmergeMe
 {

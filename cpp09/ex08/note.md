@@ -27,3 +27,13 @@ classez-les d'index plus grands vers des index plus petits. Ainsi, la commande d
 Utilisez cet ordre pour insérer les éléments yi dans S. Pour chaque élément yi, utilisez une recherche dichotomique à partir du début de 
 S jusqu'à xi exclu afin de déterminer où insérer yi.
 
+81 103 5 23 7 18 56 73 42 u=42
+
+103 23  18  73                      5    7   18  23 56 73  103
+81  5   7   56
+
+103 73                              18  23  73  103
+23  18
+
+103                                 73  103
+73
