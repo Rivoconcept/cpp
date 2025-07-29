@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
+/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/28 20:00:27 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/07/29 09:33:46 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,18 +333,20 @@ std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
         single = inputMax[n - 1];
     }
 
-    std::vector<int> maxS;
+    std::vector<int> maxS, minS;
     for (std::vector<std::pair<int, int> >::iterator it =  pairs.begin(); it != pairs.end(); it++)
     {
         maxS.push_back(it->first);
+        minS.push_back(it->second);
     }
 
     std::vector<int> sorted = fordJohnsonVecSort(maxS);
+    std::vector<int>::iterator minIt = std::min_element(minS.begin(), minS.end());
 
 
-
-    size_t size = sorted.empty() ? 0 : sorted.back() + 1;
-    std::vector<int> map(size, 0);
+    size_t size = minS.empty() ? 0 : static_cast<size_t>(*minIt + 1);
+    
+    std::vector<size_t> map(size, 0);
 
     for (std::vector<std::pair<int, int> >::iterator it =  pairs.begin(); it != pairs.end(); it++)
     {
@@ -452,16 +454,12 @@ void PmergeMe::PmergeMeVector()
 
     _sortedVec = fordJohnsonVecSort(maxX);
     
-    /*for_each(_sortedVec.begin(), _sortedVec.end(), displayArray);
-    std::cout << std::endl;*/
-
-    // return ;
 
     std::vector<int> minX = VecExtractMinX(pairs);
 
-    size_t size = _sortedVec.empty() ? 0 : _sortedVec.back() + 1;
+    size_t size = _sortedVec.empty() ? 0 : static_cast<size_t>(_sortedVec.back() + 1);
 
-    std::vector<int> map(size, 0);
+    std::vector<size_t> map(size, 0);
 
     for (std::vector<std::pair<int, int> >::iterator it =  pairs.begin(); it != pairs.end(); it++)
     {

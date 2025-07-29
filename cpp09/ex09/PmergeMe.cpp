@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:56:06 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/28 15:23:59 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:16:49 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,9 +433,9 @@ void PmergeMe::PmergeMeVector()
         // if (jacobG[i])
         //     sizeTab = jacobG[i];
         
-        // std::vector<int>::iterator xi_pos = _sortedVec.begin() + std::min(_sortedVec.size(), sizeTab + i);
+        std::vector<int>::iterator xi_pos = _sortedVec.begin() + std::min(_sortedVec.size(), index + i + 1);
 
-        std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), MinSorted[index]);
+        std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), xi_pos, MinSorted[index]);
         _sortedVec.insert(insert_pos, MinSorted[index]);
         
 
