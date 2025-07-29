@@ -37,3 +37,72 @@ S jusqu'à xi exclu afin de déterminer où insérer yi.
 
 103                                 73  103
 73
+
+
+
+
+    std::vector<int> maxSorted = fordJohnsonVecSort(maxS);
+   
+    size_t sizeMapMax = MaxSorted.empty() ? 0 : static_cast<size_t>(_sizeTab + 1);
+    unsigned int mapMax[sizeMapMax];
+    
+    size_t size = MaxSorted.empty() ? 0 : static_cast<unsigned int>(MaxSorted.back()) + 1;
+    unsigned int* mapMin = new unsigned int[size];
+
+    for (std::vector<std::pair<int, int> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+    {
+        mapMax[it->second] = it->first;
+        mapMin[it->first] = it->second;
+    }
+
+    _sortedVec = MaxSorted;
+
+    for_each(MaxSorted.begin(), MaxSorted.end(), displayArray);
+    std::cout << std::endl;
+    
+    if (!minX.empty())
+    {
+        _sortedVec.insert(_sortedVec.begin(), mapMin[MaxSorted[0]]);
+    }
+    (void)mapMax;
+
+    std::vector<size_t> jacobG = VecgenerateJacobsthalGroup(minX.size());
+
+    size_t i = 0;
+    size_t limit = 0;
+
+    for (size_t j = 0; j < jacobG.size(); j++)
+    {
+        size_t index = jacobG[j] - 1;
+        
+        if (index >= MaxSorted.size())
+        {
+            index = MaxSorted.size() - 1;
+        }
+        while (index != limit && i < minX.size() )
+        {      
+            if (index == 0)
+                break;
+            size_t max_pos = std::min(_sortedVec.size(), index + i + 1);
+            std::vector<int>::iterator xi_pos = _sortedVec.begin() + max_pos;
+            
+            std::cout <<  "  i: " << i << "    index: " << index  << "    limit: " << limit << "    Min: " << MaxSorted[index] << std::endl;
+            int to_insert = mapMin[MaxSorted[index]];
+
+            std::vector<int>::iterator insert_pos = std::lower_bound(_sortedVec.begin(), xi_pos, to_insert);
+            _sortedVec.insert(insert_pos, to_insert);
+            
+            i++;
+            index--;
+        }
+        limit = jacobG[j] - 1;
+
+    }
+
+    if (_single != -1)
+    {
+        std::vector<int>::iterator pos = std::lower_bound(_sortedVec.begin(), _sortedVec.end(), _single);
+        _sortedVec.insert(pos, _single);
+    }
+    
+    delete[] mapMin;

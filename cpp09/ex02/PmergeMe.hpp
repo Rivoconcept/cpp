@@ -17,6 +17,8 @@
 #include <set>
 #include <vector>
 #include <deque>
+#include <map>
+
 
 class PmergeMe
 {
