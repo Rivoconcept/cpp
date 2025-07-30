@@ -1,23 +1,154 @@
-./PmergeMe 81 103 5 23 7 18 56 73 42
 
-Insérer le reste des [n / 2] - 1 éléments de X ∖S dans S, un à la fois, avec un ordre d'insertion spécialement choisi décrit ci-dessous. 
-Utiliser la recherche dichotomique dans les sous-séquences de S (comme décrit ci-dessous) pour déterminer la position à laquelle 
-chaque élément doit être inséré.
-Cet algorithme est conçu pour tirer parti du fait que les recherches dichotomiques utilisées pour insérer des éléments dans S
-{\displaystyle S} sont les plus efficaces (du point de vue de l'analyse au pire cas) lorsque la longueur de la sous-séquence 
-recherchée est inférieure à une puissance de deux. En effet, pour ces longueurs, tous les résultats de la recherche utilisent 
-le même nombre de comparaisons les uns que les autres[1]. Pour choisir un ordre d'insertion qui produit ces longueurs, 
-prenons la séquence triée  après l'étape 4 du plan ci-dessus (avant d'insérer les éléments restants). Soit xi le 
-i-ème élément de cette séquence triée. Ainsi on obtient, S =(x1,x2,x3,…), où chaque élément xi avec i ≥ 3 est associé 
-à un élément yi < xi qui n'a pas encore été inséré. (y1 et y2 n'existent pas car x1 et x2 ont été jumelés les uns aux autres.)
-Si n est impair, l'élément non apparié restant doit également être numéroté comme un yi avec i plus grand que les index des éléments
-appariés. Ensuite, on peut étendre la dernière étape du plan ci-dessus aux étapes suivantes[1],[2],[3],[4]:
+// ./PmergeMe `shuf -i 1-100000 -n 3000 | tr "\n" " "`
+std::vector<size_t> PmergeMe::VecGenerateJacobsthal(size_t maxIndex)
+{
+    std::vector<size_t> indices;
+    if (maxIndex <= 2)
+    {
+        for (size_t i = 0; i < maxIndex; ++i)
+        {
+            indices.push_back(i);
+        }
+        return indices;
+    }
 
-Partitionner les éléments non insérés yi en groupes avec des index contigus. Il y a deux éléments y3 et y4 dans le premier groupe,
-et les sommes des tailles de tous les deux groupes adjacents forment une séquence de puissances de deux. Ainsi, les tailles 
-des groupes sont : 2, 2, 6, 10, 22, 42...
+    std::vector<size_t> jacob;
+    jacob.push_back(0);
+    jacob.push_back(1);
+    size_t i = 2;
+    while (jacob.back() < maxIndex)
+    {
+        jacob.push_back(jacob[i - 1] + 2 * jacob[i - 2]);
+        ++i;
+    }
 
-Classer les éléments non insérés par groupes (des index plus petits vers des index plus grands), mais au sein de chaque groupe,
-classez-les d'index plus grands vers des index plus petits. Ainsi, la commande devient y4, y3, y6, y5, y12, y11, y10, y9, y8, y7, y22, y21 …
-Utilisez cet ordre pour insérer les éléments yi dans S. Pour chaque élément yi, utilisez une recherche dichotomique à partir du début de 
-S jusqu'à xi exclu afin de déterminer où insérer yi.
+    std::vector<std::vector<size_t> > groups;
+    size_t prev = 1;
+    for (size_t j = 2; j < jacob.size() && prev < maxIndex; ++j)
+    {
+        std::vector<size_t> group;
+        size_t start = prev;
+        size_t end = jacob[j] < maxIndex ? jacob[j] : maxIndex;
+        for (size_t k = end; k > start && k <= maxIndex; --k)
+        {
+            group.push_back(k - 1);
+        }
+        if (!group.empty())
+        {
+            groups.push_back(group);
+        }
+        prev = jacob[j];
+    }
+
+    std::set<size_t> usedIndices;
+    for (size_t g = 0; g < groups.size(); ++g)
+    {
+        for (size_t k = 0; k < groups[g].size(); ++k)
+        {
+            usedIndices.insert(groups[g][k]);
+        }
+    }
+    std::vector<size_t> remaining;
+    for (size_t i = 0; i < maxIndex; ++i)
+    {
+        if (usedIndices.find(i) == usedIndices.end())
+        {
+            remaining.push_back(i);
+        }
+    }
+
+    for (size_t g = 0; g < groups.size(); ++g)
+    {
+        for (size_t k = 0; k < groups[g].size(); ++k)
+        {
+            indices.push_back(groups[g][k]);
+        }
+    }
+    for (size_t k = 0; k < remaining.size(); ++k)
+    {
+        indices.push_back(remaining[k]);
+    }
+
+    return indices;
+}
+
+std::vector<int> PmergeMe::fordJohnsonVecSort(std::vector<int> inputMax)
+{
+    size_t n = static_cast<size_t>(inputMax.size());
+    if (n <= 1)
+    {
+        return inputMax;
+    }
+
+    std::vector<std::pair<int, int> > pairs;
+    int single = -1;
+
+    for (size_t i = 0; i + 1 < n; i += 2)
+    {
+        if (inputMax[i] < inputMax[i + 1])
+        {
+            pairs.push_back(std::make_pair(inputMax[i + 1], inputMax[i]));
+        }
+        else
+        {
+            pairs.push_back(std::make_pair(inputMax[i], inputMax[i + 1]));
+        }
+    }
+
+    if (n % 2 != 0)
+    {
+        single = inputMax[n - 1];
+    }
+
+    std::vector<int> maxS;
+    for (std::vector<std::pair<int, int> >::iterator it =  pairs.begin(); it != pairs.end(); it++)
+    {
+        maxS.push_back(it->first);
+    }
+
+    std::vector<int> sorted = fordJohnsonVecSort(maxS);
+
+    std::map<int, int> map;
+    for (std::vector<std::pair<int, int> >::iterator it = pairs.begin(); it != pairs.end(); ++it)
+    {
+        map.insert(std::pair<int, int>(it->first, it->second));
+    }
+
+    std::vector<int> MinS;
+    for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); ++it)
+    {
+            MinS.push_back(map[*it]);
+    }
+
+    if (!MinS.empty())
+    {
+        sorted.insert(sorted.begin(), MinS[0]);
+    }
+
+    std::cout << "MinFirst: " << MinS[0] << std::endl;
+
+    std::vector<size_t> jacob = VecGenerateJacobsthal(MinS.size());
+    
+    for (size_t i = 0; i < jacob.size() && i < MinS.size(); ++i)
+    {
+        size_t index = jacob[i];
+        if (index >= MinS.size() || index == 0)
+            continue;
+               
+        size_t max_pos = std::min(sorted.size(), index + i + 1);
+        std::vector<int>::iterator xi_pos = sorted.begin() + max_pos;
+        
+        std::vector<int>::iterator insert_pos = std::lower_bound(sorted.begin(), xi_pos, MinS[index]);
+        sorted.insert(insert_pos, MinS[index]);
+
+        std::cout << "i: " << i << "    index: " << index << "    Min: " << sorted[index] << std::endl;
+
+    }
+
+    if (single != -1)
+    {
+        std::vector<int>::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), single);
+        sorted.insert(pos, single);
+    }
+    return (sorted);
+}
