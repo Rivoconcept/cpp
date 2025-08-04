@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/04 15:55:49 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:30:24 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ template <typename T>
 T& getListElement(std::list<T>& lst, size_t index)
 {
     if (index >= lst.size())
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("bad input => null");
 
     typename std::list<T>::iterator it = lst.begin();
     std::advance(it, index);
@@ -71,7 +71,7 @@ template <typename T>
 const T& getListElement(const std::list<T>& lst, size_t index)
 {
     if (index >= lst.size())
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("bad input => null");
         
     typename std::list<T>::const_iterator it = lst.begin();
     std::advance(it, index);

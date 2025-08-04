@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 14:05:43 by rhanitra          #+#    #+#              #
-#    Updated: 2025/07/29 13:28:22 by rivoinfo         ###   ########.fr        #
+#    Updated: 2025/07/30 19:05:46 by rhanitra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ_PMERGEME = $(SRC_PMERGEME:.cpp=.o)
 
 NAME = PmergeMe
 
-FLAGS = -g -Wall -Wextra -Werror -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 RM = rm -rf
 

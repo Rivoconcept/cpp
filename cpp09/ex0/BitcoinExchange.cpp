@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/04 15:51:50 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:32:53 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,20 +295,18 @@ void findValue(const std::string& dbName, char *inputFileName)
             int tabLine_0 = getListElement(tabLine, 0);
             int tabLine_1 = getListElement(tabLine, 1);
             int tabLine_2 = getListElement(tabLine, 2);
-            float tabLine_3 = getListElement(tabLine, 3);
-
+            
             if (!btc.isValidDate(tabLine_0, tabLine_1, tabLine_2))
-                throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
-
+            throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
+            
+            float tabLine_3 = getListElement(tabLine, 3);
+            
             if ((tabLine_3 > 1000) && !dataFile.empty())
                 throw std::runtime_error("too large a number.");
 
             if ((tabLine_3 == -0) && !dataFile.empty())
                 tabLine_3 = 0;
-                
-            // if (tabLine_3.empty() && !dataFile.empty())
-            //     throw std::runtime_error("too large a number.");
-
+            
             std::list<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
 
             if (itdb == dataBase.end())
