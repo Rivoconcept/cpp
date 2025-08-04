@@ -6,7 +6,7 @@
 /*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/04 15:38:19 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/08/04 15:51:50 by rivoinfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ float BitcoinExchange::fromFloat(const std::string& literal)
         throw std::runtime_error("Conversion to float: impossible");
         
     if (d < 0)
-        throw std::runtime_error("Error: not a positive number.");
+        throw std::runtime_error("not a positive number.");
     
     f = static_cast<float>(d);
 
@@ -75,12 +75,12 @@ float BitcoinExchange::fromFloat(const std::string& literal)
     return (f);
 }
 
-const std::deque<std::string>& BitcoinExchange::getDataBase() const
+const std::list<std::string>& BitcoinExchange::getDataBase() const
 {
     return (_dataBase);
 }
 
-const std::deque<std::string>& BitcoinExchange::getFileContent() const
+const std::list<std::string>& BitcoinExchange::getFileContent() const
 {
     return (_fileContent);
 }
@@ -158,9 +158,9 @@ std::string BitcoinExchange::removeSpaces(const std::string& str)
     return (result);
 }
 
-std::deque<float> BitcoinExchange::ftSplitToFloat(const std::string& str, char delimiter)
+std::list<float> BitcoinExchange::ftSplitToFloat(const std::string& str, char delimiter)
 {
-    std::deque<float> output;
+    std::list<float> output;
     std::istringstream iss(str);
     std::string token;
     
@@ -182,18 +182,20 @@ std::deque<float> BitcoinExchange::ftSplitToFloat(const std::string& str, char d
     return (output);
 }
 
-void BitcoinExchange::findDuplicates(std::deque<std::string>& dataBase)
+void BitcoinExchange::findDuplicates(std::list<std::string>& dataBase)
 {   
-    if (dataBase.empty() || (!dataBase.empty() && dataBase[1].empty()))
+    std::string dataBase_1 = getListElement(dataBase, 1);
+    
+    if (dataBase.empty() || (!dataBase.empty() && dataBase_1.empty()))
         throw std::runtime_error("Empty file!!!!");
         
     int found = 0;
-    std::deque<std::string>::iterator it = dataBase.begin();
+    std::list<std::string>::iterator it = dataBase.begin();
     
     while (it != dataBase.end())
     {
         found = 0;
-        for (std::deque<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); itFind++)
+        for (std::list<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); itFind++)
         {
             if (*it == *itFind)
                 found++;
@@ -213,7 +215,7 @@ void BitcoinExchange::putDataBase(const std::string& fileName)
     std::ifstream ifs(fileName.c_str());
     if (!ifs)
     {
-        throw std::runtime_error("Error: cannot open file '" + fileName + "'");
+        throw std::runtime_error("cannot open file '" + fileName + "'");
     }
     
     std::string line;
@@ -224,7 +226,8 @@ void BitcoinExchange::putDataBase(const std::string& fileName)
         _dataBase.push_back(line);
     }
 
-    if (_dataBase[0] != "date,exchange_rate" && !_dataBase.empty())
+    std::string dataBase_0 = getListElement(_dataBase, 0);
+    if (dataBase_0 != "date,exchange_rate" && !_dataBase.empty())
         throw std::runtime_error("The table header in the file does not match the subject.");  
     
     findDuplicates(_dataBase);
@@ -248,7 +251,9 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
         _fileContent.push_back(line);
     }
 
-    if (_fileContent[0] != "date|value" && !_fileContent.empty())
+    std::string fileContent_0 = getListElement(_fileContent, 0);
+
+    if (fileContent_0 != "date|value" && !_fileContent.empty())
         throw std::runtime_error("The table header in the file does not match the subject.");
         
     findDuplicates(_fileContent);
@@ -262,16 +267,19 @@ void findValue(const std::string& dbName, char *inputFileName)
     std::string file;
     
     if (!(iss >> file))
-        throw std::runtime_error("Error: could not open file.");
+        throw std::runtime_error("could not open file.");
 
     BitcoinExchange btc;
 
     btc.putDataBase(dbName);
     btc.putFileContent(file);
-    std::deque<std::string> dataFile = btc.getFileContent();
-    std::deque<std::string> dataBase = btc.getDataBase();
+    std::list<std::string> dataFile = btc.getFileContent();
+    std::list<std::string> dataBase = btc.getDataBase();
 
-    for (std::deque<std::string>::const_iterator it = dataFile.begin() + 1; it != dataFile.end(); ++it)
+    std::list<std::string>::const_iterator it = dataFile.begin();
+    ++it;
+
+    for (; it != dataFile.end(); ++it)
     {
         std::string lineFileOriginal = *it;
         std::string lineFile = *it;
@@ -282,15 +290,26 @@ void findValue(const std::string& dbName, char *inputFileName)
         try
         {
             lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
-            std::deque<float> tabLine = btc.ftSplitToFloat(lineFile, ' ');
+            std::list<float> tabLine = btc.ftSplitToFloat(lineFile, ' ');
 
-            if (!btc.isValidDate(tabLine[0], tabLine[1], tabLine[2]))
+            int tabLine_0 = getListElement(tabLine, 0);
+            int tabLine_1 = getListElement(tabLine, 1);
+            int tabLine_2 = getListElement(tabLine, 2);
+            float tabLine_3 = getListElement(tabLine, 3);
+
+            if (!btc.isValidDate(tabLine_0, tabLine_1, tabLine_2))
                 throw std::runtime_error("bad input => " + lineFileOriginal.substr(0, 10));
 
-            if ((tabLine[3] > 1000) && !dataFile.empty())
-                throw std::runtime_error("Error: too large a number.");
+            if ((tabLine_3 > 1000) && !dataFile.empty())
+                throw std::runtime_error("too large a number.");
 
-            std::deque<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
+            if ((tabLine_3 == -0) && !dataFile.empty())
+                tabLine_3 = 0;
+                
+            // if (tabLine_3.empty() && !dataFile.empty())
+            //     throw std::runtime_error("too large a number.");
+
+            std::list<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
 
             if (itdb == dataBase.end())
             {
@@ -308,9 +327,11 @@ void findValue(const std::string& dbName, char *inputFileName)
 
             std::string dbLine = *itdb;
             dbLine = btc.myRegexReplace(dbLine, "-,", ' ');
-            std::deque<float> dbTab = btc.ftSplitToFloat(dbLine, ' ');
-             
-            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(tabLine[3]) << " = " << btc.formatNumber(tabLine[3] * dbTab[3]) << std::endl;
+            std::list<float> dbTab = btc.ftSplitToFloat(dbLine, ' ');
+
+            float dbTab_3 = getListElement(dbTab, 3);
+
+            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(tabLine_3) << " = " << btc.formatNumber(tabLine_3 * dbTab_3) << std::endl;
 
         } 
         catch (const std::exception& e) 
