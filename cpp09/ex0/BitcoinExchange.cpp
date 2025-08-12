@@ -321,7 +321,7 @@ void findValue(const std::string& dbName, char *inputFileName)
             }
 
             if (itdb->substr(0, 4) == "date")
-                throw std::runtime_error("The date is too low");
+                throw std::runtime_error("header");
 
             std::string dbLine = *itdb;
             dbLine = btc.myRegexReplace(dbLine, "-,", ' ');
