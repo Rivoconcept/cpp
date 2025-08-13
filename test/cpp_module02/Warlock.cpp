@@ -37,6 +37,7 @@ void Warlock::learnSpell(ASpell* spell)
 }
 void Warlock::forgetSpell(const std::string& spellName)
 {
+
     if (spellName.empty)
         _speelBook.forgetSpell(spellName);
 }
