@@ -196,19 +196,18 @@ std::list<std::string> BitcoinExchange::ftSplitStr(const std::string& str, char 
 }
 
 void BitcoinExchange::findDuplicates(std::list<std::string>& dataBase)
-{   
-    std::string dataBase_1 = getListElement(dataBase, 1);
-    
-    if (dataBase.empty() || (!dataBase.empty() && dataBase_1.empty()))
+{
+    if (dataBase.empty())
         throw std::runtime_error("Error: Empty file!!!!");
-        
-    int found = 0;
+
+    if (dataBase.size() == 1)
+        return;
+
     std::list<std::string>::iterator it = dataBase.begin();
-    
     while (it != dataBase.end())
     {
-        found = 0;
-        for (std::list<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); itFind++)
+        int found = 0;
+        for (std::list<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); ++itFind)
         {
             if (*it == *itFind)
                 found++;
@@ -217,7 +216,7 @@ void BitcoinExchange::findDuplicates(std::list<std::string>& dataBase)
         {
             std::ostringstream oss;
             oss << "The file has duplicates: " << *it;
-            throw std::runtime_error("Error: " +oss.str());
+            throw std::runtime_error("Error: " + oss.str());
         }
         ++it;
     }
@@ -263,10 +262,10 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
     if (!std::getline(ifs, line))
         throw std::runtime_error("Error: Empty file.");
     
-    /*std::string header = removeSpaces(line);
+    std::string header = removeSpaces(line);
     if (header != "date|value")
         throw std::runtime_error("Error: The table header in the file does not match the subject.");
-    */
+    
     while (std::getline(ifs, line))
     {
         line = removeSpaces(line);
@@ -275,7 +274,6 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
         _fileContent.insert(line);
         _listContent.push_back(line);
     }
-
     findDuplicates(_listContent);
     ifs.close();
 }
