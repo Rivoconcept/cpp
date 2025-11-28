@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/11/25 17:06:49 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:50:50 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ bool BitcoinExchange::checkErrorDate(std::list<std::string> tabLine)
     return (yearSize.size() == 4 && monthSize.size() == 2 && daySize.size() == 2);
 }
 
-
 const std::string& BitcoinExchange::myRegexReplace(std::string& str, const std::string& charsToReplace, char c)
 {
     if (str.empty() || charsToReplace.empty())
@@ -134,16 +133,23 @@ const std::string& BitcoinExchange::myRegexReplace(std::string& str, const std::
     {
         for (size_t j = 0; j < charsToReplace.size(); ++j)
         {
-            if (charsToReplace[j] == str[i])
+            if (str[i] == charsToReplace[j])
             {
-                if (str[i] == '-' && str[i - 1] == ' ')
-                    break ;
                 str[i] = c;
-                break ;
+                break;
             }
         }
     }
     return str;
+}
+
+std::string BitcoinExchange::trim(const std::string& str)
+{
+    size_t start = 0;
+    while (start < str.size() && isspace(static_cast<unsigned char>(str[start]))) ++start;
+    size_t end = str.size();
+    while (end > start && isspace(static_cast<unsigned char>(str[end - 1]))) --end;
+    return str.substr(start, end - start);
 }
 
 std::string BitcoinExchange::removeSpaces(const std::string& str)
@@ -268,7 +274,7 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
     
     while (std::getline(ifs, line))
     {
-        line = removeSpaces(line);
+        line = trim(line);
         if (line.empty())
             continue;
         _fileContent.insert(line);
@@ -307,10 +313,13 @@ void findValue(const std::string& dbName, char *inputFileName)
             continue;
 
         try
-        {
+        {          
             lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
             
             std::list<std::string> tabLine = btc.ftSplitStr(lineFile, ' ');
+
+            if (tabLine.size() > 4)
+                throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
             
             if (!btc.checkErrorDate(tabLine))
                 throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
