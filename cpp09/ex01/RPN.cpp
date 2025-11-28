@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:02:57 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/07/14 18:32:16 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:06:57 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ RPN::RPN(const std::string& argv)
 
     while (iss >> token)
     {
-        _argv.push(token);
+        _argv.push_back(token);
     }
 
 }
@@ -46,23 +46,17 @@ const MutantStack<std::string>& RPN::getArgv() const
     return (_argv);
 }
 
-/*bool RPN::isNumeric(const std::string &str)
+bool RPN::isNumeric(const std::string &str)
 {
-    std::istringstream iss(str);
-    float f;
-    iss >> std::noskipws >> f;
-    return iss.eof() && !iss.fail();
-}*/
-
-bool isNumeric(const std::string &str) {
-    for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
-        if (!std::isdigit(*it)) {
+    if (str.empty())
+        return false;
+    for (size_t i = 0; i < str.size(); ++i)
+    {
+        if (!std::isdigit(str[i]))
             return false;
-        }
     }
-    return !str.empty(); // Retourne false si la chaîne est vide
+    return true;
 }
-
 
 const char* RPN::GeneralException::what() const throw()
 {
@@ -107,7 +101,6 @@ void RPN::handleError(void) const
 
     if (opCount != numCount - 1)
     {
-        std::cout << _argv.size() << std::endl;
         throw std::runtime_error("Invalid operator/operand ratio");
     }
 }

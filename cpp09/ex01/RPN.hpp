@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rivoinfo <rivoinfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:55:48 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/04 09:54:41 by rivoinfo         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:09:44 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,122 +22,175 @@
 #include <cmath>
 #include <iomanip>
 #include <stack>
-#include <list>
 
-template <typename T, typename Container = std::list<T> >
-class MutantStack : public std::stack<T, Container>
+template <typename T>
+class MutantStack
 {
-public:
-    MutantStack();
-    MutantStack(const MutantStack& other);
-    MutantStack& operator=(const MutantStack& other);
-    ~MutantStack();
+    private:
+        T* _data;
+        size_t _size;
+        size_t _capacity;
 
-    typedef typename Container::iterator iterator;
-    typedef typename Container::const_iterator const_iterator;
-    typedef typename Container::reverse_iterator reverse_iterator;
-    typedef typename Container::const_reverse_iterator const_reverse_iterator;
-
-    T& operator[](size_t index);
-    const T& operator[](size_t index) const;
+        void _reserve(size_t newCapacity);
         
-    iterator begin();
-    iterator end();
-    const_iterator begin() const;
-    const_iterator end() const;
-    reverse_iterator rbegin();
-    reverse_iterator rend();
-    const_reverse_iterator rbegin() const;
-    const_reverse_iterator rend() const;
+    public:
+        MutantStack();
+        MutantStack(const MutantStack& other);
+        MutantStack& operator=(const MutantStack& other);
+        ~MutantStack();
+
+        typedef T* iterator;
+        typedef const T* const_iterator;
+        typedef T* reverse_iterator;
+        typedef const T* const_reverse_iterator;
+        
+        void push_back(const T& value);
+        void pop_back();
+        T& back();
+        const T& back() const;
+        size_t size() const;
+        bool empty() const;
+        
+        T& operator[](size_t index);
+        const T& operator[](size_t index) const;
+
+        iterator begin();
+        iterator end();
+        const_iterator begin() const;
+        const_iterator end() const;
 };
 
-template <typename T, typename Container>
-MutantStack<T, Container>::MutantStack() : std::stack<T, Container>() {}
+template <typename T>
+MutantStack<T>::MutantStack() : _data(NULL), _size(0), _capacity(0) {}
 
-template <typename T, typename Container>
-MutantStack<T, Container>::MutantStack(const MutantStack& other) 
-    : std::stack<T, Container>(other) {}
+template <typename T>
+MutantStack<T>::MutantStack(const MutantStack& other) : _data(NULL), _size(0), _capacity(0)
+{
+    *this = other;
+}
 
-template <typename T, typename Container>
-MutantStack<T, Container>::~MutantStack() {}
-
-template <typename T, typename Container>
-MutantStack<T, Container>& MutantStack<T, Container>::operator=(const MutantStack& other)
+template <typename T>
+MutantStack<T>& MutantStack<T>::operator=(const MutantStack& other)
 {
     if (this != &other)
-        std::stack<T, Container>::operator=(other);
+    {
+        delete[] _data;
+        
+        _size = other._size;
+        _capacity = other._capacity;
+        _data = new T[_capacity];
+        
+        for (size_t i = 0; i < _size; ++i)
+            _data[i] = other._data[i];
+    }
     return *this;
 }
 
-template <typename T, typename Container>
-typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
+template <typename T>
+MutantStack<T>::~MutantStack()
 {
-    return this->c.begin();
+    delete[] _data;
 }
 
-template <typename T, typename Container>
-typename MutantStack<T, Container>::iterator MutantStack<T, Container>::end()
+template <typename T>
+void MutantStack<T>::_reserve(size_t newCapacity)
 {
-    return this->c.end();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::const_iterator MutantStack<T, Container>::begin() const
-{
-    return this->c.begin();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::const_iterator MutantStack<T, Container>::end() const
-{
-    return this->c.end();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::rbegin()
-{
-    return this->c.rbegin();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::rend()
-{
-    return this->c.rend();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Container>::rbegin() const
-{
-    return this->c.rbegin();
-}
-
-template <typename T, typename Container>
-typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Container>::rend() const
-{
-    return this->c.rend();
-}
-
-
-template <typename T, typename Container>
-T& MutantStack<T, Container>::operator[](size_t index)
-{
-    if (index >= this->size())
-        throw std::out_of_range("Index out of bounds");
+    if (newCapacity <= _capacity)
+        return;
+        
+    T* newData = new T[newCapacity];
     
-    typename Container::iterator it = this->c.begin();
-    std::advance(it, index);
-    return *it;
+    for (size_t i = 0; i < _size; ++i)
+        newData[i] = _data[i];
+        
+    delete[] _data;
+    
+    _data = newData;
+    _capacity = newCapacity;
 }
 
-template <typename T, typename Container>
-const T& MutantStack<T, Container>::operator[](size_t index) const
+template <typename T>
+void MutantStack<T>::push_back(const T& value)
 {
-    if (index >= this->size())
-        throw std::out_of_range("Index out of bounds");
-    
-    typename Container::const_iterator it = this->c.begin();
-    std::advance(it, index);
-    return *it;
+    if (_size == _capacity)
+        _reserve(_capacity == 0 ? 1 : _capacity * 2);
+    _data[_size++] = value;
+}
+
+template <typename T>
+void MutantStack<T>::pop_back()
+{
+    if (_size == 0)
+        throw std::runtime_error("Pop from empty stack");
+    --_size;
+}
+
+template <typename T>
+T& MutantStack<T>::back()
+{
+    if (_size == 0)
+        throw std::runtime_error("Empty stack");
+    return _data[_size - 1];
+}
+
+template <typename T>
+const T& MutantStack<T>::back() const
+{
+    if (_size == 0)
+        throw std::runtime_error("Empty stack");
+    return _data[_size - 1];
+}
+
+template <typename T>
+size_t MutantStack<T>::size() const
+{
+    return _size;
+}
+
+template <typename T>
+T& MutantStack<T>::operator[](size_t index)
+{
+    if (index >= _size)
+        throw std::runtime_error("Index out of bounds");
+    return _data[index];
+}
+
+template <typename T>
+const T& MutantStack<T>::operator[](size_t index) const
+{
+    if (index >= _size)
+        throw std::runtime_error("Index out of bounds");
+    return _data[index];
+}
+
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::begin()
+{
+    return _data;
+}
+
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::end()
+{
+    return _data + _size;
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
+{
+    return _data;
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::end() const
+{
+    return _data + _size;
+}
+
+template <typename T>
+bool MutantStack<T>::empty() const
+{
+    return _size == 0;
 }
 
 class RPN
@@ -157,10 +210,6 @@ class RPN
 
         const MutantStack<std::string>& getArgv() const;
 
-        std::string& operator[](unsigned int index);
-        const std::string& operator[](unsigned int index) const;
-
-
         class GeneralException : public std::exception
         {
             public:
@@ -169,8 +218,6 @@ class RPN
 
         float fromFloat(const std::string& literal);
         void handleError(void) const;
-        
-        std::stack<float> ft_split_to_doubles(const std::string& str, char delimiter);
 
 };
     

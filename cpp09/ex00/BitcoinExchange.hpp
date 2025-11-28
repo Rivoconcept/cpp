@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/12 17:34:40 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/11/24 18:59:39 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@
 #include <cmath>
 #include <iomanip>
 #include <list>
+#include <set>
 
 class BitcoinExchange
 {
     private:
     
-        std::list<std::string> _fileContent;
-        std::list<std::string> _dataBase;
+        std::set<std::string> _fileContent;
+        std::list<std::string> _listContent;
+        
+        std::set<std::string> _dataBase;
+        std::list<std::string> _listBase;
 
         static bool isLeapYear(int year);
         static std::string removeSpaces(const std::string& str);
@@ -41,7 +45,7 @@ class BitcoinExchange
         BitcoinExchange& operator=(const BitcoinExchange& other);
         ~BitcoinExchange();
 
-        const std::list<std::string>& getDataBase() const;
+        const std::set<std::string>& getDataBase() const;
         const std::list<std::string>& getFileContent() const;
 
         const std::string formatNumber(float);
@@ -69,12 +73,12 @@ T& getListElement(std::list<T>& lst, size_t index)
 }
 
 template <typename T>
-const T& getListElement(const std::list<T>& lst, size_t index)
+const T& getListElement(const std::set<T>& lst, size_t index)
 {
     if (index >= lst.size())
         throw std::runtime_error("bad input => null");
         
-    typename std::list<T>::const_iterator it = lst.begin();
+    typename std::set<T>::const_iterator it = lst.begin();
     std::advance(it, index);
     return (*it);
 }

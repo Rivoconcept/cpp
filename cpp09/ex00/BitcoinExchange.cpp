@@ -6,14 +6,14 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/08/12 17:51:29 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:06:49 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() : _fileContent(0), _dataBase(0) {}
+BitcoinExchange::BitcoinExchange() : _fileContent(), _listContent(), _dataBase(), _listBase() {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
 {
@@ -24,7 +24,10 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 {
     if (this != &other)
     {
+        _fileContent = other._fileContent;
+        _listContent = other._listContent;
         _dataBase = other._dataBase;
+        _listBase = other._listBase;
     }
     return (*this);
 }
@@ -75,14 +78,14 @@ float BitcoinExchange::fromFloat(const std::string& literal)
     return (f);
 }
 
-const std::list<std::string>& BitcoinExchange::getDataBase() const
+const std::set<std::string>& BitcoinExchange::getDataBase() const
 {
     return (_dataBase);
 }
 
 const std::list<std::string>& BitcoinExchange::getFileContent() const
 {
-    return (_fileContent);
+    return (_listContent);
 }
 
 bool BitcoinExchange::isLeapYear(int year) 
@@ -193,19 +196,18 @@ std::list<std::string> BitcoinExchange::ftSplitStr(const std::string& str, char 
 }
 
 void BitcoinExchange::findDuplicates(std::list<std::string>& dataBase)
-{   
-    std::string dataBase_1 = getListElement(dataBase, 1);
-    
-    if (dataBase.empty() || (!dataBase.empty() && dataBase_1.empty()))
+{
+    if (dataBase.empty())
         throw std::runtime_error("Error: Empty file!!!!");
-        
-    int found = 0;
+
+    if (dataBase.size() == 1)
+        return;
+
     std::list<std::string>::iterator it = dataBase.begin();
-    
     while (it != dataBase.end())
     {
-        found = 0;
-        for (std::list<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); itFind++)
+        int found = 0;
+        for (std::list<std::string>::iterator itFind = dataBase.begin(); itFind != dataBase.end(); ++itFind)
         {
             if (*it == *itFind)
                 found++;
@@ -214,7 +216,7 @@ void BitcoinExchange::findDuplicates(std::list<std::string>& dataBase)
         {
             std::ostringstream oss;
             oss << "The file has duplicates: " << *it;
-            throw std::runtime_error("Error: " +oss.str());
+            throw std::runtime_error("Error: " + oss.str());
         }
         ++it;
     }
@@ -229,19 +231,23 @@ void BitcoinExchange::putDataBase(const std::string& fileName)
     }
     
     std::string line;
+
+    if (std::getline(ifs, line))
+    {
+        line = removeSpaces(line);
+        if (line != "date,exchange_rate")
+            throw std::runtime_error("Error: The table header in the file does not match the subject.");
+    }
     
     while (std::getline(ifs, line))
     {
         line = removeSpaces(line);
-        _dataBase.push_back(line);
+        _dataBase.insert(line);
+        _listBase.push_back(line);
     }
-
-    std::string dataBase_0 = getListElement(_dataBase, 0);
-    if (dataBase_0 != "date,exchange_rate" && !_dataBase.empty())
-        throw std::runtime_error("Error: The table header in the file does not match the subject.");  
     
-    findDuplicates(_dataBase);
- 
+    findDuplicates(_listBase);
+    
     ifs.close();
 }
 
@@ -249,27 +255,30 @@ void BitcoinExchange::putFileContent(const std::string& fileName)
 {
     std::ifstream ifs(fileName.c_str());
     if (!ifs)
-    {
         throw std::runtime_error("Error: could not open file.");
-    }
     
     std::string line;
+
+    if (!std::getline(ifs, line))
+        throw std::runtime_error("Error: Empty file.");
+    
+    std::string header = removeSpaces(line);
+    if (header != "date|value")
+        throw std::runtime_error("Error: The table header in the file does not match the subject.");
     
     while (std::getline(ifs, line))
     {
         line = removeSpaces(line);
-        _fileContent.push_back(line);
+        if (line.empty())
+            continue;
+        _fileContent.insert(line);
+        _listContent.push_back(line);
     }
-
-    std::string fileContent_0 = getListElement(_fileContent, 0);
-
-    if (fileContent_0 != "date|value" && !_fileContent.empty())
-        throw std::runtime_error("Error: The table header in the file does not match the subject.");
-        
-    findDuplicates(_fileContent);
-    
+    findDuplicates(_listContent);
     ifs.close();
 }
+
+
 
 void findValue(const std::string& dbName, char *inputFileName)
 {
@@ -283,11 +292,11 @@ void findValue(const std::string& dbName, char *inputFileName)
 
     btc.putDataBase(dbName);
     btc.putFileContent(file);
+    
     std::list<std::string> dataFile = btc.getFileContent();
-    std::list<std::string> dataBase = btc.getDataBase();
+    std::set<std::string> dataBase = btc.getDataBase();
 
     std::list<std::string>::const_iterator it = dataFile.begin();
-    ++it;
 
     for (; it != dataFile.end(); ++it)
     {
@@ -309,6 +318,7 @@ void findValue(const std::string& dbName, char *inputFileName)
             int tabLine_0 = btc.fromFloat(getListElement(tabLine, 0));
             int tabLine_1 = btc.fromFloat(getListElement(tabLine, 1));
             int tabLine_2 = btc.fromFloat(getListElement(tabLine, 2));
+
             
             if (!btc.isValidDate(tabLine_0, tabLine_1, tabLine_2))
                 throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
@@ -321,23 +331,30 @@ void findValue(const std::string& dbName, char *inputFileName)
             if ((tabLine_3 == -0) && !dataFile.empty())
                 tabLine_3 = 0;
             
-            std::list<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), lineFileOriginal.substr(0, 10));
+            std::string toFind = lineFileOriginal.substr(0, 10);
+
+            if (!dataBase.empty() && toFind < (*dataBase.begin()).substr(0, 10))
+            {
+                throw std::runtime_error("Error: The date is too low");
+            }
+
+            std::set<std::string>::const_iterator itdb = std::lower_bound(dataBase.begin(), dataBase.end(), toFind);
 
             if (itdb == dataBase.end())
             {
-                if (!dataBase.empty())
-                    itdb = --dataBase.end();
+                itdb = --dataBase.end();
             }
-            else if (itdb->substr(0, 10) != lineFileOriginal.substr(0, 10))
+            else if (itdb->substr(0, 10) != toFind)
             {
                 if (itdb != dataBase.begin())
-                    itdb--;
+                    --itdb;
             }
 
-            if (itdb->substr(0, 4) == "date")
+            if (!dataBase.empty() && toFind < (*dataBase.begin()).substr(0, 10))
                 throw std::runtime_error("Error: The date is too low");
 
             std::string dbLine = *itdb;
+            
             dbLine = btc.myRegexReplace(dbLine, "-,", ' ');
             std::list<std::string> dbTab = btc.ftSplitStr(dbLine, ' ');
 
