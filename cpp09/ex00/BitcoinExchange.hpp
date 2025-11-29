@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/11/28 18:42:38 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/11/29 16:23:39 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ class BitcoinExchange
         bool checkErrorDate(std::list<std::string> tabLine);
         float fromFloat(const std::string& literal);
         const std::string& myRegexReplace(std::string& str, const std::string& reg, char c);
+        std::list<std::string> simpleSplit(const std::string& str, char delimiter);
         std::list<std::string> ftSplitStr(const std::string& str, char delimiter);
         
         void putFileContent(const std::string& fileName);

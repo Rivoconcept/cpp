@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/11/28 18:50:50 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/11/29 16:50:22 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ bool BitcoinExchange::isValidDate(int year, int month, int day)
     return true;
 }
 
-bool BitcoinExchange::checkErrorDate(std::list<std::string> tabLine)
+bool BitcoinExchange::checkErrorDate(std::list<std::string> tabDate)
 {
-    std::string yearSize = getListElement(tabLine, 0);
-    std::string monthSize = getListElement(tabLine, 1);
-    std::string daySize = getListElement(tabLine, 2);
+    std::string yearSize = getListElement(tabDate, 0);
+    std::string monthSize = getListElement(tabDate, 1);
+    std::string daySize = getListElement(tabDate, 2);
 
     return (yearSize.size() == 4 && monthSize.size() == 2 && daySize.size() == 2);
 }
@@ -176,6 +176,32 @@ std::string BitcoinExchange::removeSpaces(const std::string& str)
 
     return (result);
 }
+
+std::list<std::string> BitcoinExchange::simpleSplit(const std::string& str, char delimiter)
+{
+    std::list<std::string> output;
+    std::string token;
+
+    for (std::size_t i = 0; i < str.size(); ++i)
+    {
+        if (str[i] == delimiter)
+        {
+            if (!token.empty())
+                output.push_back(token);
+            token.clear();
+        }
+        else
+        {
+            token += str[i];
+        }
+    }
+
+    if (!token.empty())
+        output.push_back(token);
+
+    return output;
+}
+
 
 std::list<std::string> BitcoinExchange::ftSplitStr(const std::string& str, char delimiter)
 {
@@ -314,31 +340,45 @@ void findValue(const std::string& dbName, char *inputFileName)
 
         try
         {          
-            lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
+            // lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
+            std::list<std::string> tabLine;
+            if (lineFileOriginal.find('|') != std::string::npos) {
+                tabLine = btc.simpleSplit(lineFile, '|');
+            } else {
+                throw std::runtime_error("Error: '|' is not found in :" + lineFileOriginal);
+            }
             
-            std::list<std::string> tabLine = btc.ftSplitStr(lineFile, ' ');
-
-            if (tabLine.size() > 4)
+            if (tabLine.size() > 2)
+                throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
+                
+            std::string strDate = btc.myRegexReplace(getListElement(tabLine, 0), "-", ' ');
+            std::string strValue = getListElement(tabLine, 1);
+            std::list<std::string> tabDate = btc.ftSplitStr(strDate, ' ');
+            std::list<std::string> tabValue = btc.ftSplitStr(strValue, ' ');
+                 
+            if (tabDate.size() > 3 || tabValue.size() > 1)
                 throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
             
-            if (!btc.checkErrorDate(tabLine))
+            // std::cout << tabLine.size() << std::endl;
+            
+            if (!btc.checkErrorDate(tabDate))
                 throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
 
-            int tabLine_0 = btc.fromFloat(getListElement(tabLine, 0));
-            int tabLine_1 = btc.fromFloat(getListElement(tabLine, 1));
-            int tabLine_2 = btc.fromFloat(getListElement(tabLine, 2));
+            int date_0 = btc.fromFloat(getListElement(tabDate, 0));
+            int date_1 = btc.fromFloat(getListElement(tabDate, 1));
+            int date_2 = btc.fromFloat(getListElement(tabDate, 2));
 
             
-            if (!btc.isValidDate(tabLine_0, tabLine_1, tabLine_2))
+            if (!btc.isValidDate(date_0, date_1, date_2))
                 throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
             
-            float tabLine_3 = btc.fromFloat(getListElement(tabLine, 3));
+            float value = btc.fromFloat(getListElement(tabValue, 0));
             
-            if ((tabLine_3 > 1000) && !dataFile.empty())
+            if ((value > 1000) && !dataFile.empty())
                 throw std::runtime_error("Error: too large a number.");
 
-            if ((tabLine_3 == -0) && !dataFile.empty())
-                tabLine_3 = 0;
+            if ((value == -0) && !dataFile.empty())
+                value = 0;
             
             std::string toFind = lineFileOriginal.substr(0, 10);
 
@@ -369,8 +409,7 @@ void findValue(const std::string& dbName, char *inputFileName)
 
             float dbTab_3 = btc.fromFloat(getListElement(dbTab, 3));
 
-            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(tabLine_3) << " = " << btc.formatNumber(tabLine_3 * dbTab_3) << std::endl;
-
+            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(value) << " = " << btc.formatNumber(value * dbTab_3) << std::endl;
         } 
         catch (const std::exception& e) 
         {
@@ -378,3 +417,5 @@ void findValue(const std::string& dbName, char *inputFileName)
         }
     }
 }
+          if (tabLine.size() > 2)
+                throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
