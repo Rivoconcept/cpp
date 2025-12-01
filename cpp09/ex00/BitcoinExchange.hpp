@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:31:09 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/11/29 16:23:39 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/12/01 18:02:44 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ class BitcoinExchange
 
         static bool isLeapYear(int year);
         static std::string trim(const std::string& str);
-        static std::string removeSpaces(const std::string& str);
         static void findDuplicates(std::list<std::string>& dataBase);
         
         public:
@@ -50,6 +49,7 @@ class BitcoinExchange
         const std::list<std::string>& getFileContent() const;
         
         const std::string formatNumber(float);
+        std::string removeSpaces(const std::string& str);
         bool isValidDate(int day, int month, int year);
         bool checkErrorDate(std::list<std::string> tabLine);
         float fromFloat(const std::string& literal);

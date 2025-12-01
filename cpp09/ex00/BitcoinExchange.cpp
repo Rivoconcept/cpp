@@ -6,7 +6,7 @@
 /*   By: rhanitra <rhanitra@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:03 by rhanitra          #+#    #+#             */
-/*   Updated: 2025/11/29 16:50:22 by rhanitra         ###   ########.fr       */
+/*   Updated: 2025/12/01 18:10:26 by rhanitra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,27 +154,13 @@ std::string BitcoinExchange::trim(const std::string& str)
 
 std::string BitcoinExchange::removeSpaces(const std::string& str)
 {
-    std::string result;
-
+    std::string newStr;
     for (size_t i = 0; i < str.size(); ++i)
     {
         if (!isspace(static_cast<unsigned char>(str[i])))
-        {
-            result += str[i];
-        }
+            newStr += str[i];
     }
-    
-    if (!result.empty() && result[0] == ' ')
-    {
-        result.erase(0, 1);
-    }
-    
-    if (!result.empty() && result[result.size() - 1] == ' ')
-    {
-        result.erase(result.size() - 1, 1);
-    }
-
-    return (result);
+    return (newStr);
 }
 
 std::list<std::string> BitcoinExchange::simpleSplit(const std::string& str, char delimiter)
@@ -340,18 +326,33 @@ void findValue(const std::string& dbName, char *inputFileName)
 
         try
         {          
-            // lineFile = btc.myRegexReplace(lineFile, "-|", ' ');
-            std::list<std::string> tabLine;
-            if (lineFileOriginal.find('|') != std::string::npos) {
-                tabLine = btc.simpleSplit(lineFile, '|');
-            } else {
-                throw std::runtime_error("Error: '|' is not found in :" + lineFileOriginal);
+            size_t pipeCount = 0;
+            for (size_t i = 0; i < lineFileOriginal.size(); ++i)
+            {
+                if (lineFileOriginal[i] == '|')
+                    pipeCount++;
             }
-            
-            if (tabLine.size() > 2)
-                throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
-                
-            std::string strDate = btc.myRegexReplace(getListElement(tabLine, 0), "-", ' ');
+
+            if (pipeCount == 0)
+                throw std::runtime_error("Error: bad input => " + lineFileOriginal);
+
+            if (pipeCount > 1)
+                throw std::runtime_error("Error: bad input => " + lineFileOriginal);
+
+            std::list<std::string> tabLine = btc.simpleSplit(lineFile, '|');
+
+            std::string originalDate =  btc.removeSpaces(getListElement(tabLine, 0));
+
+            size_t dashCount = 0;
+            for (size_t i = 0; i < originalDate.size(); ++i)
+            {
+                if (originalDate[i] == '-')
+                    dashCount++;
+            }
+            if (dashCount != 2 || originalDate.size() < 10 || originalDate[4] != '-' || originalDate[7] != '-')
+                throw std::runtime_error("Error: bad input => " + lineFileOriginal);
+
+            std::string strDate = btc.myRegexReplace(originalDate, "-", ' ');
             std::string strValue = getListElement(tabLine, 1);
             std::list<std::string> tabDate = btc.ftSplitStr(strDate, ' ');
             std::list<std::string> tabValue = btc.ftSplitStr(strValue, ' ');
@@ -359,18 +360,18 @@ void findValue(const std::string& dbName, char *inputFileName)
             if (tabDate.size() > 3 || tabValue.size() > 1)
                 throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
             
-            // std::cout << tabLine.size() << std::endl;
-            
-            if (!btc.checkErrorDate(tabDate))
-                throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
-
             int date_0 = btc.fromFloat(getListElement(tabDate, 0));
             int date_1 = btc.fromFloat(getListElement(tabDate, 1));
             int date_2 = btc.fromFloat(getListElement(tabDate, 2));
 
-            
+            std::ostringstream oss;
+            oss << getListElement(tabDate, 0) << "-" << getListElement(tabDate, 1) << "-" << getListElement(tabDate, 2);
+
+            if (!btc.checkErrorDate(tabDate))
+                throw std::runtime_error("Error: bad input => " + oss.str());
+
             if (!btc.isValidDate(date_0, date_1, date_2))
-                throw std::runtime_error("Error: bad input => " + lineFileOriginal.substr(0, lineFileOriginal.find('|')));
+                throw std::runtime_error("Error: bad input => " + oss.str());
             
             float value = btc.fromFloat(getListElement(tabValue, 0));
             
@@ -409,7 +410,7 @@ void findValue(const std::string& dbName, char *inputFileName)
 
             float dbTab_3 = btc.fromFloat(getListElement(dbTab, 3));
 
-            std::cout << lineFileOriginal.substr(0, 10) << " => " << btc.formatNumber(value) << " = " << btc.formatNumber(value * dbTab_3) << std::endl;
+            std::cout << oss.str() << " => " << btc.formatNumber(value) << " = " << btc.formatNumber(value * dbTab_3) << std::endl;
         } 
         catch (const std::exception& e) 
         {
@@ -417,5 +418,3 @@ void findValue(const std::string& dbName, char *inputFileName)
         }
     }
 }
-          if (tabLine.size() > 2)
-                throw std::runtime_error("Error: Bad number of argument => " + lineFileOriginal);
